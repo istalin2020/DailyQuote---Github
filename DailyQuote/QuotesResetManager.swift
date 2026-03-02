@@ -4,19 +4,21 @@ import UserNotifications
 /// Resets quote history + clears scheduled notifications once (for migration to a new Quotes.json).
 enum QuotesResetManager {
 
-    /// Change this value whenever you ship a new quotes.json and want to force-reset history.
-    /// Example: "quotes-v3", "quotes-2026-02", etc.
-    private static let quotesDataVersion = "quotes-v3"
+    /// Bump this whenever you ship a new quotes.json or fix the selection logic
+    /// so existing users get a clean slate (pointer reset to 0, history cleared).
+    private static let quotesDataVersion = "quotes-v4"
 
     /// Stores the last reset version so it runs only once.
     private static let resetVersionKey = "quotes.reset.version"
 
-    /// Your existing key that stores shown quote texts.
-    /// Update this if your project uses a different constant name.
-    private static let shownQuotesKey = "kShownQuotes"
+    /// Must match the actual key used by ContentView / selectTodayQuote.
+    private static let shownQuotesKey = "shownQuotes"
+
+    /// The sequential pointer key (must match PersistKey.nextQuoteIndex).
+    private static let nextIndexKey = "quotes.nextIndex"
 
     /// If you store AskAI recents or other caches, add keys here.
-    private static let askAIRecentKey = "askai.recentQuotes"   // optional (safe to remove if unused)
+    private static let askAIRecentKey = "askai.recentQuotes"
 
     static func resetIfNeeded() {
         let ud = UserDefaults.standard
@@ -28,18 +30,20 @@ enum QuotesResetManager {
         // 1) Clear the shown list
         ud.removeObject(forKey: shownQuotesKey)
 
-        // 2) Clear date-stamped stored quotes (keys like "yyyy-MM-dd")
+        // 2) Reset the sequential pointer back to the first quote
+        ud.set(0, forKey: nextIndexKey)
+
+        // 3) Clear date-stamped stored quotes (keys like "yyyy-MM-dd")
         clearDateStampedQuotesFromUserDefaults()
 
-        // 3) Optional: clear AskAI recents cache if you want
-        // (remove this line if you don't want to wipe AskAI recents)
+        // 4) Optional: clear AskAI recents cache
         ud.removeObject(forKey: askAIRecentKey)
 
-        // 4) Clear notifications that were scheduled using old data
+        // 5) Clear notifications that were scheduled using old data
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
 
-        // 5) Mark reset completed for this version
+        // 6) Mark reset completed for this version
         ud.set(quotesDataVersion, forKey: resetVersionKey)
 
         print("✅ QuotesResetManager: reset done for version:", quotesDataVersion)

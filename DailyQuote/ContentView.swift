@@ -484,25 +484,11 @@ struct DailyQuoteView: View {
             }
             
             .onAppear {
-                // 🔐 Make sure migrations run before we load/select anything
+                // Make sure migrations run before we load/select anything
                 migrateIfNeeded()
 
                 requestNotificationPermission()
                 loadQuotes()
-                rebuildHistoryFromDateKeysIfNeeded()   // keep your existing utility if you have it
-
-                scheduleRollingDailyQuotes(hour: selectedHour, minute: selectedMinute)
-                scheduleAppRefresh()
-
-                theme.currentIndex = ThemeCatalog.clampedIndex(from: theme.currentIndex)
-                UserDefaults.standard.set(theme.currentIndex, forKey: "selectedThemeIndex")
-            }
-
-            // Lifecycle / side-effects
-            .onAppear {
-                requestNotificationPermission()
-                loadQuotes()
-                rebuildHistoryFromDateKeysIfNeeded()
 
                 scheduleRollingDailyQuotes(hour: selectedHour, minute: selectedMinute)
                 scheduleAppRefresh()
@@ -802,7 +788,9 @@ struct DailyQuoteView: View {
         let todayKey = ymdString(Date())
         let defaults = UserDefaults.standard
 
-        // 1) If 2.0 already picked today's quote, keep it.
+        // 1) If today's quote was already assigned (by a previous open or the
+        //    notification scheduler), reuse it so the user sees the same quote
+        //    all day long.
         if let stored = defaults.string(forKey: todayKey),
            let data = stored.data(using: .utf8),
            let decoded = try? JSONDecoder().decode(BookQuote.self, from: data) {
@@ -810,40 +798,30 @@ struct DailyQuoteView: View {
             return
         }
 
-        // 2) Otherwise continue from next index, skipping anything shown before.
-        var shown = Set(defaults.stringArray(forKey: PersistKey.shownQuotes) ?? [])
-        var next  = defaults.integer(forKey: PersistKey.nextQuoteIndex) // default 0
-
         guard !allQuotes.isEmpty else { return }
 
-        // Make up to N attempts to find the next unseen quote (N = allQuotes.count).
-        var attempts = 0
-        var picked: BookQuote? = nil
-        while attempts < allQuotes.count {
-            let idx = next % allQuotes.count
-            let candidate = allQuotes[idx]
-            if !shown.contains(candidate.text) {
-                picked = candidate
-                next = (idx + 1) % allQuotes.count
-                break
-            } else {
-                next = (idx + 1) % allQuotes.count
-            }
-            attempts += 1
-        }
+        // 2) Pick the next quote strictly in order from quotes.json.
+        //    The pointer always moves forward; no skipping, no randomness.
+        let nextIdx = defaults.integer(forKey: PersistKey.nextQuoteIndex)
+        let idx = nextIdx % allQuotes.count
+        let picked = allQuotes[idx]
+        quote = picked
 
-        // Fallback: if somehow everything was shown, just pick anything
-        let final = picked ?? allQuotes[next % allQuotes.count]
-        quote = final
-
-        // 3) Persist today's choice, update history + pointer
-        if let data = try? JSONEncoder().encode(final),
+        // 3) Persist today's choice under its date key.
+        if let data = try? JSONEncoder().encode(picked),
            let jsonString = String(data: data, encoding: .utf8) {
             defaults.set(jsonString, forKey: todayKey)
         }
-        shown.insert(final.text)
-        defaults.set(Array(shown), forKey: PersistKey.shownQuotes)
-        defaults.set(next, forKey: PersistKey.nextQuoteIndex)
+
+        // 4) Advance the pointer for the next day.
+        defaults.set((idx + 1) % allQuotes.count, forKey: PersistKey.nextQuoteIndex)
+
+        // 5) Append to the history list (used only by QuoteHistoryView).
+        var shown = defaults.stringArray(forKey: PersistKey.shownQuotes) ?? []
+        if !shown.contains(picked.text) {
+            shown.append(picked.text)
+            defaults.set(shown, forKey: PersistKey.shownQuotes)
+        }
     }
 
     func wasShownBefore(_ quote: BookQuote) -> Bool {
@@ -1450,21 +1428,30 @@ func requestNotificationAuth() {
     }
 }
 
-private func quoteForDay(_ date: Date, allQuotes: [BookQuote]) -> BookQuote {
+/// Return the quote for a specific date.
+/// If a date key already exists, reuse that quote.
+/// Otherwise pick sequentially using baseIndex + offset, save the date key,
+/// but do NOT touch shownQuotes (only selectTodayQuote writes history).
+private func quoteForDay(_ date: Date,
+                         allQuotes: [BookQuote],
+                         baseIndex: Int,
+                         offset: Int) -> BookQuote {
     let key = ymdString(date)
+    // Reuse if this day was already assigned
     if let stored = UserDefaults.standard.string(forKey: key),
        let data = stored.data(using: .utf8),
        let q = try? JSONDecoder().decode(BookQuote.self, from: data) { return q }
 
-    let pick = allQuotes.first(where: { !(UserDefaults.standard.stringArray(forKey: "shownQuotes") ?? []).contains($0.text) })
-               ?? allQuotes.randomElement()
-               ?? BookQuote(text: "", author: "")
+    guard !allQuotes.isEmpty else { return BookQuote(text: "", author: "") }
+
+    // Strictly sequential: baseIndex + offset
+    let idx = (baseIndex + offset) % allQuotes.count
+    let pick = allQuotes[idx]
+
+    // Save under the date key so selectTodayQuote() finds it later
     if let data = try? JSONEncoder().encode(pick),
        let s = String(data: data, encoding: .utf8) {
         UserDefaults.standard.set(s, forKey: key)
-        var shown = UserDefaults.standard.stringArray(forKey: "shownQuotes") ?? []
-        shown.append(pick.text)
-        UserDefaults.standard.set(shown, forKey: "shownQuotes")
     }
     return pick
 }
@@ -1507,39 +1494,44 @@ func scheduleNextDailyQuote(hour: Int, minute: Int) {
     center.add(req)
 }
 
-// MARK: - Scheduler (now uses custom tone)
+// MARK: - Scheduler (sequential, uses custom tone)
 func scheduleRollingDailyQuotes(hour: Int, minute: Int, days: Int = 64) {
     let center = UNUserNotificationCenter.current()
 
     center.getPendingNotificationRequests { reqs in
         // Clear previous dailyQuote_* to avoid duplicates
-        let ids = reqs.map(\.identifier).filter { $0.hasPrefix("dailyQuote_") }
+        let ids = reqs.map(\.identifier).filter { $0.hasPrefix(“dailyQuote_”) }
         center.removePendingNotificationRequests(withIdentifiers: ids)
 
         // Load quotes.json
         var allQuotes: [BookQuote] = []
-        if let url = Bundle.main.url(forResource: "quotes", withExtension: "json"),
+        if let url = Bundle.main.url(forResource: “quotes”, withExtension: “json”),
            let data = try? Data(contentsOf: url),
            let decoded = try? JSONDecoder().decode([BookQuote].self, from: data) {
             allQuotes = decoded
         }
+
+        // Read the current sequential pointer (already advanced past today
+        // by selectTodayQuote). This is the base for future day assignments.
+        let baseIndex = UserDefaults.standard.integer(forKey: “quotes.nextIndex”)
 
         let start = nextFireBaseDate(hour: hour, minute: minute)
         let sound = quoteNotificationSound()
 
         for offset in 0..<min(days, 64) {
             guard let fireDate = Calendar.current.date(byAdding: .day, value: offset, to: start) else { continue }
-            let q = quoteForDay(fireDate, allQuotes: allQuotes)
+            let q = quoteForDay(fireDate, allQuotes: allQuotes,
+                                baseIndex: baseIndex, offset: offset)
 
             let content = UNMutableNotificationContent()
-            content.title = "Quote of the Day"
-            content.body  = q.text.isEmpty ? "Your daily inspiration ✨" : "“\(q.text)” — \(q.author)"
-            content.sound = sound   // ← custom tone (or default fallback)
+            content.title = “Quote of the Day”
+            content.body  = q.text.isEmpty ? “Your daily inspiration ✨” : “\”\(q.text)\” — \(q.author)”
+            content.sound = sound
 
             let comps = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute], from: fireDate)
             let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
 
-            let id = "dailyQuote_\(ymdString(fireDate))"
+            let id = “dailyQuote_\(ymdString(fireDate))”
             let req = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
             center.add(req)
         }

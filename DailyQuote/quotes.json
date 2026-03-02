@@ -84,13 +84,6 @@
     "category": "wellbeing"
   },
   {
-    "id": "1f6c0170-c302-4a31-849e-62d47bbff03c",
-    "text": "You have power over your mind, not outside events. Realize this, and you will find strength.",
-    "author": "Marcus Aurelius",
-    "book": "Meditations",
-    "category": "motivation"
-  },
-  {
     "id": "339ee5de-dd8b-4d6a-bfe1-4c006097caca",
     "text": "The happiness of your life depends upon the quality of your thoughts.",
     "author": "Marcus Aurelius",
@@ -450,13 +443,6 @@
   {
     "id": "bb83fbec-fa06-4f6f-bef4-c69c21cc465b",
     "text": "The task of breaking a bad habit is like uprooting a powerful oak within us.",
-    "author": "James Clear",
-    "book": "Atomic Habits",
-    "category": "productivity"
-  },
-  {
-    "id": "90dbc5fa-61d4-40af-97cf-6b7eb16f368a",
-    "text": "Habits are the compound interest of self-improvement.",
     "author": "James Clear",
     "book": "Atomic Habits",
     "category": "productivity"
