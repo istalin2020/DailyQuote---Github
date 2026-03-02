@@ -206,8 +206,10 @@ struct CreateThemeFullScreen: View {
         defer { isLoading = false }
 
         do {
-            // Portrait size for crisp home wallpaper
-            let img = try await AIImageService.shared.generateImage(prompt: p, size: "1242x2688")
+            // Use the API's best portrait size (1024x1792); the save step will
+            // scale it to device-resolution without blurring since the source is
+            // already high-res portrait.
+            let img = try await AIImageService.shared.generateImage(prompt: p, size: "1024x1792")
             preview = img
 
             // Burn one Create credit on success for non-PRO

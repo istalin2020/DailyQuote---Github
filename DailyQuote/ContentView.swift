@@ -686,47 +686,26 @@ struct DailyQuoteView: View {
                 }
         )
 
-        // === Render (lift the image a little to hide any top ribbon) ===
+        // === Render at 3x for crisp share output ===
         let view = host.view!
         view.frame = CGRect(origin: .zero, size: canvas)
         view.backgroundColor = .black
 
-        // Mount briefly so layout is complete
+        // Mount briefly so layout resolves fully
         let win = UIWindow(frame: view.frame)
         win.backgroundColor = .black
         win.rootViewController = host
         win.isHidden = false
         win.layoutIfNeeded()
 
-        // 1) Snapshot the composed view
         let fmt = UIGraphicsImageRendererFormat()
         fmt.opaque = true
-        fmt.scale  = 3  // crisp text
-
-        let base = UIGraphicsImageRenderer(size: canvas, format: fmt).image { ctx in
-            // Fill to avoid any transparent rows
-            ctx.cgContext.setFillColor(UIColor.black.cgColor)
-            ctx.cgContext.fill(CGRect(origin: .zero, size: canvas))
-
-            // More reliable than drawHierarchy for share targets
-            view.layer.render(in: ctx.cgContext)
-        }
-
-        // 2) “Lift” the image up a bit so any thin band at the top disappears.
-        //    Tweak liftPercent if you still notice a band on certain devices.
-        let liftPercent: CGFloat = 0.035   // 2% of height ≈ 16 px on 800px canvas
-        let liftPx = max(1, Int(round(canvas.height * liftPercent)))
+        fmt.scale  = 3  // 800 x 3 = 2400 actual pixels → crisp text & background
 
         let finalImage = UIGraphicsImageRenderer(size: canvas, format: fmt).image { ctx in
-            UIColor.black.setFill()
-            ctx.fill(CGRect(origin: .zero, size: canvas))
-
-            // Draw the base image slightly *above* the top edge.
-            // Height is extended by lift so we don’t scale content.
-            base.draw(in: CGRect(x: 0,
-                                 y: -CGFloat(liftPx),
-                                 width: canvas.width,
-                                 height: canvas.height + CGFloat(liftPx)))
+            ctx.cgContext.setFillColor(UIColor.black.cgColor)
+            ctx.cgContext.fill(CGRect(origin: .zero, size: canvas))
+            view.layer.render(in: ctx.cgContext)
         }
 
         // Clean up

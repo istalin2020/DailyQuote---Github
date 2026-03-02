@@ -111,14 +111,28 @@ struct ShareCardBuilder {
                 .frame(width: canvas.width, height: canvas.height)
         )
         
-        // Keep your original simple render path
+        // Render at 3x scale for crisp, high-resolution share output
         let view = controller.view!
         view.bounds = CGRect(origin: .zero, size: canvas)
         view.backgroundColor = .black
-        
-        let renderer = UIGraphicsImageRenderer(size: canvas)
-        return renderer.image { _ in
-            view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
+
+        // Mount in a window so layout resolves fully
+        let win = UIWindow(frame: view.frame)
+        win.backgroundColor = .black
+        win.rootViewController = controller
+        win.isHidden = false
+        win.layoutIfNeeded()
+
+        let fmt = UIGraphicsImageRendererFormat()
+        fmt.opaque = true
+        fmt.scale  = 3   // 800 x 3 = 2400 actual pixels per side
+        let renderer = UIGraphicsImageRenderer(size: canvas, format: fmt)
+        let result = renderer.image { ctx in
+            ctx.cgContext.setFillColor(UIColor.black.cgColor)
+            ctx.cgContext.fill(CGRect(origin: .zero, size: canvas))
+            view.layer.render(in: ctx.cgContext)
         }
+        win.isHidden = true
+        return result
     }
 }
