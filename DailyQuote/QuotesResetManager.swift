@@ -6,7 +6,7 @@ enum QuotesResetManager {
 
     /// Bump this whenever you ship a new quotes.json or fix the selection logic
     /// so existing users get a clean slate (pointer reset to 0, history cleared).
-    private static let quotesDataVersion = "quotes-v4"
+    private static let quotesDataVersion = "quotes-v5"
 
     /// Stores the last reset version so it runs only once.
     private static let resetVersionKey = "quotes.reset.version"
@@ -16,6 +16,9 @@ enum QuotesResetManager {
 
     /// The sequential pointer key (must match PersistKey.nextQuoteIndex).
     private static let nextIndexKey = "quotes.nextIndex"
+
+    /// Tracks which day the pointer was last advanced (must match DailyQuoteView).
+    private static let lastAdvanceDateKey = "quotes.lastAdvanceDate"
 
     /// If you store AskAI recents or other caches, add keys here.
     private static let askAIRecentKey = "askai.recentQuotes"
@@ -32,6 +35,9 @@ enum QuotesResetManager {
 
         // 2) Reset the sequential pointer back to the first quote
         ud.set(0, forKey: nextIndexKey)
+
+        // 2b) Clear the last-advance-date so the pointer advances on next app launch
+        ud.removeObject(forKey: lastAdvanceDateKey)
 
         // 3) Clear date-stamped stored quotes (keys like "yyyy-MM-dd")
         clearDateStampedQuotesFromUserDefaults()

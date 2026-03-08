@@ -580,7 +580,8 @@ struct DailyQuoteView: View {
         showAttributionIfAvailable: Bool = true
     ) -> UIImage {
 
-        let canvas = CGSize(width: 800, height: 800)
+        // 1080x1080 logical × 3x scale = 3240×3240 actual pixels
+        let canvas = CGSize(width: 1080, height: 1080)
 
         let bgUIImage = theme.currentUIImageOrFallback(size: canvas)
         let q = custom ?? quote
@@ -619,6 +620,7 @@ struct DailyQuoteView: View {
                     // Background
                     Image(uiImage: bgUIImage)
                         .resizable()
+                        .interpolation(.high)
                         .scaledToFill()
                         .frame(width: canvas.width, height: canvas.height)
                         .clipped()
@@ -700,7 +702,7 @@ struct DailyQuoteView: View {
 
         let fmt = UIGraphicsImageRendererFormat()
         fmt.opaque = true
-        fmt.scale  = 3  // 800 x 3 = 2400 actual pixels → crisp text & background
+        fmt.scale  = 3  // 1080 x 3 = 3240 actual pixels per side
 
         let finalImage = UIGraphicsImageRenderer(size: canvas, format: fmt).image { ctx in
             ctx.cgContext.setFillColor(UIColor.black.cgColor)
@@ -710,7 +712,6 @@ struct DailyQuoteView: View {
 
         // Clean up
         win.isHidden = true
-
         return finalImage
     }
 
@@ -763,26 +764,48 @@ struct DailyQuoteView: View {
         }
     }
 
+    /// Tracks which calendar day we last advanced the quote pointer.
+    /// Without this, the pointer freezes when the scheduler pre-creates date keys.
+    private static let lastAdvanceDateKey = "quotes.lastAdvanceDate"
+
     func selectTodayQuote() {
         let todayKey = ymdString(Date())
         let defaults = UserDefaults.standard
+        let totalQuotes = max(1, allQuotes.count)
 
-        // 1) If today's quote was already assigned (by a previous open or the
-        //    notification scheduler), reuse it so the user sees the same quote
-        //    all day long.
+        // 1) If today's quote was already assigned (by the scheduler or a
+        //    previous app open), reuse it — but STILL advance the pointer
+        //    once per calendar day so the scheduler's window keeps moving.
         if let stored = defaults.string(forKey: todayKey),
            let data = stored.data(using: .utf8),
            let decoded = try? JSONDecoder().decode(BookQuote.self, from: data) {
             quote = decoded
+
+            // Advance the pointer once for today if we haven't yet.
+            // This is critical: the scheduler pre-creates date keys, and
+            // without this the pointer would freeze, causing the last day
+            // of each new scheduler window to repeat the previous window's
+            // last quote.
+            if defaults.string(forKey: Self.lastAdvanceDateKey) != todayKey {
+                let cur = defaults.integer(forKey: PersistKey.nextQuoteIndex)
+                defaults.set((cur + 1) % totalQuotes, forKey: PersistKey.nextQuoteIndex)
+                defaults.set(todayKey, forKey: Self.lastAdvanceDateKey)
+            }
+
+            // Make sure this quote is in the history list
+            var shown = defaults.stringArray(forKey: PersistKey.shownQuotes) ?? []
+            if !shown.contains(decoded.text) {
+                shown.append(decoded.text)
+                defaults.set(shown, forKey: PersistKey.shownQuotes)
+            }
             return
         }
 
         guard !allQuotes.isEmpty else { return }
 
-        // 2) Pick the next quote strictly in order from quotes.json.
-        //    The pointer always moves forward; no skipping, no randomness.
+        // 2) No date key exists — pick the next quote strictly in order.
         let nextIdx = defaults.integer(forKey: PersistKey.nextQuoteIndex)
-        let idx = nextIdx % allQuotes.count
+        let idx = nextIdx % totalQuotes
         let picked = allQuotes[idx]
         quote = picked
 
@@ -793,9 +816,10 @@ struct DailyQuoteView: View {
         }
 
         // 4) Advance the pointer for the next day.
-        defaults.set((idx + 1) % allQuotes.count, forKey: PersistKey.nextQuoteIndex)
+        defaults.set((idx + 1) % totalQuotes, forKey: PersistKey.nextQuoteIndex)
+        defaults.set(todayKey, forKey: Self.lastAdvanceDateKey)
 
-        // 5) Append to the history list (used only by QuoteHistoryView).
+        // 5) Append to the history list.
         var shown = defaults.stringArray(forKey: PersistKey.shownQuotes) ?? []
         if !shown.contains(picked.text) {
             shown.append(picked.text)
