@@ -6,7 +6,7 @@ enum QuotesResetManager {
 
     /// Bump this whenever you ship a new quotes.json or fix the selection logic
     /// so existing users get a clean slate (pointer reset to 0, history cleared).
-    private static let quotesDataVersion = "quotes-v5"
+    private static let quotesDataVersion = "quotes-v6"
 
     /// Stores the last reset version so it runs only once.
     private static let resetVersionKey = "quotes.reset.version"
@@ -17,7 +17,10 @@ enum QuotesResetManager {
     /// The sequential pointer key (must match PersistKey.nextQuoteIndex).
     private static let nextIndexKey = "quotes.nextIndex"
 
-    /// Tracks which day the pointer was last advanced (must match DailyQuoteView).
+    /// The "last pick date" key (must match DailyQuoteView.lastPickDateKey).
+    private static let lastPickDateKey = "quotes.lastPickDate"
+
+    /// Legacy key from previous versions — clean up.
     private static let lastAdvanceDateKey = "quotes.lastAdvanceDate"
 
     /// If you store AskAI recents or other caches, add keys here.
@@ -36,20 +39,21 @@ enum QuotesResetManager {
         // 2) Reset the sequential pointer back to the first quote
         ud.set(0, forKey: nextIndexKey)
 
-        // 2b) Clear the last-advance-date so the pointer advances on next app launch
+        // 3) Clear pick-date tracking so the pointer advances on next app launch
+        ud.removeObject(forKey: lastPickDateKey)
         ud.removeObject(forKey: lastAdvanceDateKey)
 
-        // 3) Clear date-stamped stored quotes (keys like "yyyy-MM-dd")
+        // 4) Clear ALL date-stamped stored quotes (keys like "yyyy-MM-dd")
         clearDateStampedQuotesFromUserDefaults()
 
-        // 4) Optional: clear AskAI recents cache
+        // 5) Optional: clear AskAI recents cache
         ud.removeObject(forKey: askAIRecentKey)
 
-        // 5) Clear notifications that were scheduled using old data
+        // 6) Clear notifications that were scheduled using old data
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
 
-        // 6) Mark reset completed for this version
+        // 7) Mark reset completed for this version
         ud.set(quotesDataVersion, forKey: resetVersionKey)
 
         print("✅ QuotesResetManager: reset done for version:", quotesDataVersion)
