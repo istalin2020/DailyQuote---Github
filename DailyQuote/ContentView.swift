@@ -16,47 +16,8 @@ import UserNotifications
 // Used for .sheet(item:) to avoid the "Any has no member sheet" error
 struct SharePayload: Identifiable { let id = UUID(); let image: UIImage }
 
-// MARK: - History repair & safe JSON loading
-
+// MARK: - History key (used by QuoteHistoryView)
 private let kShownQuotes = "shownQuotes"
-
-/// Build history from your existing per-day keys ("yyyy-MM-dd" -> encoded BookQuote),
-/// include only dates up to today, keep order, drop dups, and ensure the text exists in quotes.json.
-private func deriveHistoryFromDateKeys() -> [String] {
-    let ud = UserDefaults.standard
-    let allJsonTexts = Set(Bundle.main.loadQuotesSafely().map { $0.text })
-
-    let df = DateFormatter(); df.dateFormat = "yyyy-MM-dd"
-    let today = Calendar.current.startOfDay(for: Date())
-
-    var pairs: [(Date, String)] = []
-    for key in ud.dictionaryRepresentation().keys {
-        guard let date = df.date(from: key), date <= today else { continue }
-        guard let stored = ud.string(forKey: key),
-              let data = stored.data(using: .utf8),
-              let q = try? JSONDecoder().decode(BookQuote.self, from: data) else { continue }
-        guard allJsonTexts.contains(q.text) else { continue }
-        pairs.append((date, q.text))
-    }
-
-    pairs.sort { $0.0 < $1.0 }
-    var seen = Set<String>(), out: [String] = []
-    for (_, text) in pairs where seen.insert(text).inserted { out.append(text) }
-    return out
-}
-
-/// Rebuild/repair shownQuotes using the per-day keys if the current list looks wrong.
-private func rebuildHistoryFromDateKeysIfNeeded() {
-    let ud = UserDefaults.standard
-    let current = ud.stringArray(forKey: kShownQuotes) ?? []
-    let rebuilt = deriveHistoryFromDateKeys()
-    if !rebuilt.isEmpty, rebuilt != current {
-        ud.set(rebuilt, forKey: kShownQuotes)
-        #if DEBUG
-        print("ⓘ Repaired shownQuotes -> \(rebuilt.count) items")
-        #endif
-    }
-}
 
 
 struct DailyQuoteView: View {
@@ -118,7 +79,6 @@ struct DailyQuoteView: View {
     private enum PersistKey {
         static let appVersion       = "app.version"                  // stores last app version that ran migrations
         static let shownQuotes      = "shownQuotes"                  // [String] of quote.text that were shown
-        static let nextQuoteIndex   = "quotes.nextIndex"             // Int pointer to keep progressing
         static let selectedHour     = "selectedHour"
         static let selectedMinute   = "selectedMinute"
 
@@ -162,13 +122,6 @@ struct DailyQuoteView: View {
         if defaults.object(forKey: PersistKey.selectedMinute) == nil,
            let m = defaults.object(forKey: PersistKey.legacyMinute) as? Int {
             defaults.set(m, forKey: PersistKey.selectedMinute)
-        }
-
-        // ---- If we don't have a next pointer yet, seed it from how many were shown ----
-        if defaults.object(forKey: PersistKey.nextQuoteIndex) == nil {
-            // Use shown count as a good starting pointer (keeps “continuity” feel)
-            let start = (defaults.stringArray(forKey: PersistKey.shownQuotes) ?? []).count
-            defaults.set(start, forKey: PersistKey.nextQuoteIndex)
         }
 
         // Mark migration complete for this version
@@ -484,25 +437,11 @@ struct DailyQuoteView: View {
             }
             
             .onAppear {
-                // 🔐 Make sure migrations run before we load/select anything
+                // Make sure migrations run before we load/select anything
                 migrateIfNeeded()
 
                 requestNotificationPermission()
                 loadQuotes()
-                rebuildHistoryFromDateKeysIfNeeded()   // keep your existing utility if you have it
-
-                scheduleRollingDailyQuotes(hour: selectedHour, minute: selectedMinute)
-                scheduleAppRefresh()
-
-                theme.currentIndex = ThemeCatalog.clampedIndex(from: theme.currentIndex)
-                UserDefaults.standard.set(theme.currentIndex, forKey: "selectedThemeIndex")
-            }
-
-            // Lifecycle / side-effects
-            .onAppear {
-                requestNotificationPermission()
-                loadQuotes()
-                rebuildHistoryFromDateKeysIfNeeded()
 
                 scheduleRollingDailyQuotes(hour: selectedHour, minute: selectedMinute)
                 scheduleAppRefresh()
@@ -594,7 +533,8 @@ struct DailyQuoteView: View {
         showAttributionIfAvailable: Bool = true
     ) -> UIImage {
 
-        let canvas = CGSize(width: 800, height: 800)
+        // 1080x1080 logical × 3x scale = 3240×3240 actual pixels
+        let canvas = CGSize(width: 1080, height: 1080)
 
         let bgUIImage = theme.currentUIImageOrFallback(size: canvas)
         let q = custom ?? quote
@@ -633,6 +573,7 @@ struct DailyQuoteView: View {
                     // Background
                     Image(uiImage: bgUIImage)
                         .resizable()
+                        .interpolation(.high)
                         .scaledToFill()
                         .frame(width: canvas.width, height: canvas.height)
                         .clipped()
@@ -700,52 +641,30 @@ struct DailyQuoteView: View {
                 }
         )
 
-        // === Render (lift the image a little to hide any top ribbon) ===
+        // === Render at 3x for crisp share output ===
         let view = host.view!
         view.frame = CGRect(origin: .zero, size: canvas)
         view.backgroundColor = .black
 
-        // Mount briefly so layout is complete
+        // Mount briefly so layout resolves fully
         let win = UIWindow(frame: view.frame)
         win.backgroundColor = .black
         win.rootViewController = host
         win.isHidden = false
         win.layoutIfNeeded()
 
-        // 1) Snapshot the composed view
         let fmt = UIGraphicsImageRendererFormat()
         fmt.opaque = true
-        fmt.scale  = 3  // crisp text
-
-        let base = UIGraphicsImageRenderer(size: canvas, format: fmt).image { ctx in
-            // Fill to avoid any transparent rows
-            ctx.cgContext.setFillColor(UIColor.black.cgColor)
-            ctx.cgContext.fill(CGRect(origin: .zero, size: canvas))
-
-            // More reliable than drawHierarchy for share targets
-            view.layer.render(in: ctx.cgContext)
-        }
-
-        // 2) “Lift” the image up a bit so any thin band at the top disappears.
-        //    Tweak liftPercent if you still notice a band on certain devices.
-        let liftPercent: CGFloat = 0.035   // 2% of height ≈ 16 px on 800px canvas
-        let liftPx = max(1, Int(round(canvas.height * liftPercent)))
+        fmt.scale  = 3  // 1080 x 3 = 3240 actual pixels per side
 
         let finalImage = UIGraphicsImageRenderer(size: canvas, format: fmt).image { ctx in
-            UIColor.black.setFill()
-            ctx.fill(CGRect(origin: .zero, size: canvas))
-
-            // Draw the base image slightly *above* the top edge.
-            // Height is extended by lift so we don’t scale content.
-            base.draw(in: CGRect(x: 0,
-                                 y: -CGFloat(liftPx),
-                                 width: canvas.width,
-                                 height: canvas.height + CGFloat(liftPx)))
+            ctx.cgContext.setFillColor(UIColor.black.cgColor)
+            ctx.cgContext.fill(CGRect(origin: .zero, size: canvas))
+            view.layer.render(in: ctx.cgContext)
         }
 
         // Clean up
         win.isHidden = true
-
         return finalImage
     }
 
@@ -798,63 +717,59 @@ struct DailyQuoteView: View {
         }
     }
 
-    func selectTodayQuote() {
-        let todayKey = ymdString(Date())
+    // MARK: - Deterministic quote selection
+    //
+    // Every date maps to exactly one quote index via:
+    //   index = daysSince(anchorDate) % totalQuotes
+    //
+    // The anchor date is set once (on first launch or after a reset).
+    // This makes the mapping deterministic: the scheduler, background
+    // refresh, and selectTodayQuote() always agree on which quote
+    // belongs to which day — no pointer, no caching, no race conditions.
+
+    private static let anchorDateKey = "quotes.anchorDate"
+
+    /// Returns the quote index for a given date.
+    /// Day 0 (anchor date) → index 0, Day 1 → index 1, etc.
+    private func quoteIndex(for date: Date, total: Int) -> Int {
+        guard total > 0 else { return 0 }
+        let anchor = loadOrCreateAnchorDate()
+        let cal = Calendar.current
+        let days = cal.dateComponents([.day], from: cal.startOfDay(for: anchor),
+                                               to: cal.startOfDay(for: date)).day ?? 0
+        let safeDays = max(0, days)
+        return safeDays % total
+    }
+
+    /// Loads the stored anchor date, or creates one (today) if none exists.
+    private func loadOrCreateAnchorDate() -> Date {
         let defaults = UserDefaults.standard
-
-        // 1) If 2.0 already picked today's quote, keep it.
-        if let stored = defaults.string(forKey: todayKey),
-           let data = stored.data(using: .utf8),
-           let decoded = try? JSONDecoder().decode(BookQuote.self, from: data) {
-            quote = decoded
-            return
+        if let stored = defaults.string(forKey: Self.anchorDateKey) {
+            let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
+            if let d = f.date(from: stored) { return d }
         }
+        let today = Calendar.current.startOfDay(for: Date())
+        let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
+        defaults.set(f.string(from: today), forKey: Self.anchorDateKey)
+        return today
+    }
 
-        // 2) Otherwise continue from next index, skipping anything shown before.
-        var shown = Set(defaults.stringArray(forKey: PersistKey.shownQuotes) ?? [])
-        var next  = defaults.integer(forKey: PersistKey.nextQuoteIndex) // default 0
-
+    /// Picks today's quote from quotes.json using a deterministic
+    /// date-based index.  No pointer, no caching.
+    func selectTodayQuote() {
         guard !allQuotes.isEmpty else { return }
 
-        // Make up to N attempts to find the next unseen quote (N = allQuotes.count).
-        var attempts = 0
-        var picked: BookQuote? = nil
-        while attempts < allQuotes.count {
-            let idx = next % allQuotes.count
-            let candidate = allQuotes[idx]
-            if !shown.contains(candidate.text) {
-                picked = candidate
-                next = (idx + 1) % allQuotes.count
-                break
-            } else {
-                next = (idx + 1) % allQuotes.count
-            }
-            attempts += 1
+        let idx = quoteIndex(for: Date(), total: allQuotes.count)
+        let picked = allQuotes[idx]
+        quote = picked
+
+        // Append to history (for QuoteHistoryView) — deduped
+        let defaults = UserDefaults.standard
+        var shown = defaults.stringArray(forKey: PersistKey.shownQuotes) ?? []
+        if !shown.contains(picked.text) {
+            shown.append(picked.text)
+            defaults.set(shown, forKey: PersistKey.shownQuotes)
         }
-
-        // Fallback: if somehow everything was shown, just pick anything
-        let final = picked ?? allQuotes[next % allQuotes.count]
-        quote = final
-
-        // 3) Persist today's choice, update history + pointer
-        if let data = try? JSONEncoder().encode(final),
-           let jsonString = String(data: data, encoding: .utf8) {
-            defaults.set(jsonString, forKey: todayKey)
-        }
-        shown.insert(final.text)
-        defaults.set(Array(shown), forKey: PersistKey.shownQuotes)
-        defaults.set(next, forKey: PersistKey.nextQuoteIndex)
-    }
-
-    func wasShownBefore(_ quote: BookQuote) -> Bool {
-        let shown = UserDefaults.standard.stringArray(forKey: "shownQuotes") ?? []
-        return shown.contains(quote.text)
-    }
-
-    func saveShownQuote(_ quote: BookQuote) {
-        var shown = UserDefaults.standard.stringArray(forKey: "shownQuotes") ?? []
-        shown.append(quote.text)
-        UserDefaults.standard.set(shown, forKey: "shownQuotes")
     }
 }
 
@@ -1450,23 +1365,27 @@ func requestNotificationAuth() {
     }
 }
 
-private func quoteForDay(_ date: Date, allQuotes: [BookQuote]) -> BookQuote {
-    let key = ymdString(date)
-    if let stored = UserDefaults.standard.string(forKey: key),
-       let data = stored.data(using: .utf8),
-       let q = try? JSONDecoder().decode(BookQuote.self, from: data) { return q }
+/// Return the quote for a specific date using the deterministic anchor-based index.
+/// Pure computation — does NOT write anything to UserDefaults.
+private func quoteForDate(_ date: Date, allQuotes: [BookQuote]) -> BookQuote {
+    guard !allQuotes.isEmpty else { return BookQuote(text: "", author: "") }
 
-    let pick = allQuotes.first(where: { !(UserDefaults.standard.stringArray(forKey: "shownQuotes") ?? []).contains($0.text) })
-               ?? allQuotes.randomElement()
-               ?? BookQuote(text: "", author: "")
-    if let data = try? JSONEncoder().encode(pick),
-       let s = String(data: data, encoding: .utf8) {
-        UserDefaults.standard.set(s, forKey: key)
-        var shown = UserDefaults.standard.stringArray(forKey: "shownQuotes") ?? []
-        shown.append(pick.text)
-        UserDefaults.standard.set(shown, forKey: "shownQuotes")
+    let anchorKey = "quotes.anchorDate"
+    let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
+    let cal = Calendar.current
+
+    let anchor: Date
+    if let stored = UserDefaults.standard.string(forKey: anchorKey),
+       let d = f.date(from: stored) {
+        anchor = d
+    } else {
+        anchor = cal.startOfDay(for: Date())
+        UserDefaults.standard.set(f.string(from: anchor), forKey: anchorKey)
     }
-    return pick
+
+    let days = max(0, cal.dateComponents([.day], from: cal.startOfDay(for: anchor),
+                                                  to: cal.startOfDay(for: date)).day ?? 0)
+    return allQuotes[days % allQuotes.count]
 }
 
 // MARK: - Sound helper
@@ -1507,18 +1426,18 @@ func scheduleNextDailyQuote(hour: Int, minute: Int) {
     center.add(req)
 }
 
-// MARK: - Scheduler (now uses custom tone)
+// MARK: - Scheduler (sequential, uses custom tone)
 func scheduleRollingDailyQuotes(hour: Int, minute: Int, days: Int = 64) {
     let center = UNUserNotificationCenter.current()
 
     center.getPendingNotificationRequests { reqs in
         // Clear previous dailyQuote_* to avoid duplicates
-        let ids = reqs.map(\.identifier).filter { $0.hasPrefix("dailyQuote_") }
+        let ids = reqs.map(\.identifier).filter { $0.hasPrefix(“dailyQuote_”) }
         center.removePendingNotificationRequests(withIdentifiers: ids)
 
         // Load quotes.json
         var allQuotes: [BookQuote] = []
-        if let url = Bundle.main.url(forResource: "quotes", withExtension: "json"),
+        if let url = Bundle.main.url(forResource: “quotes”, withExtension: “json”),
            let data = try? Data(contentsOf: url),
            let decoded = try? JSONDecoder().decode([BookQuote].self, from: data) {
             allQuotes = decoded
@@ -1529,17 +1448,18 @@ func scheduleRollingDailyQuotes(hour: Int, minute: Int, days: Int = 64) {
 
         for offset in 0..<min(days, 64) {
             guard let fireDate = Calendar.current.date(byAdding: .day, value: offset, to: start) else { continue }
-            let q = quoteForDay(fireDate, allQuotes: allQuotes)
+            // Deterministic: same date always maps to same quote
+            let q = quoteForDate(fireDate, allQuotes: allQuotes)
 
             let content = UNMutableNotificationContent()
-            content.title = "Quote of the Day"
-            content.body  = q.text.isEmpty ? "Your daily inspiration ✨" : "“\(q.text)” — \(q.author)"
-            content.sound = sound   // ← custom tone (or default fallback)
+            content.title = “Quote of the Day”
+            content.body  = q.text.isEmpty ? “Your daily inspiration ✨” : “\”\(q.text)\” — \(q.author)”
+            content.sound = sound
 
             let comps = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute], from: fireDate)
             let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
 
-            let id = "dailyQuote_\(ymdString(fireDate))"
+            let id = “dailyQuote_\(ymdString(fireDate))”
             let req = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
             center.add(req)
         }
@@ -1572,92 +1492,34 @@ func registerBackgroundTasks() {
     }
 }
 
-// MARK: - History helpers (published-only, deduped)
 
-fileprivate let _ymdFormatter: DateFormatter = {
-    let f = DateFormatter()
-    f.dateFormat = "yyyy-MM-dd"
-    f.locale = Locale(identifier: "en_US_POSIX")
-    f.timeZone = .current
-    return f
-}()
-
-// Helpers for date-key scanning (place near other helpers, top-level scope)
-fileprivate func _isYMDKey(_ key: String) -> Bool {
-    // quick check for "yyyy-MM-dd"
-    guard key.count == 10 else { return false }
-    let a = Array(key)
-    return a[4] == "-" && a[7] == "-" && key.filter(\.isNumber).count == 8
-}
-
-fileprivate func loadDisplayedHistoryTexts() -> [String] {
-    let today = _ymdFormatter.date(from: _ymdFormatter.string(from: Date()))!
-    let defaults = UserDefaults.standard
-
-    var pairs: [(Date, String)] = []
-    for key in defaults.dictionaryRepresentation().keys {
-        guard _isYMDKey(key),
-              let date = _ymdFormatter.date(from: key),
-              date <= today,
-              let json = defaults.string(forKey: key),
-              let data = json.data(using: .utf8),
-              let q = try? JSONDecoder().decode(BookQuote.self, from: data)
-        else { continue }
-        pairs.append((date, q.text))
-    }
-
-    var seen = Set<String>()
-    return pairs
-        .sorted { $0.0 > $1.0 }
-        .compactMap { (_, text) in
-            if seen.insert(text).inserted { return text }
-            return nil
-        }
-}
 
 struct QuoteHistoryView: View {
-    private var shown: [String] {
-        UserDefaults.standard.stringArray(forKey: kShownQuotes) ?? []
-    }
-
     private var selectedThemeIndex: Int {
         UserDefaults.standard.integer(forKey: "selectedThemeIndex")
     }
 
     private struct Row: Identifiable {
         let id = UUID()
-        let date: Date
         let text: String
         let author: String?
         let book: String?
     }
 
-    // Build rows from date-stamped keys only; exclude future dates; newest first
-    private var rowsNewestFirst: [Row] {
-        let df = DateFormatter(); df.dateFormat = "yyyy-MM-dd"
-        let today = Calendar.current.startOfDay(for: Date())
-
+    /// Build history rows from the shownQuotes list matched against quotes.json.
+    /// Most recent shown quote first.
+    private var rows: [Row] {
+        let shownTexts = UserDefaults.standard.stringArray(forKey: kShownQuotes) ?? []
         let all = Bundle.main.loadQuotesSafely()
         let byText = Dictionary(uniqueKeysWithValues: all.map { ($0.text, $0) })
 
-        var dated: [(Date, BookQuote)] = []
-        for (key, _) in UserDefaults.standard.dictionaryRepresentation() {
-            guard let d = df.date(from: key), d <= today else { continue }
-            guard let stored = UserDefaults.standard.string(forKey: key),
-                  let data = stored.data(using: .utf8),
-                  let q = try? JSONDecoder().decode(BookQuote.self, from: data) else { continue }
-            dated.append((d, q))
-        }
-
-        let ascending = dated.sorted { $0.0 < $1.0 }
-        let rows = ascending.map { (d, q) -> Row in
-            if let canonical = byText[q.text] {
-                return Row(date: d, text: canonical.text, author: canonical.author, book: canonical.book)
+        return shownTexts.reversed().map { text in
+            if let q = byText[text] {
+                return Row(text: q.text, author: q.author, book: q.book)
             } else {
-                return Row(date: d, text: q.text, author: q.author, book: q.book)
+                return Row(text: text, author: nil, book: nil)
             }
         }
-        return rows.reversed()
     }
 
     private struct ShareImagePayload: Identifiable { let id = UUID(); let image: UIImage }
@@ -1666,7 +1528,7 @@ struct QuoteHistoryView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(rowsNewestFirst) { item in
+                ForEach(rows) { item in
                     VStack(alignment: .leading, spacing: 10) {
                         Text(item.text)
                             .font(.body)

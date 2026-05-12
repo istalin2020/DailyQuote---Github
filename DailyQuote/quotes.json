@@ -84,13 +84,6 @@
     "category": "wellbeing"
   },
   {
-    "id": "1f6c0170-c302-4a31-849e-62d47bbff03c",
-    "text": "You have power over your mind, not outside events. Realize this, and you will find strength.",
-    "author": "Marcus Aurelius",
-    "book": "Meditations",
-    "category": "motivation"
-  },
-  {
     "id": "339ee5de-dd8b-4d6a-bfe1-4c006097caca",
     "text": "The happiness of your life depends upon the quality of your thoughts.",
     "author": "Marcus Aurelius",
@@ -450,13 +443,6 @@
   {
     "id": "bb83fbec-fa06-4f6f-bef4-c69c21cc465b",
     "text": "The task of breaking a bad habit is like uprooting a powerful oak within us.",
-    "author": "James Clear",
-    "book": "Atomic Habits",
-    "category": "productivity"
-  },
-  {
-    "id": "90dbc5fa-61d4-40af-97cf-6b7eb16f368a",
-    "text": "Habits are the compound interest of self-improvement.",
     "author": "James Clear",
     "book": "Atomic Habits",
     "category": "productivity"
@@ -1610,13 +1596,6 @@
     "category": "courage"
   },
   {
-    "id": "b39f3749-1250-455f-ba17-e5b0860ade6f",
-    "text": "The only limit to our realization of tomorrow will be our doubts of today.",
-    "author": "Franklin D. Roosevelt",
-    "book": "Undelivered Address",
-    "category": "courage"
-  },
-  {
     "id": "88d1a20a-76f4-4088-bdf1-bf5c0d24579c",
     "text": "Challenges are what make life interesting. Overcoming them is what makes life meaningful.",
     "author": "Joshua J. Marine",
@@ -2553,5 +2532,26 @@
     "author": "Sydney J. Harris",
     "book": "Pieces of Eight",
     "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "9ad0aa71-9cb4-456f-9aaf-b824cebf6f49",
+    "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+    "author": "Will Durant",
+    "book": "The Story of Philosophy",
+    "category": "motivation"
+  },
+  {
+    "id": "c987c62d-6d8e-4d27-9361-f241a084f869",
+    "text": "It is during our darkest moments that we must focus to see the light.",
+    "author": "Aristotle",
+    "book": "Nicomachean Ethics",
+    "category": "motivation"
+  },
+  {
+    "id": "82b3b70c-d392-48f8-a83f-fceacddd7cdf",
+    "text": "Turn your wounds into wisdom.",
+    "author": "Oprah Winfrey",
+    "book": "What I Know for Sure",
+    "category": "wisdom"
   }
 ]

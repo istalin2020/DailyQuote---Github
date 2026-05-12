@@ -40,10 +40,14 @@ struct AIImageService {
     // CHANGE if your Worker lives elsewhere (no trailing slash)
     private let baseURL = URL(string: "https://dqr-ai-proxy.istalin.workers.dev")!
 
-    // Preferred portrait wallpaper size for phones; change as needed
+    // Preferred portrait wallpaper size for phones.
+    // gpt-image-1 supports: 1024x1024, 1024x1792, 1792x1024.
+    // We use the tallest portrait option for the best phone wallpaper quality.
     private let defaultSize = "1024x1792"
     // OpenAI current image model
     private let model = "gpt-image-1"
+    // Request high quality from the API
+    private let quality = "high"
 
     // MARK: - Public API
 
@@ -51,36 +55,45 @@ struct AIImageService {
     /// Tries a standards-style body first (model/prompt/size/n),
     /// then falls back to legacy `{ "prompt": ... }` if the Worker expects that.
     func generateImage(prompt: String, size: String? = nil) async throws -> UIImage {
-        // 1) Try "modern" JSON body that most proxies accept (no response_format)
+        let resolvedSize = size ?? defaultSize
+        // 1) Try "modern" JSON body that most proxies accept
         do {
             return try await requestImage(
-                path: "image", // keep your current route
+                path: "image",
                 json: [
                     "model": model,
                     "prompt": prompt,
                     "n": 1,
-                    "size": size ?? defaultSize
+                    "size": resolvedSize,
+                    "quality": quality
                 ]
             )
         } catch let err as AIImageError {
             // If the first attempt fails due to strict schema on your Worker,
-            // retry with the legacy body `{ "prompt": ... }`
+            // retry with the legacy body including size so we still get portrait
             switch err {
             case .requestFailed(let status, _)
                  where status == 400 || status == 404 || status == 422:
-                // 2) Fallback: legacy body used by your previous code
                 return try await requestImage(
                     path: "image",
-                    json: ["prompt": prompt]
+                    json: [
+                        "prompt": prompt,
+                        "size": resolvedSize,
+                        "quality": quality
+                    ]
                 )
             default:
                 throw err
             }
         } catch {
-            // Non-AIImageError (e.g., transport) → try legacy once
+            // Non-AIImageError (e.g., transport) → try legacy once, still with size
             return try await requestImage(
                 path: "image",
-                json: ["prompt": prompt]
+                json: [
+                    "prompt": prompt,
+                    "size": resolvedSize,
+                    "quality": quality
+                ]
             )
         }
     }

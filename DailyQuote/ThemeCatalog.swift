@@ -134,53 +134,23 @@ enum ThemeCatalog {
         }
     }
     
-    // ThemeCatalog.swift
-
-    // Choose one target. 1242x2688 is a safe portrait size that looks great across devices.
-    private static let PORTRAIT_WALLPAPER_PX = CGSize(width: 1242, height: 2688)
-
     @discardableResult
     static func savePNG(image: UIImage, filename: String) -> String? {
-        // 🔧 Always normalize customs to 1242x2688 px so they don't appear zoomed.
-        let prepared = prepareForPortraitWallpaper(image, target: PORTRAIT_WALLPAPER_PX)
-
+        // Save the AI image at its original resolution (1024x1792 from the API).
+        // No re-rendering or upscaling — preserves every pixel of quality.
         let safe = filename
             .replacingOccurrences(of: "[^A-Za-z0-9_-]", with: "_", options: .regularExpression)
             .prefix(32)
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let url = docs.appendingPathComponent("\(safe).png")
 
-        guard let data = prepared.pngData() else { return nil }
+        guard let data = image.pngData() else { return nil }
         do {
             try data.write(to: url, options: .atomic)
             return url.path
         } catch {
             print("❌ Save error:", error)
             return nil
-        }
-    }
-
-    /// Scale-to-FILL (center-crop) into an exact pixel canvas, without distortion.
-    /// - Ensures the *pixel* size is exactly `target` (not points).
-    private static func prepareForPortraitWallpaper(_ source: UIImage, target: CGSize) -> UIImage {
-        let sx = target.width  / source.size.width
-        let sy = target.height / source.size.height
-        let scale = max(sx, sy) // fill
-
-        let drawnSize = CGSize(width: source.size.width * scale,
-                               height: source.size.height * scale)
-        let origin = CGPoint(x: (target.width  - drawnSize.width)  / 2.0,
-                             y: (target.height - drawnSize.height) / 2.0)
-
-        // ✅ Render at 1.0 scale so `size == pixels` in the saved PNG.
-        let fmt = UIGraphicsImageRendererFormat.default()
-        fmt.scale = 1.0
-        let renderer = UIGraphicsImageRenderer(size: target, format: fmt)
-
-        return renderer.image { _ in
-            UIColor.black.setFill()
-            UIBezierPath(rect: CGRect(origin: .zero, size: target)).fill()
-            source.draw(in: CGRect(origin: origin, size: drawnSize))
         }
     }
 
