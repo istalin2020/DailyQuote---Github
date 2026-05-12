@@ -79,7 +79,6 @@ struct DailyQuoteView: View {
     private enum PersistKey {
         static let appVersion       = "app.version"                  // stores last app version that ran migrations
         static let shownQuotes      = "shownQuotes"                  // [String] of quote.text that were shown
-        static let nextQuoteIndex   = "quotes.nextIndex"             // Int pointer to keep progressing
         static let selectedHour     = "selectedHour"
         static let selectedMinute   = "selectedMinute"
 
@@ -123,13 +122,6 @@ struct DailyQuoteView: View {
         if defaults.object(forKey: PersistKey.selectedMinute) == nil,
            let m = defaults.object(forKey: PersistKey.legacyMinute) as? Int {
             defaults.set(m, forKey: PersistKey.selectedMinute)
-        }
-
-        // ---- If we don't have a next pointer yet, seed it from how many were shown ----
-        if defaults.object(forKey: PersistKey.nextQuoteIndex) == nil {
-            // Use shown count as a good starting pointer (keeps “continuity” feel)
-            let start = (defaults.stringArray(forKey: PersistKey.shownQuotes) ?? []).count
-            defaults.set(start, forKey: PersistKey.nextQuoteIndex)
         }
 
         // Mark migration complete for this version
@@ -725,39 +717,54 @@ struct DailyQuoteView: View {
         }
     }
 
-    /// Key that stores which calendar day already picked its quote.
-    /// Value is a "yyyy-MM-dd" string. If it matches today, we don't
-    /// advance the pointer again.
-    private static let lastPickDateKey = "quotes.lastPickDate"
+    // MARK: - Deterministic quote selection
+    //
+    // Every date maps to exactly one quote index via:
+    //   index = daysSince(anchorDate) % totalQuotes
+    //
+    // The anchor date is set once (on first launch or after a reset).
+    // This makes the mapping deterministic: the scheduler, background
+    // refresh, and selectTodayQuote() always agree on which quote
+    // belongs to which day — no pointer, no caching, no race conditions.
 
-    /// Picks today's quote strictly from quotes.json using the sequential
-    /// pointer.  NO date-stamped caching — the pointer is the single
-    /// source of truth.
+    private static let anchorDateKey = "quotes.anchorDate"
+
+    /// Returns the quote index for a given date.
+    /// Day 0 (anchor date) → index 0, Day 1 → index 1, etc.
+    private func quoteIndex(for date: Date, total: Int) -> Int {
+        guard total > 0 else { return 0 }
+        let anchor = loadOrCreateAnchorDate()
+        let cal = Calendar.current
+        let days = cal.dateComponents([.day], from: cal.startOfDay(for: anchor),
+                                               to: cal.startOfDay(for: date)).day ?? 0
+        let safeDays = max(0, days)
+        return safeDays % total
+    }
+
+    /// Loads the stored anchor date, or creates one (today) if none exists.
+    private func loadOrCreateAnchorDate() -> Date {
+        let defaults = UserDefaults.standard
+        if let stored = defaults.string(forKey: Self.anchorDateKey) {
+            let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
+            if let d = f.date(from: stored) { return d }
+        }
+        let today = Calendar.current.startOfDay(for: Date())
+        let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
+        defaults.set(f.string(from: today), forKey: Self.anchorDateKey)
+        return today
+    }
+
+    /// Picks today's quote from quotes.json using a deterministic
+    /// date-based index.  No pointer, no caching.
     func selectTodayQuote() {
         guard !allQuotes.isEmpty else { return }
 
-        let defaults = UserDefaults.standard
-        let todayStr = ymdString(Date())
-        let total    = allQuotes.count
-
-        // Already picked for today? Show the same quote without advancing.
-        if defaults.string(forKey: Self.lastPickDateKey) == todayStr {
-            let idx = (defaults.integer(forKey: PersistKey.nextQuoteIndex) - 1 + total) % total
-            quote = allQuotes[idx]
-            return
-        }
-
-        // Pick the next quote in order from quotes.json
-        let nextIdx = defaults.integer(forKey: PersistKey.nextQuoteIndex)
-        let idx     = nextIdx % total
-        let picked  = allQuotes[idx]
+        let idx = quoteIndex(for: Date(), total: allQuotes.count)
+        let picked = allQuotes[idx]
         quote = picked
 
-        // Advance pointer and mark today as picked
-        defaults.set((idx + 1) % total, forKey: PersistKey.nextQuoteIndex)
-        defaults.set(todayStr, forKey: Self.lastPickDateKey)
-
-        // Append to history (for QuoteHistoryView)
+        // Append to history (for QuoteHistoryView) — deduped
+        let defaults = UserDefaults.standard
         var shown = defaults.stringArray(forKey: PersistKey.shownQuotes) ?? []
         if !shown.contains(picked.text) {
             shown.append(picked.text)
@@ -1358,14 +1365,27 @@ func requestNotificationAuth() {
     }
 }
 
-/// Return the quote for a given offset from baseIndex.
+/// Return the quote for a specific date using the deterministic anchor-based index.
 /// Pure computation — does NOT write anything to UserDefaults.
-private func quoteForOffset(_ allQuotes: [BookQuote],
-                            baseIndex: Int,
-                            offset: Int) -> BookQuote {
+private func quoteForDate(_ date: Date, allQuotes: [BookQuote]) -> BookQuote {
     guard !allQuotes.isEmpty else { return BookQuote(text: "", author: "") }
-    let idx = (baseIndex + offset) % allQuotes.count
-    return allQuotes[idx]
+
+    let anchorKey = "quotes.anchorDate"
+    let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
+    let cal = Calendar.current
+
+    let anchor: Date
+    if let stored = UserDefaults.standard.string(forKey: anchorKey),
+       let d = f.date(from: stored) {
+        anchor = d
+    } else {
+        anchor = cal.startOfDay(for: Date())
+        UserDefaults.standard.set(f.string(from: anchor), forKey: anchorKey)
+    }
+
+    let days = max(0, cal.dateComponents([.day], from: cal.startOfDay(for: anchor),
+                                                  to: cal.startOfDay(for: date)).day ?? 0)
+    return allQuotes[days % allQuotes.count]
 }
 
 // MARK: - Sound helper
@@ -1423,17 +1443,13 @@ func scheduleRollingDailyQuotes(hour: Int, minute: Int, days: Int = 64) {
             allQuotes = decoded
         }
 
-        // Read the current sequential pointer (already advanced past today
-        // by selectTodayQuote). This is the base for future day assignments.
-        let baseIndex = UserDefaults.standard.integer(forKey: “quotes.nextIndex”)
-
         let start = nextFireBaseDate(hour: hour, minute: minute)
         let sound = quoteNotificationSound()
 
         for offset in 0..<min(days, 64) {
             guard let fireDate = Calendar.current.date(byAdding: .day, value: offset, to: start) else { continue }
-            // Pure computation — no UserDefaults writes
-            let q = quoteForOffset(allQuotes, baseIndex: baseIndex, offset: offset)
+            // Deterministic: same date always maps to same quote
+            let q = quoteForDate(fireDate, allQuotes: allQuotes)
 
             let content = UNMutableNotificationContent()
             content.title = “Quote of the Day”
