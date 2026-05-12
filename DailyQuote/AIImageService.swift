@@ -17,10 +17,10 @@ enum AIImageError: LocalizedError {
         case .noHTTPResponse:            return "No HTTP response from server."
         case .requestFailed(let s, let d):
             return "Image generation failed (\(s)). \(d ?? "")"
-        case .decode:                    return "Couldn’t parse server response."
-        case .noImagePayload:            return "Server didn’t return image data."
-        case .base64DecodeFailed:        return "Couldn’t decode image data."
-        case .uiImageInitFailed:         return "Couldn’t construct image."
+        case .decode:                    return "Couldn't parse server response."
+        case .noImagePayload:            return "Server didn't return image data."
+        case .base64DecodeFailed:        return "Couldn't decode image data."
+        case .uiImageInitFailed:         return "Couldn't construct image."
         }
     }
 }
@@ -113,7 +113,7 @@ struct AIImageService {
 
         guard (200...299).contains(http.statusCode) else {
             let details = String(data: data, encoding: .utf8)
-            // If the Worker passed through OpenAI’s error JSON, try to extract message
+            // If the Worker passed through OpenAI's error JSON, try to extract message
             if
                 let detailsData = details?.data(using: .utf8),
                 let openAI = try? JSONDecoder().decode(OpenAIImageResponse.self, from: detailsData),
@@ -125,7 +125,7 @@ struct AIImageService {
         }
 
         // Try decoding known shapes in order of likelihood
-        // 1) Your Worker’s `{ "image_b64": ... }`
+        // 1) Your Worker's `{ "image_b64": ... }`
         if let worker = try? JSONDecoder().decode(WorkerImageResponse.self, from: data),
            let b64 = worker.image_b64, let ui = try? b64ToImage(b64) {
             return ui

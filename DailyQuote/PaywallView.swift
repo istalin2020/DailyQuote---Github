@@ -214,7 +214,7 @@ struct PaywallView: View {
 
     // MARK: - Actions
     private func goProTapped() async {
-        // If products aren’t loaded yet, try to load them now
+        // If products aren't loaded yet, try to load them now
         if selectedProduct == nil {
             await access.refreshProducts()
         }
@@ -222,9 +222,9 @@ struct PaywallView: View {
             await MainActor.run {
                 alertMessage =
                 """
-                We couldn’t load products yet.
+                We couldn't load products yet.
                 • Check your product IDs (\(ProIDs.monthly) / \(ProIDs.yearly))
-                • Make sure you’re signed in as a Sandbox tester on device
+                • Make sure you're signed in as a Sandbox tester on device
                 • Confirm In-App Purchase capability and network
                 Try again in a moment.
                 """

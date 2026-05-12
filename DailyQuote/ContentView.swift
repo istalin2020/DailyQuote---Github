@@ -274,7 +274,7 @@ struct DailyQuoteView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                // NEW — fills the screen but doesn’t “push” UI out of view
+                // NEW — fills the screen but doesn't "push" UI out of view
                 GeometryReader { proxy in
                     let size = proxy.size
                     Image(uiImage: theme.currentUIImageOrFallback(size: size))
@@ -1124,7 +1124,7 @@ struct AskAIQuoteSheet: View {
             lastAuthor = r.author
             lastBook = r.book
 
-            // Save to recent store so we don’t repeat it
+            // Save to recent store so we don't repeat it
             AskAIRecentStore.shared.add(r.quote)
 
             // Burn one Ask AI credit on success for non-PRO
@@ -1133,7 +1133,7 @@ struct AskAIQuoteSheet: View {
             // ProAccess.shared.consumeOneFreeUseIfNeeded()
 
         } else {
-            self.error = "We couldn’t find a new quote. Please try again."
+            self.error = "We couldn't find a new quote. Please try again."
         }
     }
 
@@ -1418,7 +1418,7 @@ func scheduleNextDailyQuote(hour: Int, minute: Int) {
 
     let content = UNMutableNotificationContent()
     content.title = "Daily Quote"
-    content.body  = "Tap to see today’s inspiration."
+    content.body  = "Tap to see today's inspiration."
     content.sound = .default
 
     let trigger = UNCalendarNotificationTrigger(dateMatching: cal.dateComponents([.year,.month,.day,.hour,.minute], from: fire), repeats: false)
@@ -1432,12 +1432,12 @@ func scheduleRollingDailyQuotes(hour: Int, minute: Int, days: Int = 64) {
 
     center.getPendingNotificationRequests { reqs in
         // Clear previous dailyQuote_* to avoid duplicates
-        let ids = reqs.map(\.identifier).filter { $0.hasPrefix(“dailyQuote_”) }
+        let ids = reqs.map(\.identifier).filter { $0.hasPrefix("dailyQuote_") }
         center.removePendingNotificationRequests(withIdentifiers: ids)
 
         // Load quotes.json
         var allQuotes: [BookQuote] = []
-        if let url = Bundle.main.url(forResource: “quotes”, withExtension: “json”),
+        if let url = Bundle.main.url(forResource: "quotes", withExtension: "json"),
            let data = try? Data(contentsOf: url),
            let decoded = try? JSONDecoder().decode([BookQuote].self, from: data) {
             allQuotes = decoded
@@ -1452,14 +1452,14 @@ func scheduleRollingDailyQuotes(hour: Int, minute: Int, days: Int = 64) {
             let q = quoteForDate(fireDate, allQuotes: allQuotes)
 
             let content = UNMutableNotificationContent()
-            content.title = “Quote of the Day”
-            content.body  = q.text.isEmpty ? “Your daily inspiration ✨” : “\”\(q.text)\” — \(q.author)”
+            content.title = "Quote of the Day"
+            content.body  = q.text.isEmpty ? "Your daily inspiration ✨" : "\"\(q.text)\" — \(q.author)"
             content.sound = sound
 
             let comps = Calendar.current.dateComponents([.year,.month,.day,.hour,.minute], from: fireDate)
             let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
 
-            let id = “dailyQuote_\(ymdString(fireDate))”
+            let id = "dailyQuote_\(ymdString(fireDate))"
             let req = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
             center.add(req)
         }

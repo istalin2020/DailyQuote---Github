@@ -64,7 +64,7 @@ struct CreateThemeFullScreen: View {
                                 .foregroundColor(.white)
 
                             if prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                Text("Describe a beautiful wallpaper you want (e.g. “golden sunrise over mountains”).")
+                                Text("Describe a beautiful wallpaper you want (e.g. \"golden sunrise over mountains\").")
                                     .font(.callout)
                                     .foregroundColor(.white.opacity(0.6))
                                     .padding(.top, 16).padding(.leading, 18)
@@ -231,7 +231,7 @@ struct CreateThemeFullScreen: View {
         let short = ThemeCatalog.shortName(from: prompt)
 
         guard let path = ThemeCatalog.savePNG(image: img, filename: short) else {
-            errorText = "Couldn’t save image to Documents."
+            errorText = "Couldn't save image to Documents."
             return
         }
 
