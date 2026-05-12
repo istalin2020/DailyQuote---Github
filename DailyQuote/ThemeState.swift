@@ -89,7 +89,7 @@ extension ThemeState {
     private static let seedKey = "dq.hasSeededDefaultTheme_1"
 
     /// Call this once at app start. If no selection has been made before,
-    /// we set “Dawn Glow” as the current theme and remember that we seeded.
+    /// we set "Dawn Glow" as the current theme and remember that we seeded.
     func seedDefaultThemeIfNeeded() {
         let ud = UserDefaults.standard
         guard ud.bool(forKey: Self.seedKey) == false else { return }
