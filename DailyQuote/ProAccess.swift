@@ -10,6 +10,16 @@ enum ProIDs {
 final class ProAccess: ObservableObject {
     static let shared = ProAccess()
 
+    // MARK: – Testing override
+    // Debug builds (Run from Xcode) are always PRO so every feature can be
+    // tested. Archive uses the Release configuration, where DEBUG is not
+    // defined, so App Store / TestFlight builds use real subscriptions only.
+    #if DEBUG
+    static let forceProForTesting = true
+    #else
+    static let forceProForTesting = false
+    #endif
+
     // MARK: – Free-try constants
     static let initialFreeTriesAskAI   = 10
     static let initialFreeTriesCreate  = 10
@@ -19,7 +29,7 @@ final class ProAccess: ObservableObject {
     private let keyCreate = "askai.remainingFreeUses.create"
 
     // MARK: – Public state
-    @Published private(set) var isPro: Bool = false
+    @Published private(set) var isPro: Bool = ProAccess.forceProForTesting
 
     // 🔹 Separate counters
     @Published private(set) var remainingAskAI: Int = 0
@@ -114,7 +124,7 @@ final class ProAccess: ObservableObject {
                 active = true; break
             }
         }
-        isPro = active
+        isPro = active || Self.forceProForTesting
     }
 
     // MARK: purchase/restore (unchanged)
