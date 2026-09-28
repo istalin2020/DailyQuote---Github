@@ -106,6 +106,9 @@ enum ThemeCatalog {
         if !arr.contains(path) { arr.append(path) }
         UserDefaults.standard.set(arr, forKey: CUSTOMS_KEY)
 
+        // The file may have been overwritten under the same name
+        ThemeThumbnailCache.shared.remove(.file(path))
+
         // Refresh cache once, not on every access
         cachedCustoms = loadCustomsUnsafe()
 

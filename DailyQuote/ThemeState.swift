@@ -36,19 +36,47 @@ final class ThemeState: ObservableObject {
     private init() {
         let stored = UserDefaults.standard.integer(forKey: selectedKey)
         self.currentIndex = ThemeCatalog.clampedIndex(from: stored)
+
+        // A custom theme file can be overwritten under the same path
+        NotificationCenter.default.addObserver(forName: .customThemeCatalogChanged,
+                                               object: nil, queue: .main) { [weak self] _ in
+            self?.cachedImage = nil
+            self?.cachedLuminance = nil
+        }
     }
+
+    // MARK: - Caches
+    // Views call these many times per redraw (the Home screen ~8x for its
+    // text colour). Loading the image (a disk read + decode for custom
+    // themes) and measuring its brightness each time made the Home screen
+    // and every sheet over it slow, so both are cached per theme.
+    private var cachedImage: (source: ThemeCatalog.Source, image: UIImage)?
+    private var cachedLuminance: (source: ThemeCatalog.Source, value: CGFloat)?
 
     // MARK: - Helpers for backgrounds used across the app
 
     /// UIKit image for the current theme (nil if it can't be loaded)
     func currentUIImage() -> UIImage? {
-        ThemeCatalog.uiImage(for: currentItem)
+        let source = currentItem.source
+        if let c = cachedImage, c.source == source { return c.image }
+        guard let img = ThemeCatalog.uiImage(for: currentItem) else { return nil }
+        cachedImage = (source, img)
+        return img
+    }
+
+    /// Average perceived brightness (0...1) of the current theme, cached.
+    var currentLuminance: CGFloat {
+        let source = currentItem.source
+        if let c = cachedLuminance, c.source == source { return c.value }
+        let value = currentUIImageOrFallback(size: CGSize(width: 800, height: 800)).averageLuminance ?? 0.5
+        cachedLuminance = (source, value)
+        return value
     }
 
     /// Always returns an image; if the current theme can't be loaded,
     /// a simple gradient fallback is rendered at the requested size.
     func currentUIImageOrFallback(size: CGSize) -> UIImage {
-        if let img = ThemeCatalog.uiImage(for: currentItem) {
+        if let img = currentUIImage() {
             return img // return original file, not a resized thumbnail
         }
 

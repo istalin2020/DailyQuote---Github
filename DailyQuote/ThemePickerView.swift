@@ -144,12 +144,14 @@ struct ThemePickerView: View {
             .onReceive(NotificationCenter.default.publisher(for: .customThemeCatalogChanged)) { _ in
                 ThemeCatalog.reloadCustoms()
                 customThemes = ThemeCatalog.customs
-                selectedIndex = ThemeCatalog.clampedIndex(from: selectedIndex)
+                let clamped = ThemeCatalog.clampedIndex(from: selectedIndex)
+                if clamped != selectedIndex { selectedIndex = clamped }   // avoid redrawing Home behind the sheet
             }
             .onAppear {
                 ThemeCatalog.reloadCustoms()
                 customThemes = ThemeCatalog.customs
-                selectedIndex = ThemeCatalog.clampedIndex(from: selectedIndex)
+                let clamped = ThemeCatalog.clampedIndex(from: selectedIndex)
+                if clamped != selectedIndex { selectedIndex = clamped }   // avoid redrawing Home behind the sheet
             }
         }
     }
@@ -247,17 +249,31 @@ private struct Chip: View {
 }
 
 // Shared card; height is derived from width via aspect ratio
+// Uses small cached thumbnails (see ThemeThumbnailCache) instead of the
+// full-resolution theme image, which kept scrolling slow.
 private struct ThemeCard: View {
     let item: ThemeCatalog.Item
     var onTap: () -> Void
+    @State private var thumb: UIImage?
+
+    init(item: ThemeCatalog.Item, onTap: @escaping () -> Void) {
+        self.item = item
+        self.onTap = onTap
+        _thumb = State(initialValue: ThemeThumbnailCache.shared.cached(item.source))
+    }
 
     var body: some View {
         Button(action: onTap) {
             ZStack(alignment: .bottomLeading) {
-                ThemeCatalog.image(for: item)
-                    .resizable()
-                    .scaledToFill()
+                Color(.systemGray5)
                     .aspectRatio(2/3, contentMode: .fit)
+                    .overlay {
+                        if let thumb {
+                            Image(uiImage: thumb)
+                                .resizable()
+                                .scaledToFill()
+                        }
+                    }
                     .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
 
                 Text(item.displayName)
@@ -270,5 +286,10 @@ private struct ThemeCard: View {
         .buttonStyle(.plain)
         .contentShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
         .clipped()
+        .task(id: item.source) {
+            if thumb == nil {
+                thumb = await ThemeThumbnailCache.shared.thumbnail(for: item.source)
+            }
+        }
     }
 }

@@ -61,9 +61,8 @@ struct DailyQuoteView: View {
     // MARK: - Adaptive colors from background
     // REPLACE your adaptiveTextColor with this version (no ThemeCatalog.uiImage(for: theme.current)):
     private var adaptiveTextColor: Color {
-        // Guaranteed image (uses Home theme or a safe gradient)
-        let img = theme.currentUIImageOrFallback(size: CGSize(width: 800, height: 800))
-        let L = img.averageLuminance ?? 0.5
+        // Cached per theme — this is read ~8 times on every redraw
+        let L = theme.currentLuminance
         return L < 0.55 ? Color.white.opacity(0.95) : Color.black.opacity(0.90)
     }
 
@@ -1527,6 +1526,46 @@ struct QuoteHistoryView: View {
 
     @State private var rows: [Row] = []
 
+    /// One history entry. Equatable so SwiftUI skips redrawing rows whose
+    /// content didn't change (e.g. when the share sheet state toggles).
+    private struct HistoryRow: View, Equatable {
+        let row: Row
+        let onShare: () -> Void
+
+        static func == (a: HistoryRow, b: HistoryRow) -> Bool { a.row.id == b.row.id && a.row.text == b.row.text }
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(QuoteHistoryView.dayFormatter.string(from: row.id))
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                Text(row.text)
+                    .font(.body)
+
+                HStack(alignment: .firstTextBaseline) {
+                    Text(row.author.map { "- \($0)" } ?? "")
+                        .font(.subheadline).foregroundColor(.secondary).lineLimit(1)
+
+                    Spacer(minLength: 12)
+
+                    Text(row.book.map { "📖 \($0)" } ?? "")
+                        .font(.subheadline).foregroundColor(.secondary)
+                        .lineLimit(1).multilineTextAlignment(.trailing)
+                }
+
+                HStack {
+                    Spacer()
+                    Button(action: onShare) {
+                        Image(systemName: "square.and.arrow.up").imageScale(.medium)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.vertical, 8)
+        }
+    }
+
     private struct ShareImagePayload: Identifiable { let id = UUID(); let image: UIImage }
     @State private var shareItem: ShareImagePayload?
 
@@ -1534,45 +1573,18 @@ struct QuoteHistoryView: View {
         NavigationView {
             List {
                 ForEach(rows) { item in
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(Self.dayFormatter.string(from: item.id))
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-
-                        Text(item.text)
-                            .font(.body)
-                            .fixedSize(horizontal: false, vertical: true)
-
-                        HStack(alignment: .firstTextBaseline) {
-                            Text(item.author.map { "- \($0)" } ?? "")
-                                .font(.subheadline).foregroundColor(.secondary).lineLimit(1)
-
-                            Spacer(minLength: 12)
-
-                            Text(item.book.map { "📖 \($0)" } ?? "")
-                                .font(.subheadline).foregroundColor(.secondary)
-                                .lineLimit(1).multilineTextAlignment(.trailing)
-                        }
-
-                        HStack {
-                            Spacer()
-                            Button {
-                                let img = ShareCardBuilder.image(
-                                    forText: item.text,
-                                    themeNames: ThemeCatalog.names,     // single source
-                                    selectedThemeIndex: selectedThemeIndex,
-                                    author: item.author,
-                                    book: item.book,
-                                    headingOverride: "📚 Quote from a Book"
-                                )
-                                shareItem = ShareImagePayload(image: img)
-                            } label: {
-                                Image(systemName: "square.and.arrow.up").imageScale(.medium)
-                            }
-                            .buttonStyle(.plain)
-                        }
+                    HistoryRow(row: item) {
+                        let img = ShareCardBuilder.image(
+                            forText: item.text,
+                            themeNames: ThemeCatalog.names,     // single source
+                            selectedThemeIndex: selectedThemeIndex,
+                            author: item.author,
+                            book: item.book,
+                            headingOverride: "📚 Quote from a Book"
+                        )
+                        shareItem = ShareImagePayload(image: img)
                     }
-                    .padding(.vertical, 8)
+                    .equatable()
                 }
             }
             .navigationTitle("Quote History")
