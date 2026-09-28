@@ -447,13 +447,15 @@ struct DailyQuoteView: View {
             }
             .onChangeCompat(of: scenePhase) { phase in
                 if phase == .active {
-                    // Returning from background on a new day must show the new quote
+                    // Returning from background on a new day must show the new quote and theme
+                    theme.applyDailyThemeIfNeeded()
                     selectTodayQuote()
                     scheduleRollingDailyQuotes(hour: selectedHour, minute: selectedMinute)
                 }
             }
             .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged).receive(on: RunLoop.main)) { _ in
                 // Midnight passed while the app was open
+                theme.applyDailyThemeIfNeeded()
                 selectTodayQuote()
             }
             .onChangeCompat(of: showTimePicker) { isShowing in
@@ -1625,6 +1627,7 @@ struct DailyQuoteApp: App {
     init() {
         registerBackgroundTasks()
         ThemeState.shared.seedDefaultThemeIfNeeded()
+        ThemeState.shared.applyDailyThemeIfNeeded()
         QuotesResetManager.resetIfNeeded()
     }
 

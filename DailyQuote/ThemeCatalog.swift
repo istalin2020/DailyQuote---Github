@@ -95,6 +95,13 @@ enum ThemeCatalog {
         Item(displayName: "Great Wall",    category: .monuments, source: .asset("theme48")),
         Item(displayName: "Pyramid",       category: .monuments, source: .asset("theme49")),
         Item(displayName: "Colosseum",     category: .monuments, source: .asset("theme50")),
+        Item(displayName: "Rose Watercolor", category: .beautiful, source: .asset("theme51")),
+        Item(displayName: "Misty Sunrise", category: .nature,    source: .asset("theme52")),
+        Item(displayName: "Olive Light",   category: .beautiful, source: .asset("theme53")),
+        Item(displayName: "Starry Horizon",category: .nature,    source: .asset("theme54")),
+        Item(displayName: "Turquoise Shore", category: .nature,  source: .asset("theme55")),
+        // Always append new built-ins at the end; ThemeState shifts saved
+        // custom-theme indices by the number of built-ins added.
     ]
 
     // MARK: - Persistence for customs

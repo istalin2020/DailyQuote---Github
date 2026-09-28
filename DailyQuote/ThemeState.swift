@@ -34,7 +34,19 @@ final class ThemeState: ObservableObject {
 
     // MARK: - Init
     private init() {
-        let stored = UserDefaults.standard.integer(forKey: selectedKey)
+        let ud = UserDefaults.standard
+        var stored = ud.integer(forKey: selectedKey)
+
+        // Custom themes come after the built-ins, so adding built-ins shifts
+        // their indices. Keep a saved custom selection pointing at the same theme.
+        let builtinCountKey = "theme.builtinCount"
+        let oldBuiltinCount = (ud.object(forKey: builtinCountKey) as? Int) ?? 50  // 50 before this key existed
+        if stored >= oldBuiltinCount && oldBuiltinCount != ThemeCatalog.items.count {
+            stored += ThemeCatalog.items.count - oldBuiltinCount
+            ud.set(stored, forKey: selectedKey)   // didSet doesn't run during init
+        }
+        ud.set(ThemeCatalog.items.count, forKey: builtinCountKey)
+
         self.currentIndex = ThemeCatalog.clampedIndex(from: stored)
 
         // A custom theme file can be overwritten under the same path
@@ -136,3 +148,47 @@ extension ThemeState {
     }
 }
 
+// MARK: - Daily random theme
+extension ThemeState {
+    private static let dailyDateKey = "theme.daily.date"   // "yyyy-MM-dd" of the last daily pick
+    private static let dailyUsedKey = "theme.daily.used"   // themes already shown in this cycle
+
+    private static let dailyFormatter: DateFormatter = {
+        let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
+        return f
+    }()
+
+    /// Once per day, switches the Home screen to a random theme
+    /// (built-in themes and the user's own creations).
+    /// - No theme repeats until every theme has been shown once.
+    /// - Never the same theme two days in a row.
+    /// - A theme picked by hand in the Theme window stays until the next day.
+    /// Call on launch, when the app becomes active, and when the day changes.
+    func applyDailyThemeIfNeeded(now: Date = Date()) {
+        let ud = UserDefaults.standard
+        let today = Self.dailyFormatter.string(from: now)
+        guard ud.string(forKey: Self.dailyDateKey) != today else { return }
+
+        let pool = ThemeCatalog.allItems
+        guard !pool.isEmpty else { return }
+        let currentKey = ThemeCatalog.encode(currentItem.source)
+
+        var used = Set(ud.stringArray(forKey: Self.dailyUsedKey) ?? [])
+        var candidates = pool.filter {
+            let key = ThemeCatalog.encode($0.source)
+            return key != currentKey && !used.contains(key)
+        }
+        if candidates.isEmpty {
+            // Every theme has been shown: start a new cycle
+            used = []
+            candidates = pool.filter { ThemeCatalog.encode($0.source) != currentKey }
+        }
+
+        if let pick = candidates.randomElement() {
+            used.insert(ThemeCatalog.encode(pick.source))
+            apply(pick)
+        }
+        ud.set(today, forKey: Self.dailyDateKey)
+        ud.set(Array(used), forKey: Self.dailyUsedKey)
+    }
+}
