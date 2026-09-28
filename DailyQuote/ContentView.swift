@@ -16,9 +16,6 @@ import UserNotifications
 // Used for .sheet(item:) to avoid the "Any has no member sheet" error
 struct SharePayload: Identifiable { let id = UUID(); let image: UIImage }
 
-// MARK: - History key (used by QuoteHistoryView)
-private let kShownQuotes = "shownQuotes"
-
 
 struct DailyQuoteView: View {
     // MARK: - State
@@ -451,8 +448,14 @@ struct DailyQuoteView: View {
             }
             .onChange(of: scenePhase) { phase in
                 if phase == .active {
+                    // Returning from background on a new day must show the new quote
+                    selectTodayQuote()
                     scheduleRollingDailyQuotes(hour: selectedHour, minute: selectedMinute)
                 }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged).receive(on: RunLoop.main)) { _ in
+                // Midnight passed while the app was open
+                selectTodayQuote()
             }
             .onChange(of: showTimePicker) { isShowing in
                 if isShowing {
@@ -717,59 +720,13 @@ struct DailyQuoteView: View {
         }
     }
 
-    // MARK: - Deterministic quote selection
-    //
-    // Every date maps to exactly one quote index via:
-    //   index = daysSince(anchorDate) % totalQuotes
-    //
-    // The anchor date is set once (on first launch or after a reset).
-    // This makes the mapping deterministic: the scheduler, background
-    // refresh, and selectTodayQuote() always agree on which quote
-    // belongs to which day — no pointer, no caching, no race conditions.
+    // MARK: - Deterministic quote selection (see QuoteSchedule)
 
-    private static let anchorDateKey = "quotes.anchorDate"
-
-    /// Returns the quote index for a given date.
-    /// Day 0 (anchor date) → index 0, Day 1 → index 1, etc.
-    private func quoteIndex(for date: Date, total: Int) -> Int {
-        guard total > 0 else { return 0 }
-        let anchor = loadOrCreateAnchorDate()
-        let cal = Calendar.current
-        let days = cal.dateComponents([.day], from: cal.startOfDay(for: anchor),
-                                               to: cal.startOfDay(for: date)).day ?? 0
-        let safeDays = max(0, days)
-        return safeDays % total
-    }
-
-    /// Loads the stored anchor date, or creates one (today) if none exists.
-    private func loadOrCreateAnchorDate() -> Date {
-        let defaults = UserDefaults.standard
-        if let stored = defaults.string(forKey: Self.anchorDateKey) {
-            let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
-            if let d = f.date(from: stored) { return d }
-        }
-        let today = Calendar.current.startOfDay(for: Date())
-        let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
-        defaults.set(f.string(from: today), forKey: Self.anchorDateKey)
-        return today
-    }
-
-    /// Picks today's quote from quotes.json using a deterministic
-    /// date-based index.  No pointer, no caching.
+    /// Picks today's quote from quotes.json. History is derived from
+    /// QuoteSchedule, so nothing needs to be recorded here.
     func selectTodayQuote() {
         guard !allQuotes.isEmpty else { return }
-
-        let idx = quoteIndex(for: Date(), total: allQuotes.count)
-        let picked = allQuotes[idx]
-        quote = picked
-
-        // Append to history (for QuoteHistoryView) — deduped
-        let defaults = UserDefaults.standard
-        var shown = defaults.stringArray(forKey: PersistKey.shownQuotes) ?? []
-        if !shown.contains(picked.text) {
-            shown.append(picked.text)
-            defaults.set(shown, forKey: PersistKey.shownQuotes)
-        }
+        quote = QuoteSchedule.quote(for: Date(), in: allQuotes)
     }
 }
 
@@ -1365,27 +1322,72 @@ func requestNotificationAuth() {
     }
 }
 
-/// Return the quote for a specific date using the deterministic anchor-based index.
-/// Pure computation — does NOT write anything to UserDefaults.
-private func quoteForDate(_ date: Date, allQuotes: [BookQuote]) -> BookQuote {
-    guard !allQuotes.isEmpty else { return BookQuote(text: "", author: "") }
+// MARK: - Deterministic quote schedule (single source of truth)
+//
+// Every date maps to exactly one quote:
+//   index = daysSince(anchorDate) % totalQuotes
+//
+// The anchor date is set once (first launch, or by QuotesResetManager).
+// The home screen, the notification scheduler and the History screen all
+// use this, so they always agree — and History can be rebuilt for any past
+// day, even days the app was never opened (notification only).
+enum QuoteSchedule {
+    static let anchorDateKey = "quotes.anchorDate"
 
-    let anchorKey = "quotes.anchorDate"
-    let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
-    let cal = Calendar.current
+    // Same format/locale as QuotesResetManager so stored anchors parse identically.
+    private static let ymd: DateFormatter = {
+        let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
+        return f
+    }()
 
-    let anchor: Date
-    if let stored = UserDefaults.standard.string(forKey: anchorKey),
-       let d = f.date(from: stored) {
-        anchor = d
-    } else {
-        anchor = cal.startOfDay(for: Date())
-        UserDefaults.standard.set(f.string(from: anchor), forKey: anchorKey)
+    /// Loads the stored anchor date, or creates one (today) if none exists.
+    static func anchorDate() -> Date {
+        let cal = Calendar.current
+        if let stored = UserDefaults.standard.string(forKey: anchorDateKey),
+           let d = ymd.date(from: stored) {
+            return cal.startOfDay(for: d)
+        }
+        let today = cal.startOfDay(for: Date())
+        UserDefaults.standard.set(ymd.string(from: today), forKey: anchorDateKey)
+        return today
     }
 
-    let days = max(0, cal.dateComponents([.day], from: cal.startOfDay(for: anchor),
-                                                  to: cal.startOfDay(for: date)).day ?? 0)
-    return allQuotes[days % allQuotes.count]
+    /// Whole days from the anchor to `date` (never negative).
+    static func dayNumber(for date: Date) -> Int {
+        let cal = Calendar.current
+        let days = cal.dateComponents([.day], from: anchorDate(),
+                                      to: cal.startOfDay(for: date)).day ?? 0
+        return max(0, days)
+    }
+
+    static func index(for date: Date, total: Int) -> Int {
+        guard total > 0 else { return 0 }
+        return dayNumber(for: date) % total
+    }
+
+    static func quote(for date: Date, in quotes: [BookQuote]) -> BookQuote {
+        guard !quotes.isEmpty else { return BookQuote(text: "", author: "") }
+        return quotes[index(for: date, total: quotes.count)]
+    }
+
+    /// Every quote delivered from the anchor date up to and including `date`,
+    /// newest first. Capped at one full cycle so the list never repeats.
+    static func history(through date: Date = Date(), in quotes: [BookQuote]) -> [(date: Date, quote: BookQuote)] {
+        guard !quotes.isEmpty else { return [] }
+        let cal = Calendar.current
+        let anchor = anchorDate()
+        let last = dayNumber(for: date)
+        let first = max(0, last - quotes.count + 1)
+        return (first...last).reversed().compactMap { day in
+            guard let d = cal.date(byAdding: .day, value: day, to: anchor) else { return nil }
+            return (date: d, quote: quotes[day % quotes.count])
+        }
+    }
+}
+
+/// Return the quote for a specific date using the deterministic anchor-based index.
+private func quoteForDate(_ date: Date, allQuotes: [BookQuote]) -> BookQuote {
+    QuoteSchedule.quote(for: date, in: allQuotes)
 }
 
 // MARK: - Sound helper
@@ -1500,27 +1502,30 @@ struct QuoteHistoryView: View {
     }
 
     private struct Row: Identifiable {
-        let id = UUID()
+        let id: Date          // one row per day — stable identity for List
         let text: String
         let author: String?
         let book: String?
     }
 
-    /// Build history rows from the shownQuotes list matched against quotes.json.
-    /// Most recent shown quote first.
-    private var rows: [Row] {
-        let shownTexts = UserDefaults.standard.stringArray(forKey: kShownQuotes) ?? []
-        let all = Bundle.main.loadQuotesSafely()
-        let byText = Dictionary(uniqueKeysWithValues: all.map { ($0.text, $0) })
-
-        return shownTexts.reversed().map { text in
-            if let q = byText[text] {
-                return Row(text: q.text, author: q.author, book: q.book)
-            } else {
-                return Row(text: text, author: nil, book: nil)
-            }
+    /// Every day's quote from the anchor date through today, newest first.
+    /// Derived from QuoteSchedule (the same formula the notifications use),
+    /// so days when only the notification was seen are included too.
+    private static func buildRows() -> [Row] {
+        QuoteSchedule.history(in: Bundle.main.loadQuotesSafely()).map { entry in
+            Row(id: entry.date, text: entry.quote.text,
+                author: entry.quote.author, book: entry.quote.book)
         }
     }
+
+    private static let dayFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateStyle = .medium
+        f.timeStyle = .none
+        return f
+    }()
+
+    @State private var rows: [Row] = []
 
     private struct ShareImagePayload: Identifiable { let id = UUID(); let image: UIImage }
     @State private var shareItem: ShareImagePayload?
@@ -1530,6 +1535,10 @@ struct QuoteHistoryView: View {
             List {
                 ForEach(rows) { item in
                     VStack(alignment: .leading, spacing: 10) {
+                        Text(Self.dayFormatter.string(from: item.id))
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+
                         Text(item.text)
                             .font(.body)
                             .fixedSize(horizontal: false, vertical: true)
@@ -1568,6 +1577,7 @@ struct QuoteHistoryView: View {
             }
             .navigationTitle("Quote History")
         }
+        .onAppear { rows = Self.buildRows() }
         .sheet(item: $shareItem, onDismiss: { shareItem = nil }) { payload in
             ActivityView(activityItems: [payload.image])
         }

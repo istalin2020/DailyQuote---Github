@@ -980,160 +980,6 @@
     "category": "wellbeing"
   },
   {
-    "id": "53bface7-0883-467c-bbb5-32ee65d7e0f6",
-    "text": "Health is not valued till sickness comes.",
-    "author": "Thomas Fuller",
-    "book": "Gnomologia",
-    "category": "wellbeing"
-  },
-  {
-    "id": "01183838-5d51-4d02-80a2-02aefe8e7bfd",
-    "text": "Look well to this day, for it is life.",
-    "author": "Sanskrit Proverb",
-    "book": "Salutation of the Dawn",
-    "category": "wellbeing"
-  },
-  {
-    "id": "b23c3e43-5e00-4c95-878e-a343b2b0fb72",
-    "text": "The soul always knows what to do to heal itself. The challenge is to silence the mind.",
-    "author": "Caroline Myss",
-    "book": "Anatomy of the Spirit",
-    "category": "wellbeing"
-  },
-  {
-    "id": "e94fcb68-80bd-436e-9a60-91fcde167a68",
-    "text": "Nature does not hurry, yet everything is accomplished.",
-    "author": "Lao Tzu",
-    "book": "Tao Te Ching",
-    "category": "wellbeing"
-  },
-  {
-    "id": "e0d055ca-e380-4468-8973-76c3d5fbecd3",
-    "text": "To a mind that is still, the whole universe surrenders.",
-    "author": "Lao Tzu",
-    "book": "Tao Te Ching",
-    "category": "wellbeing"
-  },
-  {
-    "id": "8c379d43-4b79-4be1-b5e1-32a37fa83cf6",
-    "text": "Be content with what you have; rejoice in the way things are.",
-    "author": "Lao Tzu",
-    "book": "Tao Te Ching",
-    "category": "wellbeing"
-  },
-  {
-    "id": "e580f027-f4fb-4c06-9ce3-f3f4084cc051",
-    "text": "A journey of a thousand miles must begin with a single step.",
-    "author": "Lao Tzu",
-    "book": "Tao Te Ching",
-    "category": "motivation"
-  },
-  {
-    "id": "64c0f930-0b83-41ad-993f-6c035c34c10c",
-    "text": "The best fighter is never angry.",
-    "author": "Lao Tzu",
-    "book": "Tao Te Ching",
-    "category": "wellbeing"
-  },
-  {
-    "id": "3700f6f2-52c3-4171-bcc6-d1963add2b27",
-    "text": "If your compassion does not include yourself, it is incomplete.",
-    "author": "Jack Kornfield",
-    "book": "A Path with Heart",
-    "category": "wellbeing"
-  },
-  {
-    "id": "51e1e12b-18a2-4c60-b174-0a8554625d1d",
-    "text": "In the end, just three things matter: How well we have lived. How well we have loved. How well we have learned to let go.",
-    "author": "Jack Kornfield",
-    "book": "Buddha's Little Instruction Book",
-    "category": "wellbeing"
-  },
-  {
-    "id": "01a6343e-9e99-4b34-b0d7-2b20241543f3",
-    "text": "Mindfulness means being awake. It means knowing what you are doing.",
-    "author": "Jon Kabat-Zinn",
-    "book": "Wherever You Go, There You Are",
-    "category": "wellbeing"
-  },
-  {
-    "id": "2d29b82c-ad9a-4a2c-b850-e36dd1c30492",
-    "text": "The little things? The little moments? They aren't little.",
-    "author": "Jon Kabat-Zinn",
-    "book": "Wherever You Go, There You Are",
-    "category": "wellbeing"
-  },
-  {
-    "id": "22d5be5c-67a3-4c44-afa9-0ab89085a4b6",
-    "text": "You can't stop the waves, but you can learn to surf.",
-    "author": "Jon Kabat-Zinn",
-    "book": "Wherever You Go, There You Are",
-    "category": "wellbeing"
-  },
-  {
-    "id": "28ec7304-e8ee-4b53-a010-8a61db2e644a",
-    "text": "Drink your tea slowly and reverently, as if it is the axis on which the world earth revolves.",
-    "author": "Thich Nhat Hanh",
-    "book": "The Miracle of Mindfulness",
-    "category": "wellbeing"
-  },
-  {
-    "id": "8cfdd506-d9ff-4aa5-96c9-3e832e776171",
-    "text": "In today's rush, we all think too much, seek too much, want too much, and forget about the joy of just being.",
-    "author": "Eckhart Tolle",
-    "book": "The Power of Now",
-    "category": "wellbeing"
-  },
-  {
-    "id": "2260fe43-cbcb-486f-85b5-2d60f8dfbb52",
-    "text": "Realize deeply that the present moment is all you have. Make the now the primary focus of your life.",
-    "author": "Eckhart Tolle",
-    "book": "The Power of Now",
-    "category": "wellbeing"
-  },
-  {
-    "id": "7a67ccf1-151e-4bdf-a4ae-ce66898e11bd",
-    "text": "Life is the dancer and you are the dance.",
-    "author": "Eckhart Tolle",
-    "book": "A New Earth",
-    "category": "wellbeing"
-  },
-  {
-    "id": "72931985-4536-4690-8d7a-8f0fee31c6cb",
-    "text": "The primary cause of unhappiness is never the situation but your thoughts about it.",
-    "author": "Eckhart Tolle",
-    "book": "A New Earth",
-    "category": "wellbeing"
-  },
-  {
-    "id": "b08a946d-fe52-4b3d-a6a2-4706d27de207",
-    "text": "Life will give you whatever experience is most helpful for the evolution of your consciousness.",
-    "author": "Eckhart Tolle",
-    "book": "A New Earth",
-    "category": "wellbeing"
-  },
-  {
-    "id": "7334087e-911b-4718-b7c2-d73689024de9",
-    "text": "What a liberation to realize that the voice in my head is not who I am.",
-    "author": "Eckhart Tolle",
-    "book": "A New Earth",
-    "category": "wellbeing"
-  },
-  {
-    "id": "c759e88a-2018-43b2-b9b0-49ad808d564a",
-    "text": "Wherever you are, be there totally.",
-    "author": "Eckhart Tolle",
-    "book": "The Power of Now",
-    "category": "wellbeing"
-  },
-  {
-    "id": "cb5aa1f1-44e9-4d81-ae1d-b739b6b16650",
-    "text": "Do every act of your life as though it were the very last act of your life.",
-    "author": "Marcus Aurelius",
-    "book": "Meditations",
-    "category": "wellbeing"
-  },
-  {
     "id": "75ef2b38-88c8-4dde-9664-6cdb39de6ca3",
     "text": "If it is not right, do not do it; if it is not true, do not say it.",
     "author": "Marcus Aurelius",
@@ -1141,87 +987,59 @@
     "category": "wellbeing"
   },
   {
-    "id": "1603ae7a-45fd-4a26-b523-854690f2f21f",
-    "text": "How we spend our days is, of course, how we spend our lives.",
-    "author": "Annie Dillard",
-    "book": "The Writing Life",
-    "category": "wellbeing"
+    "id": "fa2a2064-d6a3-4c41-a293-9888b7d90038",
+    "text": "Stay afraid, but do it anyway. What's important is the action.",
+    "author": "Carrie Fisher",
+    "book": "Wishful Drinking",
+    "category": "courage"
   },
   {
-    "id": "0ff31eca-8f37-4472-905c-a082d16753f4",
-    "text": "Nourishing yourself in a way that helps you blossom in the direction you want to go is attainable, and you are worth the effort.",
-    "author": "Deborah Day",
-    "book": "BE HAPPY NOW!",
-    "category": "wellbeing"
+    "id": "71859d0b-0b2a-4b05-a135-cf8d25805bfc",
+    "text": "We are the music makers, and we are the dreamers of dreams.",
+    "author": "Arthur O'Shaughnessy",
+    "book": "Ode",
+    "category": "mental/physical/happy/courage"
   },
   {
-    "id": "5cd2e5b5-d676-4cfd-a5be-b5dd8ca477bf",
-    "text": "Gratitude turns what we have into enough.",
-    "author": "Melody Beattie",
-    "book": "The Language of Letting Go",
-    "category": "wellbeing"
+    "id": "b689658d-5e3d-4db2-a152-861eb8e4f582",
+    "text": "The only way to achieve the impossible is to believe it is possible.",
+    "author": "Charles Kingsleigh",
+    "book": "Alice in Wonderland",
+    "category": "courage"
   },
   {
-    "id": "e3ad1fd5-6dc9-45b5-a088-2a0a2ac99213",
-    "text": "Gratitude is the healthiest of all human emotions.",
-    "author": "Zig Ziglar",
-    "book": "See You at the Top",
-    "category": "wellbeing"
+    "id": "767ac331-933b-40a3-82de-3ad731ec0817",
+    "text": "There are two ways of spreading light: to be the candle or the mirror that reflects it.",
+    "author": "Edith Wharton",
+    "book": "Vesalius in Zante",
+    "category": "mental/physical/happy/courage"
   },
   {
-    "id": "f5e9b796-7b23-491a-a0f2-eea416201d7e",
-    "text": "When I started counting my blessings, my whole life turned around.",
-    "author": "Willie Nelson",
-    "book": "The Tao of Willie",
-    "category": "wellbeing"
+    "id": "8265ee01-3c7d-421e-8854-05f899d54b9c",
+    "text": "Bring into each day enough gentle humor and enough honest laughter, and you will soften the rough edges of reality.",
+    "author": "Norman Cousins",
+    "book": "Anatomy of an Illness",
+    "category": "mental/physical/happy/courage"
   },
   {
-    "id": "388681d8-1737-4ff8-9041-c3b9c0c3ccde",
-    "text": "Gratitude makes sense of our past, brings peace for today, and creates a vision for tomorrow.",
-    "author": "Melody Beattie",
-    "book": "The Language of Letting Go",
-    "category": "wellbeing"
+    "id": "26d20f0b-cc50-4daf-824b-49235c083f60",
+    "text": "When one door of happiness closes, another opens; but often we look so long at the closed door that we do not see the one which has been opened for us.",
+    "author": "Helen Keller",
+    "book": "We Bereaved",
+    "category": "mental/physical/happy/courage"
   },
   {
-    "id": "abd0090e-7651-4208-a75a-ec58addd9397",
-    "text": "Breathe. Let go. And remind yourself that this very moment is the only one you know you have for sure.",
-    "author": "Oprah Winfrey",
-    "book": "What I Know for Sure",
-    "category": "wellbeing"
+    "id": "c0b8efeb-0084-4cd2-a29d-71a57f1808b7",
+    "text": "What doesn't kill you makes you stronger.",
+    "author": "Friedrich Nietzsche",
+    "book": "Twilight of the Idols",
+    "category": "courage"
   },
   {
-    "id": "94f53707-8fb4-4bff-97f6-c2f8ab0dbf7a",
-    "text": "The more you praise and celebrate your life, the more there is in life to celebrate.",
-    "author": "Oprah Winfrey",
-    "book": "What I Know for Sure",
-    "category": "wellbeing"
-  },
-  {
-    "id": "4b15f99d-36bb-4a90-ae36-27a5d4c29a9e",
-    "text": "Be thankful for what you have; you'll end up having more.",
-    "author": "Oprah Winfrey",
-    "book": "What I Know for Sure",
-    "category": "wellbeing"
-  },
-  {
-    "id": "8e15b89b-3df3-4b2f-9858-33237ed517fd",
-    "text": "Letting go gives us freedom, and freedom is the only condition for happiness.",
-    "author": "Thich Nhat Hanh",
-    "book": "The Heart of the Buddha's Teaching",
-    "category": "wellbeing"
-  },
-  {
-    "id": "1ac7c9c1-2e5a-48a1-82b7-1fe6c1c52da0",
-    "text": "Life is available only in the present moment.",
-    "author": "Thich Nhat Hanh",
-    "book": "Our Appointment with Life",
-    "category": "wellbeing"
-  },
-  {
-    "id": "d0de815f-cf15-4edc-b4d9-fcbbf388548a",
-    "text": "Joy is not in things; it is in us.",
-    "author": "Richard Wagner",
-    "book": "Letters and Journals",
+    "id": "7334087e-911b-4718-b7c2-d73689024de9",
+    "text": "What a liberation to realize that the voice in my head is not who I am.",
+    "author": "Eckhart Tolle",
+    "book": "A New Earth",
     "category": "wellbeing"
   },
   {
@@ -1232,46 +1050,53 @@
     "category": "wellbeing"
   },
   {
-    "id": "9e460129-01ad-4f29-84a4-2d5c4ee3b658",
-    "text": "To keep the body in good health is a duty, otherwise we shall not be able to keep our mind strong and clear.",
-    "author": "Buddha",
-    "book": "The Dhammapada",
+    "id": "f23f74a5-ad9f-4156-9598-2a717016e9c4",
+    "text": "No act of kindness, no matter how small, is ever wasted.",
+    "author": "Aesop",
+    "book": "Aesop's Fables",
+    "category": "wisdom"
+  },
+  {
+    "id": "ab8353a6-a19f-4add-ba4d-c0bda0491a5e",
+    "text": "You have within you right now, everything you need to deal with whatever the world can throw at you.",
+    "author": "Brian Tracy",
+    "book": "Maximum Achievement",
+    "category": "courage"
+  },
+  {
+    "id": "338952b8-bad3-4c6e-a6b4-c6a6d18d7346",
+    "text": "The mountains are calling and I must go.",
+    "author": "John Muir",
+    "book": "Letters to a Friend",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "dd681d30-b01b-4967-9c71-299aa1992add",
+    "text": "We must accept finite disappointment, but never lose infinite hope.",
+    "author": "Martin Luther King Jr.",
+    "book": "Strength to Love",
+    "category": "courage"
+  },
+  {
+    "id": "b23c3e43-5e00-4c95-878e-a343b2b0fb72",
+    "text": "The soul always knows what to do to heal itself. The challenge is to silence the mind.",
+    "author": "Caroline Myss",
+    "book": "Anatomy of the Spirit",
     "category": "wellbeing"
   },
   {
-    "id": "59d5ad38-8cb8-4384-8543-91f23b483fa3",
-    "text": "The greatest glory in living lies not in never falling, but in rising every time we fall.",
-    "author": "Nelson Mandela",
-    "book": "Long Walk to Freedom",
-    "category": "courage"
+    "id": "53bface7-0883-467c-bbb5-32ee65d7e0f6",
+    "text": "Health is not valued till sickness comes.",
+    "author": "Thomas Fuller",
+    "book": "Gnomologia",
+    "category": "wellbeing"
   },
   {
-    "id": "5fb6953c-c78a-4bcf-bdeb-aada2c56b7d1",
-    "text": "You were given this life because you are strong enough to live it.",
-    "author": "Ain Eineziz",
-    "book": "Strength in Words",
-    "category": "courage"
-  },
-  {
-    "id": "cd784c09-10a2-4ddd-8cf3-c7a5d00fe585",
-    "text": "Courage is not the absence of fear, but the triumph over it.",
-    "author": "Nelson Mandela",
-    "book": "Long Walk to Freedom",
-    "category": "courage"
-  },
-  {
-    "id": "abea4228-f191-417d-b566-04c27f77444a",
-    "text": "Fall seven times, stand up eight.",
-    "author": "Japanese Proverb",
-    "book": "Japanese Wisdom",
-    "category": "courage"
-  },
-  {
-    "id": "d1622287-8c93-486b-989f-2f417b64cdc6",
-    "text": "The strongest people are not those who show strength in front of us but those who win battles we know nothing about.",
-    "author": "Jonathan Harnisch",
-    "book": "Jonathan Harnisch: An Alibiography",
-    "category": "courage"
+    "id": "65e3f76f-4485-4a7b-be4e-114c0af61725",
+    "text": "Go confidently in the direction of your dreams. Live the life you have imagined.",
+    "author": "Henry David Thoreau",
+    "book": "Walden",
+    "category": "wisdom"
   },
   {
     "id": "222ed5de-54a4-4119-a2a8-2af435371036",
@@ -1281,31 +1106,45 @@
     "category": "courage"
   },
   {
-    "id": "84b26d32-65a3-4d13-8193-506e3f097441",
-    "text": "Out of difficulties grow miracles.",
-    "author": "Jean de La Bruyère",
-    "book": "The Characters",
-    "category": "courage"
+    "id": "2744d2da-9618-4bd7-a14a-ffdf5a208ff7",
+    "text": "No matter what people tell you, words and ideas can change the world.",
+    "author": "Robin Williams",
+    "book": "Dead Poets Society",
+    "category": "motivation"
   },
   {
-    "id": "24137c27-9837-4266-8b44-1bf171cc2746",
-    "text": "A smooth sea never made a skilled sailor.",
-    "author": "Franklin D. Roosevelt",
-    "book": "Addresses",
-    "category": "courage"
+    "id": "63142995-75dc-41d8-ae78-076b8fdbc14f",
+    "text": "Find ecstasy in life; the mere sense of living is joy enough.",
+    "author": "Emily Dickinson",
+    "book": "Letters of Emily Dickinson",
+    "category": "mental/physical/happy/courage"
   },
   {
-    "id": "09349bcb-5007-4871-84ca-a733e5994f6e",
-    "text": "You may have to fight a battle more than once to win it.",
-    "author": "Margaret Thatcher",
-    "book": "The Downing Street Years",
-    "category": "courage"
+    "id": "1d43764d-7e63-4920-b583-36cb4edd8e43",
+    "text": "I cannot teach anybody anything. I can only make them think.",
+    "author": "Socrates",
+    "book": "Dialogues by Plato",
+    "category": "wisdom"
   },
   {
-    "id": "85cc8ba3-a4a9-4129-b125-164c05a55b7e",
-    "text": "Stars can't shine without darkness.",
-    "author": "D.H. Sidebottom",
-    "book": "Fragile Truths",
+    "id": "efb950ba-2c53-4e97-a927-65f6385d9575",
+    "text": "A warm smile is the universal language of kindness.",
+    "author": "William Arthur Ward",
+    "book": "Fountains of Faith",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "6bc6f67e-6939-40e7-817c-5cfece77fcfa",
+    "text": "Education is the kindling of a flame, not the filling of a vessel.",
+    "author": "Socrates",
+    "book": "Plutarch's Lives",
+    "category": "wisdom"
+  },
+  {
+    "id": "c9ab1807-bfc6-41b0-8d4b-935f4bb8f533",
+    "text": "I am not what happened to me. I am what I choose to become.",
+    "author": "Carl Jung",
+    "book": "Memories, Dreams, Reflections",
     "category": "courage"
   },
   {
@@ -1316,38 +1155,213 @@
     "category": "courage"
   },
   {
-    "id": "d48cbe77-9024-41e5-bb79-5d03abd8066a",
-    "text": "Storm clouds don't last forever. Even the longest, darkest nights eventually give way to dawn.",
-    "author": "Steve Maraboli",
-    "book": "Life, the Truth, and Being Free",
+    "id": "ac84e28f-29af-4f7f-8a18-489da7d227a8",
+    "text": "There is only one happiness in this life, to love and be loved.",
+    "author": "George Sand",
+    "book": "Letters",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "07e20832-1a34-4243-84d8-bf20abbc896a",
+    "text": "Life shrinks or expands in proportion to one's courage.",
+    "author": "Anaïs Nin",
+    "book": "The Diary of Anaïs Nin",
     "category": "courage"
   },
   {
-    "id": "255e3f2f-daf9-4702-8524-40702ab67791",
-    "text": "Courage doesn't always roar. Sometimes courage is the quiet voice at the end of the day saying, I will try again tomorrow.",
-    "author": "Mary Anne Radmacher",
-    "book": "Live Boldly",
+    "id": "8099c73d-a497-4396-a612-0efb06929053",
+    "text": "I dwell in possibility.",
+    "author": "Emily Dickinson",
+    "book": "The Complete Poems",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "63c43f52-a99e-4ac4-8765-6c3c6464cde1",
+    "text": "The greatest healing therapy is friendship and love.",
+    "author": "Hubert H. Humphrey",
+    "book": "Speeches",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "3700f6f2-52c3-4171-bcc6-d1963add2b27",
+    "text": "If your compassion does not include yourself, it is incomplete.",
+    "author": "Jack Kornfield",
+    "book": "A Path with Heart",
+    "category": "wellbeing"
+  },
+  {
+    "id": "ab7d5d75-3e61-4748-97e3-2163b4b03bce",
+    "text": "Music expresses that which cannot be put into words and that which cannot remain silent.",
+    "author": "Victor Hugo",
+    "book": "William Shakespeare",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "e6226e12-60d8-4117-a317-b0e4e61c9825",
+    "text": "Logic will get you from A to B. Imagination will take you everywhere.",
+    "author": "Albert Einstein",
+    "book": "The World As I See It",
+    "category": "wisdom"
+  },
+  {
+    "id": "2c987b6a-2ae2-412d-8241-393a93af3d78",
+    "text": "Laughter is the sun that drives winter from the human face.",
+    "author": "Victor Hugo",
+    "book": "Les Misérables",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "017c5b56-8132-40ee-8533-93334c14571c",
+    "text": "The secret of happiness is not in doing what one likes, but in liking what one does.",
+    "author": "James M. Barrie",
+    "book": "The Little Minister",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "e3ad1fd5-6dc9-45b5-a088-2a0a2ac99213",
+    "text": "Gratitude is the healthiest of all human emotions.",
+    "author": "Zig Ziglar",
+    "book": "See You at the Top",
+    "category": "wellbeing"
+  },
+  {
+    "id": "4c2efdf6-cb1f-40c9-80b0-88c014677f31",
+    "text": "Anyone who stops learning is old, whether at twenty or eighty.",
+    "author": "Henry Ford",
+    "book": "My Life and Work",
+    "category": "wisdom"
+  },
+  {
+    "id": "bbe67937-de54-4c19-97b6-c1c0f903b39a",
+    "text": "Count your age by friends, not years. Count your life by smiles, not tears.",
+    "author": "John Lennon",
+    "book": "In His Own Write",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "55b02f76-74c4-4d81-88ea-508ede8ef0cd",
+    "text": "Only those who will risk going too far can possibly find out how far one can go.",
+    "author": "T.S. Eliot",
+    "book": "Transit of Venus",
     "category": "courage"
   },
   {
-    "id": "c0b8efeb-0084-4cd2-a29d-71a57f1808b7",
-    "text": "What doesn't kill you makes you stronger.",
-    "author": "Friedrich Nietzsche",
-    "book": "Twilight of the Idols",
+    "id": "db823ee1-9ce7-49c4-8cd5-10ca3dd175f7",
+    "text": "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.",
+    "author": "Ralph Waldo Emerson",
+    "book": "Self-Reliance",
+    "category": "wisdom"
+  },
+  {
+    "id": "9ad0aa71-9cb4-456f-9aaf-b824cebf6f49",
+    "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+    "author": "Will Durant",
+    "book": "The Story of Philosophy",
+    "category": "motivation"
+  },
+  {
+    "id": "0c1ac638-adae-4394-9447-1e86eee8ec42",
+    "text": "Before you embark on a journey of revenge, dig two graves.",
+    "author": "Confucius",
+    "book": "The Analects",
+    "category": "wisdom"
+  },
+  {
+    "id": "9bd64007-7739-48ee-a57f-286ba126b7f1",
+    "text": "What we achieve inwardly will change outer reality.",
+    "author": "Plutarch",
+    "book": "Moralia",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "f3e1a634-452a-4093-94f1-716624a7d5bd",
+    "text": "Peace comes from within. Do not seek it without.",
+    "author": "Buddha",
+    "book": "The Dhammapada",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "818b30a3-f0ed-4821-a7ee-82cd4a17f952",
+    "text": "The chief enemy of creativity is good sense.",
+    "author": "Pablo Picasso",
+    "book": "Conversations with Picasso",
+    "category": "wisdom"
+  },
+  {
+    "id": "84b26d32-65a3-4d13-8193-506e3f097441",
+    "text": "Out of difficulties grow miracles.",
+    "author": "Jean de La Bruyère",
+    "book": "The Characters",
     "category": "courage"
   },
   {
-    "id": "f124ec12-9368-4bc8-8c85-8b7a31ac1d76",
-    "text": "Strength does not come from winning. Your struggles develop your strengths.",
-    "author": "Arnold Schwarzenegger",
-    "book": "Total Recall",
+    "id": "88fb5630-04b3-4511-b582-359cee31f240",
+    "text": "A little nonsense now and then is relished by the wisest men.",
+    "author": "Roald Dahl",
+    "book": "Charlie and the Great Glass Elevator",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "abd0090e-7651-4208-a75a-ec58addd9397",
+    "text": "Breathe. Let go. And remind yourself that this very moment is the only one you know you have for sure.",
+    "author": "Oprah Winfrey",
+    "book": "What I Know for Sure",
+    "category": "wellbeing"
+  },
+  {
+    "id": "85cc8ba3-a4a9-4129-b125-164c05a55b7e",
+    "text": "Stars can't shine without darkness.",
+    "author": "D.H. Sidebottom",
+    "book": "Fragile Truths",
     "category": "courage"
   },
   {
-    "id": "c9ab1807-bfc6-41b0-8d4b-935f4bb8f533",
-    "text": "I am not what happened to me. I am what I choose to become.",
-    "author": "Carl Jung",
-    "book": "Memories, Dreams, Reflections",
+    "id": "65caafab-64c1-48b5-ac8b-2e37676a3789",
+    "text": "Man suffers only because he takes seriously what the gods made for fun.",
+    "author": "Alan Watts",
+    "book": "The Book: On the Taboo Against Knowing Who You Are",
+    "category": "wisdom"
+  },
+  {
+    "id": "d49d098c-1556-4fbe-af88-fc7d8a6077eb",
+    "text": "You are imperfect, you are wired for struggle, but you are worthy of love and belonging.",
+    "author": "Brené Brown",
+    "book": "The Gifts of Imperfection",
+    "category": "courage"
+  },
+  {
+    "id": "bee9008d-7bbc-4f8d-8477-a5d8f12bb80a",
+    "text": "For every minute you are angry you lose sixty seconds of happiness.",
+    "author": "Ralph Waldo Emerson",
+    "book": "Journals",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "5fb6953c-c78a-4bcf-bdeb-aada2c56b7d1",
+    "text": "You were given this life because you are strong enough to live it.",
+    "author": "Ain Eineziz",
+    "book": "Strength in Words",
+    "category": "courage"
+  },
+  {
+    "id": "3ec9246b-c386-44f5-8f7e-5c26ddc517ae",
+    "text": "Every day may not be good, but there is something good in every day.",
+    "author": "Alice Morse Earle",
+    "book": "Sun Dials and Roses of Yesterday",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "d7edc312-9ea6-438c-9f36-e42b4df36d31",
+    "text": "The gem cannot be polished without friction, nor man perfected without trials.",
+    "author": "Confucius",
+    "book": "The Analects",
+    "category": "wisdom"
+  },
+  {
+    "id": "24137c27-9837-4266-8b44-1bf171cc2746",
+    "text": "A smooth sea never made a skilled sailor.",
+    "author": "Franklin D. Roosevelt",
+    "book": "Addresses",
     "category": "courage"
   },
   {
@@ -1358,185 +1372,52 @@
     "category": "courage"
   },
   {
-    "id": "63b6e7bb-3744-4280-be37-796f8c001254",
-    "text": "The wound is the place where the light enters you.",
-    "author": "Rumi",
-    "book": "The Essential Rumi",
-    "category": "courage"
-  },
-  {
-    "id": "6afbf37a-9cb3-4e54-82ac-c332de605f76",
-    "text": "Let yourself be silently drawn by the strange pull of what you really love. It will not lead you astray.",
-    "author": "Rumi",
-    "book": "The Essential Rumi",
-    "category": "motivation"
-  },
-  {
-    "id": "9520945b-20b7-4993-b78e-66731f2f1f18",
-    "text": "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.",
-    "author": "Rumi",
-    "book": "The Essential Rumi",
-    "category": "motivation"
-  },
-  {
-    "id": "aa172da7-c2b5-4286-b7f9-7f25a0ff27e6",
-    "text": "What you seek is seeking you.",
-    "author": "Rumi",
-    "book": "The Essential Rumi",
-    "category": "motivation"
-  },
-  {
-    "id": "280c2660-91b0-48f0-a62a-8f76fadc549c",
-    "text": "Don't be satisfied with stories, how things have gone with others. Unfold your own myth.",
-    "author": "Rumi",
-    "book": "The Essential Rumi",
-    "category": "motivation"
-  },
-  {
-    "id": "1d228dbb-1ee9-439f-932e-9ba281521bcf",
-    "text": "Raise your words, not your voice. It is rain that grows flowers, not thunder.",
-    "author": "Rumi",
-    "book": "The Essential Rumi",
+    "id": "0ff31eca-8f37-4472-905c-a082d16753f4",
+    "text": "Nourishing yourself in a way that helps you blossom in the direction you want to go is attainable, and you are worth the effort.",
+    "author": "Deborah Day",
+    "book": "BE HAPPY NOW!",
     "category": "wellbeing"
   },
   {
-    "id": "0bdfa57a-af14-4275-9ca3-da0e000bfa30",
-    "text": "Where there is ruin, there is hope for a treasure.",
-    "author": "Rumi",
-    "book": "The Masnavi",
-    "category": "courage"
+    "id": "38e6f67b-c8f3-4e60-b4af-dec3c6c0cbc1",
+    "text": "The mind is not a vessel to be filled, but a fire to be kindled.",
+    "author": "Plutarch",
+    "book": "Moralia",
+    "category": "wisdom"
   },
   {
-    "id": "1ac69b9a-b971-40ee-91c1-8b643e5a58b4",
-    "text": "Set your life on fire. Seek those who fan your flames.",
-    "author": "Rumi",
-    "book": "The Essential Rumi",
+    "id": "396f12a1-95e0-4dc0-a0f3-76c4a9f9e08e",
+    "text": "The only way to learn mathematics is to do mathematics.",
+    "author": "Paul Halmos",
+    "book": "A Hilbert Space Problem Book",
+    "category": "wisdom"
+  },
+  {
+    "id": "8fb2063c-2a1f-45f0-9db2-6415914f4c9e",
+    "text": "If you want others to be happy, practice compassion. If you want to be happy, practice compassion.",
+    "author": "Dalai Lama",
+    "book": "The Art of Happiness",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "ea1c14e5-ffc3-4df8-9f3b-70f96863a983",
+    "text": "What is beautiful is good, and who is good will soon be beautiful.",
+    "author": "Sappho",
+    "book": "Fragments",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "cc2f00ca-6ebf-4b86-9c98-f597d57290d2",
+    "text": "Life is not measured by the number of breaths we take, but by the moments that take our breath away.",
+    "author": "Maya Angelou",
+    "book": "Wouldn't Take Nothing for My Journey Now",
     "category": "motivation"
   },
   {
-    "id": "97393c8e-8ca8-49d1-ab7c-8ae21d933ef0",
-    "text": "Vulnerability is not winning or losing; it's having the courage to show up and be seen.",
-    "author": "Brené Brown",
-    "book": "Daring Greatly",
-    "category": "courage"
-  },
-  {
-    "id": "d49d098c-1556-4fbe-af88-fc7d8a6077eb",
-    "text": "You are imperfect, you are wired for struggle, but you are worthy of love and belonging.",
-    "author": "Brené Brown",
-    "book": "The Gifts of Imperfection",
-    "category": "courage"
-  },
-  {
-    "id": "44fbff4b-cc5c-46a9-b391-2dab14196b89",
-    "text": "Owning our story and loving ourselves through that process is the bravest thing we'll ever do.",
-    "author": "Brené Brown",
-    "book": "The Gifts of Imperfection",
-    "category": "courage"
-  },
-  {
-    "id": "eefe994a-3020-4d26-b9ba-b58668de2609",
-    "text": "Imperfections are not inadequacies; they are reminders that we're all in this together.",
-    "author": "Brené Brown",
-    "book": "The Gifts of Imperfection",
-    "category": "courage"
-  },
-  {
-    "id": "fa2a2064-d6a3-4c41-a293-9888b7d90038",
-    "text": "Stay afraid, but do it anyway. What's important is the action.",
-    "author": "Carrie Fisher",
-    "book": "Wishful Drinking",
-    "category": "courage"
-  },
-  {
-    "id": "55b02f76-74c4-4d81-88ea-508ede8ef0cd",
-    "text": "Only those who will risk going too far can possibly find out how far one can go.",
-    "author": "T.S. Eliot",
-    "book": "Transit of Venus",
-    "category": "courage"
-  },
-  {
-    "id": "b46c1573-f461-4f19-815d-8753c5b4127c",
-    "text": "The only courage that matters is the kind that gets you from one moment to the next.",
-    "author": "Mignon McLaughlin",
-    "book": "The Second Neurotic's Notebook",
-    "category": "courage"
-  },
-  {
-    "id": "323f7e9a-b913-496b-9eef-70b9acafc983",
-    "text": "Character cannot be developed in ease and quiet. Only through experience of trial and suffering can the soul be strengthened.",
-    "author": "Helen Keller",
-    "book": "The Story of My Life",
-    "category": "courage"
-  },
-  {
-    "id": "07e20832-1a34-4243-84d8-bf20abbc896a",
-    "text": "Life shrinks or expands in proportion to one's courage.",
-    "author": "Anaïs Nin",
-    "book": "The Diary of Anaïs Nin",
-    "category": "courage"
-  },
-  {
-    "id": "dd681d30-b01b-4967-9c71-299aa1992add",
-    "text": "We must accept finite disappointment, but never lose infinite hope.",
-    "author": "Martin Luther King Jr.",
-    "book": "Strength to Love",
-    "category": "courage"
-  },
-  {
-    "id": "bcf04b33-9766-4d2e-9262-87ad0cf8e78c",
-    "text": "Darkness cannot drive out darkness; only light can do that.",
-    "author": "Martin Luther King Jr.",
-    "book": "Strength to Love",
-    "category": "courage"
-  },
-  {
-    "id": "f356576b-3950-4428-af56-0e64f75d4035",
-    "text": "The time is always right to do what is right.",
-    "author": "Martin Luther King Jr.",
-    "book": "Letter from Birmingham Jail",
-    "category": "courage"
-  },
-  {
-    "id": "49671a81-526f-4c98-b3ed-03c7d86a350c",
-    "text": "Faith is taking the first step even when you don't see the whole staircase.",
-    "author": "Martin Luther King Jr.",
-    "book": "Stride Toward Freedom",
-    "category": "courage"
-  },
-  {
-    "id": "468e3b17-8082-4287-85ce-e3fdb55fa7d6",
-    "text": "If you can't fly then run, if you can't run then walk, if you can't walk then crawl, but whatever you do you have to keep moving forward.",
-    "author": "Martin Luther King Jr.",
-    "book": "Speeches",
-    "category": "courage"
-  },
-  {
-    "id": "76ec4ccd-10e4-404d-b9ce-c5c00f49c5c2",
-    "text": "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
-    "author": "Thomas Edison",
-    "book": "Diary and Sundry Observations",
-    "category": "courage"
-  },
-  {
-    "id": "428859f8-0a5c-4c10-9054-8948cfe39333",
-    "text": "There is no failure except in no longer trying.",
-    "author": "Elbert Hubbard",
-    "book": "A Message to Garcia",
-    "category": "courage"
-  },
-  {
-    "id": "75049221-3cf8-42c3-807e-fa1e77e38bb3",
-    "text": "Persistence and resilience only come from having been given the chance to work through difficult problems.",
-    "author": "Gever Tulley",
-    "book": "50 Dangerous Things",
-    "category": "courage"
-  },
-  {
-    "id": "8d9ca2fc-47b1-452f-ba1b-269e2630eb0d",
-    "text": "The human capacity for burden is like bamboo — far more flexible than you'd ever believe at first glance.",
-    "author": "Jodi Picoult",
-    "book": "My Sister's Keeper",
+    "id": "f124ec12-9368-4bc8-8c85-8b7a31ac1d76",
+    "text": "Strength does not come from winning. Your struggles develop your strengths.",
+    "author": "Arnold Schwarzenegger",
+    "book": "Total Recall",
     "category": "courage"
   },
   {
@@ -1547,186 +1428,32 @@
     "category": "courage"
   },
   {
-    "id": "9dde7d31-115e-4bed-b69c-8a7d55206990",
-    "text": "Do not pray for an easy life; pray for the strength to endure a difficult one.",
-    "author": "Bruce Lee",
-    "book": "Striking Thoughts",
-    "category": "courage"
+    "id": "60fb0b65-10be-43b2-8781-b48362aae3cd",
+    "text": "If you have good thoughts they will shine out of your face like sunbeams and you will always look lovely.",
+    "author": "Roald Dahl",
+    "book": "The Twits",
+    "category": "mental/physical/happy/courage"
   },
   {
-    "id": "b8e0ace8-b96d-43eb-9107-e622597201f7",
-    "text": "Success is not final, failure is not fatal: it is the courage to continue that counts.",
-    "author": "Winston Churchill",
-    "book": "Never Give In!",
-    "category": "courage"
-  },
-  {
-    "id": "12ad34dd-8579-4bfc-b05f-9a69bc39b267",
-    "text": "If you are going through hell, keep going.",
-    "author": "Winston Churchill",
-    "book": "Never Give In!",
-    "category": "courage"
-  },
-  {
-    "id": "125ec3c1-4d66-41f8-a0df-153d127bff24",
-    "text": "Kites rise highest against the wind, not with it.",
-    "author": "Winston Churchill",
-    "book": "Speeches",
-    "category": "courage"
-  },
-  {
-    "id": "ceba7af8-2bee-42fc-a9aa-a289eb0da254",
-    "text": "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.",
-    "author": "Winston Churchill",
-    "book": "Never Give In!",
+    "id": "c987c62d-6d8e-4d27-9361-f241a084f869",
+    "text": "It is during our darkest moments that we must focus to see the light.",
+    "author": "Aristotle",
+    "book": "Nicomachean Ethics",
     "category": "motivation"
   },
   {
-    "id": "fa08f9f5-590f-47bd-96df-a6907572cc7b",
-    "text": "We make a living by what we get, but we make a life by what we give.",
-    "author": "Winston Churchill",
-    "book": "Speeches",
-    "category": "motivation"
+    "id": "cb5aa1f1-44e9-4d81-ae1d-b739b6b16650",
+    "text": "Do every act of your life as though it were the very last act of your life.",
+    "author": "Marcus Aurelius",
+    "book": "Meditations",
+    "category": "wellbeing"
   },
   {
-    "id": "ab8353a6-a19f-4add-ba4d-c0bda0491a5e",
-    "text": "You have within you right now, everything you need to deal with whatever the world can throw at you.",
-    "author": "Brian Tracy",
-    "book": "Maximum Achievement",
-    "category": "courage"
-  },
-  {
-    "id": "88d1a20a-76f4-4088-bdf1-bf5c0d24579c",
-    "text": "Challenges are what make life interesting. Overcoming them is what makes life meaningful.",
-    "author": "Joshua J. Marine",
-    "book": "Reflections on Life",
-    "category": "courage"
-  },
-  {
-    "id": "a736e650-5b6c-4572-a91c-20c632ed26fd",
-    "text": "Never let the fear of striking out keep you from playing the game.",
-    "author": "Babe Ruth",
-    "book": "The Big Fella",
-    "category": "courage"
-  },
-  {
-    "id": "b689658d-5e3d-4db2-a152-861eb8e4f582",
-    "text": "The only way to achieve the impossible is to believe it is possible.",
-    "author": "Charles Kingsleigh",
-    "book": "Alice in Wonderland",
-    "category": "courage"
-  },
-  {
-    "id": "37af5fd8-56d9-4bff-85bb-8d13bc526258",
-    "text": "Courage is the most important of all the virtues because without courage, you can't practice any other virtue consistently.",
-    "author": "Maya Angelou",
-    "book": "Wouldn't Take Nothing for My Journey Now",
-    "category": "courage"
-  },
-  {
-    "id": "113eb74a-fbec-4c5e-8e4e-ffb60e15cc21",
-    "text": "There is no greater agony than bearing an untold story inside you.",
-    "author": "Maya Angelou",
-    "book": "I Know Why the Caged Bird Sings",
-    "category": "courage"
-  },
-  {
-    "id": "a60d70db-1dc2-47c2-93c7-ebc38e229127",
-    "text": "We delight in the beauty of the butterfly, but rarely admit the changes it has gone through to achieve that beauty.",
-    "author": "Maya Angelou",
-    "book": "Wouldn't Take Nothing for My Journey Now",
-    "category": "courage"
-  },
-  {
-    "id": "cc2f00ca-6ebf-4b86-9c98-f597d57290d2",
-    "text": "Life is not measured by the number of breaths we take, but by the moments that take our breath away.",
-    "author": "Maya Angelou",
-    "book": "Wouldn't Take Nothing for My Journey Now",
-    "category": "motivation"
-  },
-  {
-    "id": "90b8b658-2a4d-4fd0-872b-ddbed3383085",
-    "text": "If you don't like something, change it. If you can't change it, change your attitude.",
-    "author": "Maya Angelou",
-    "book": "I Know Why the Caged Bird Sings",
-    "category": "courage"
-  },
-  {
-    "id": "20ad75fa-9b55-4492-ba99-9fe470cdfce8",
-    "text": "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
-    "author": "Maya Angelou",
-    "book": "Letter to My Daughter",
-    "category": "motivation"
-  },
-  {
-    "id": "761bdde0-f401-45c6-8fc5-3eedc56acf66",
-    "text": "The unexamined life is not worth living.",
-    "author": "Socrates",
-    "book": "Apology by Plato",
-    "category": "wisdom"
-  },
-  {
-    "id": "1d43764d-7e63-4920-b583-36cb4edd8e43",
-    "text": "I cannot teach anybody anything. I can only make them think.",
-    "author": "Socrates",
-    "book": "Dialogues by Plato",
-    "category": "wisdom"
-  },
-  {
-    "id": "c87fb013-1ca4-4794-a4a8-ee7d75e16799",
-    "text": "Wonder is the beginning of wisdom.",
-    "author": "Socrates",
-    "book": "Theaetetus by Plato",
-    "category": "wisdom"
-  },
-  {
-    "id": "854e5cd3-e5ac-49a4-97d3-f74ccd543c83",
-    "text": "The only true wisdom is in knowing you know nothing.",
-    "author": "Socrates",
-    "book": "Apology by Plato",
-    "category": "wisdom"
-  },
-  {
-    "id": "6bc6f67e-6939-40e7-817c-5cfece77fcfa",
-    "text": "Education is the kindling of a flame, not the filling of a vessel.",
-    "author": "Socrates",
-    "book": "Plutarch's Lives",
-    "category": "wisdom"
-  },
-  {
-    "id": "38e6f67b-c8f3-4e60-b4af-dec3c6c0cbc1",
-    "text": "The mind is not a vessel to be filled, but a fire to be kindled.",
-    "author": "Plutarch",
-    "book": "Moralia",
-    "category": "wisdom"
-  },
-  {
-    "id": "d3e5468d-c655-48b3-8d7c-841897361d2a",
-    "text": "Real knowledge is to know the extent of one's ignorance.",
-    "author": "Confucius",
-    "book": "The Analects",
-    "category": "wisdom"
-  },
-  {
-    "id": "60c948bb-fa67-4d57-9814-d214ff9180b0",
-    "text": "It does not matter how slowly you go as long as you do not stop.",
-    "author": "Confucius",
-    "book": "The Analects",
-    "category": "wisdom"
-  },
-  {
-    "id": "0c1ac638-adae-4394-9447-1e86eee8ec42",
-    "text": "Before you embark on a journey of revenge, dig two graves.",
-    "author": "Confucius",
-    "book": "The Analects",
-    "category": "wisdom"
-  },
-  {
-    "id": "d7edc312-9ea6-438c-9f36-e42b4df36d31",
-    "text": "The gem cannot be polished without friction, nor man perfected without trials.",
-    "author": "Confucius",
-    "book": "The Analects",
-    "category": "wisdom"
+    "id": "82c1d0eb-c0ed-4fd6-b193-b81034e14865",
+    "text": "Blessed are the curious, for they shall have adventures.",
+    "author": "Lovelle Drachman",
+    "book": "Words of Wonder",
+    "category": "mental/physical/happy/courage"
   },
   {
     "id": "c38a2af9-8d14-48cd-9da7-83a80a4a986c",
@@ -1743,598 +1470,31 @@
     "category": "wisdom"
   },
   {
-    "id": "9b5bfd07-af25-4d55-8321-f52e16b9bccf",
-    "text": "The more that you read, the more things you will know. The more that you learn, the more places you'll go.",
-    "author": "Dr. Seuss",
-    "book": "I Can Read With My Eyes Shut!",
-    "category": "wisdom"
-  },
-  {
-    "id": "e9f5b92b-0f5d-485d-9afa-86560e6e5fa0",
-    "text": "Today you are you, that is truer than true. There is no one alive who is youer than you.",
-    "author": "Dr. Seuss",
-    "book": "Happy Birthday to You!",
-    "category": "motivation"
-  },
-  {
-    "id": "409ac0eb-c54e-43b1-87af-5e6eed7c8f56",
-    "text": "Why fit in when you were born to stand out?",
-    "author": "Dr. Seuss",
-    "book": "Happy Birthday to You!",
-    "category": "motivation"
-  },
-  {
-    "id": "528867ff-9f02-4bbf-a4b9-5e79224cc9ac",
-    "text": "Unless someone like you cares a whole awful lot, nothing is going to get better. It's not.",
-    "author": "Dr. Seuss",
-    "book": "The Lorax",
-    "category": "motivation"
-  },
-  {
-    "id": "c32b5dfc-740a-4c16-88b7-f0d58c8c7900",
-    "text": "You have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose.",
-    "author": "Dr. Seuss",
-    "book": "Oh, the Places You'll Go!",
-    "category": "motivation"
-  },
-  {
-    "id": "a217dc76-1ed1-49bb-8e37-594bae462912",
-    "text": "In three words I can sum up everything I've learned about life: it goes on.",
-    "author": "Robert Frost",
-    "book": "Selected Poems",
-    "category": "wisdom"
-  },
-  {
-    "id": "dc116e26-ffeb-46a5-85eb-05e6ea2422fd",
-    "text": "Two roads diverged in a wood, and I took the one less traveled by, and that has made all the difference.",
-    "author": "Robert Frost",
-    "book": "Mountain Interval",
-    "category": "wisdom"
-  },
-  {
-    "id": "271ea0a3-d0fa-4868-9b64-ecb68f261020",
-    "text": "Intelligence is the ability to adapt to change.",
-    "author": "Stephen Hawking",
-    "book": "A Brief History of Time",
-    "category": "wisdom"
-  },
-  {
-    "id": "0f8ea827-b8ab-4dbb-9db9-202683af8051",
-    "text": "However difficult life may seem, there is always something you can do and succeed at.",
-    "author": "Stephen Hawking",
-    "book": "A Brief History of Time",
+    "id": "428859f8-0a5c-4c10-9054-8948cfe39333",
+    "text": "There is no failure except in no longer trying.",
+    "author": "Elbert Hubbard",
+    "book": "A Message to Garcia",
     "category": "courage"
   },
   {
-    "id": "d659ca39-ec65-4ec1-8127-845206d9905c",
-    "text": "Remember to look up at the stars and not down at your feet.",
-    "author": "Stephen Hawking",
-    "book": "Brief Answers to the Big Questions",
-    "category": "motivation"
-  },
-  {
-    "id": "ee8d64d9-790f-42ef-bd75-9484db44725f",
-    "text": "Be curious, not judgmental.",
-    "author": "Walt Whitman",
-    "book": "Leaves of Grass",
-    "category": "wisdom"
-  },
-  {
-    "id": "4435927b-c94e-4835-a491-e6ba4b170a7e",
-    "text": "Not I, nor anyone else, can travel that road for you. You must travel it by yourself.",
-    "author": "Walt Whitman",
-    "book": "Song of Myself",
-    "category": "wisdom"
-  },
-  {
-    "id": "ade6aeaa-9afe-4cd9-8230-df0d625a7e64",
-    "text": "The only way to make sense out of change is to plunge into it, move with it, and join the dance.",
-    "author": "Alan Watts",
-    "book": "The Wisdom of Insecurity",
-    "category": "wisdom"
-  },
-  {
-    "id": "90fe81e2-bdd4-4cd3-ba76-c1b341e0ca89",
-    "text": "Muddy water is best cleared by leaving it alone.",
-    "author": "Alan Watts",
-    "book": "The Way of Zen",
-    "category": "wisdom"
-  },
-  {
-    "id": "43aaff45-6a5f-482b-9b9c-50737523062f",
-    "text": "The meaning of life is just to be alive. It is so plain and so obvious and so simple.",
-    "author": "Alan Watts",
-    "book": "The Culture of Counter-Culture",
-    "category": "wisdom"
-  },
-  {
-    "id": "69ac099b-8fd1-4d40-8598-ab26cd325acc",
-    "text": "This is the real secret of life — to be completely engaged with what you are doing in the here and now.",
-    "author": "Alan Watts",
-    "book": "The Essence of Alan Watts",
-    "category": "wisdom"
-  },
-  {
-    "id": "65caafab-64c1-48b5-ac8b-2e37676a3789",
-    "text": "Man suffers only because he takes seriously what the gods made for fun.",
-    "author": "Alan Watts",
-    "book": "The Book: On the Taboo Against Knowing Who You Are",
-    "category": "wisdom"
-  },
-  {
-    "id": "6d8c3aa1-405a-4091-a1da-de16c942ebcb",
-    "text": "A learning experience is one of those things that says, You know that thing you just did? Don't do that.",
-    "author": "Douglas Adams",
-    "book": "The Salmon of Doubt",
-    "category": "wisdom"
-  },
-  {
-    "id": "bea1721c-e798-4103-a926-156e37ae4462",
-    "text": "Don't Panic.",
-    "author": "Douglas Adams",
-    "book": "The Hitchhiker's Guide to the Galaxy",
-    "category": "wisdom"
-  },
-  {
-    "id": "70cbd916-31bc-4d34-82fa-6598e20ba4a8",
-    "text": "The best way out is always through.",
-    "author": "Robert Frost",
-    "book": "A Servant to Servants",
-    "category": "wisdom"
-  },
-  {
-    "id": "2744d2da-9618-4bd7-a14a-ffdf5a208ff7",
-    "text": "No matter what people tell you, words and ideas can change the world.",
-    "author": "Robin Williams",
-    "book": "Dead Poets Society",
-    "category": "motivation"
-  },
-  {
-    "id": "65e3f76f-4485-4a7b-be4e-114c0af61725",
-    "text": "Go confidently in the direction of your dreams. Live the life you have imagined.",
-    "author": "Henry David Thoreau",
-    "book": "Walden",
-    "category": "wisdom"
-  },
-  {
-    "id": "4bc9ca15-d1ea-4ed2-b776-ea8749e559db",
-    "text": "Our life is frittered away by detail. Simplify, simplify.",
-    "author": "Henry David Thoreau",
-    "book": "Walden",
-    "category": "wisdom"
-  },
-  {
-    "id": "d7e75328-5d2c-48a2-b39a-518626b71992",
-    "text": "Not until we are lost do we begin to understand ourselves.",
-    "author": "Henry David Thoreau",
-    "book": "Walden",
-    "category": "wisdom"
-  },
-  {
-    "id": "64d02cf6-6edc-40ef-ba73-e1d1b2dc3a23",
-    "text": "I went to the woods because I wished to live deliberately, to front only the essential facts of life.",
-    "author": "Henry David Thoreau",
-    "book": "Walden",
-    "category": "wisdom"
-  },
-  {
-    "id": "e659573a-ccb1-42a4-99b9-c0362cc0837e",
-    "text": "What lies behind you and what lies in front of you pales in comparison to what lies inside of you.",
-    "author": "Ralph Waldo Emerson",
-    "book": "Essays",
-    "category": "wisdom"
-  },
-  {
-    "id": "db823ee1-9ce7-49c4-8cd5-10ca3dd175f7",
-    "text": "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.",
-    "author": "Ralph Waldo Emerson",
-    "book": "Self-Reliance",
-    "category": "wisdom"
-  },
-  {
-    "id": "3a180fc6-2f96-4b39-b540-9194a8f25b7c",
-    "text": "The earth has music for those who listen.",
-    "author": "William Shakespeare",
-    "book": "The Merchant of Venice",
-    "category": "wisdom"
-  },
-  {
-    "id": "c8b73e4d-30be-4cd5-b782-a11d5e1c96f1",
-    "text": "We know what we are, but know not what we may be.",
-    "author": "William Shakespeare",
-    "book": "Hamlet",
-    "category": "wisdom"
-  },
-  {
-    "id": "4081c03d-a7db-45c7-8b93-ac218160fd09",
-    "text": "All that glitters is not gold.",
-    "author": "William Shakespeare",
-    "book": "The Merchant of Venice",
-    "category": "wisdom"
-  },
-  {
-    "id": "7182ed69-5863-4f3d-adf2-c5100703278b",
-    "text": "Our doubts are traitors, and make us lose the good we oft might win, by fearing to attempt.",
-    "author": "William Shakespeare",
-    "book": "Measure for Measure",
+    "id": "b8e0ace8-b96d-43eb-9107-e622597201f7",
+    "text": "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+    "author": "Winston Churchill",
+    "book": "Never Give In!",
     "category": "courage"
   },
   {
-    "id": "fa799dca-0fa4-49ed-8e8c-045ca9eef16f",
-    "text": "It is not in the stars to hold our destiny but in ourselves.",
-    "author": "William Shakespeare",
-    "book": "Julius Caesar",
-    "category": "motivation"
+    "id": "b46c1573-f461-4f19-815d-8753c5b4127c",
+    "text": "The only courage that matters is the kind that gets you from one moment to the next.",
+    "author": "Mignon McLaughlin",
+    "book": "The Second Neurotic's Notebook",
+    "category": "courage"
   },
   {
-    "id": "7a3add71-1505-4b3a-8a8a-d54e159eda91",
-    "text": "Love all, trust a few, do wrong to none.",
-    "author": "William Shakespeare",
-    "book": "All's Well That Ends Well",
-    "category": "wisdom"
-  },
-  {
-    "id": "f23f74a5-ad9f-4156-9598-2a717016e9c4",
-    "text": "No act of kindness, no matter how small, is ever wasted.",
-    "author": "Aesop",
-    "book": "Aesop's Fables",
-    "category": "wisdom"
-  },
-  {
-    "id": "396f12a1-95e0-4dc0-a0f3-76c4a9f9e08e",
-    "text": "The only way to learn mathematics is to do mathematics.",
-    "author": "Paul Halmos",
-    "book": "A Hilbert Space Problem Book",
-    "category": "wisdom"
-  },
-  {
-    "id": "ec4c8ba6-869b-4f9c-8cd6-627b2eb12381",
-    "text": "The function of education is to teach one to think intensively and to think critically.",
-    "author": "Martin Luther King Jr.",
-    "book": "The Purpose of Education",
-    "category": "wisdom"
-  },
-  {
-    "id": "4c2efdf6-cb1f-40c9-80b0-88c014677f31",
-    "text": "Anyone who stops learning is old, whether at twenty or eighty.",
-    "author": "Henry Ford",
-    "book": "My Life and Work",
-    "category": "wisdom"
-  },
-  {
-    "id": "56b92b52-3a66-470d-8eb3-8120045f483f",
-    "text": "Learning never exhausts the mind.",
-    "author": "Leonardo da Vinci",
-    "book": "Notebooks of Leonardo da Vinci",
-    "category": "wisdom"
-  },
-  {
-    "id": "1616f826-e729-45f7-8913-19c75775fe9a",
-    "text": "Simplicity is the ultimate sophistication.",
-    "author": "Leonardo da Vinci",
-    "book": "Notebooks of Leonardo da Vinci",
-    "category": "wisdom"
-  },
-  {
-    "id": "629c210e-3634-4f66-8208-e0ba3a567ca5",
-    "text": "I have been impressed with the urgency of doing. Knowing is not enough; we must apply.",
-    "author": "Leonardo da Vinci",
-    "book": "Notebooks of Leonardo da Vinci",
-    "category": "wisdom"
-  },
-  {
-    "id": "7bb6e498-7813-405b-ba0f-0e0dc7623f8e",
-    "text": "Study without desire spoils the memory, and it retains nothing that it takes in.",
-    "author": "Leonardo da Vinci",
-    "book": "Notebooks of Leonardo da Vinci",
-    "category": "wisdom"
-  },
-  {
-    "id": "fa6d2db1-eee5-4f0e-b632-c5b267582e4e",
-    "text": "It had long since come to my attention that people of accomplishment rarely sat back and let things happen to them.",
-    "author": "Leonardo da Vinci",
-    "book": "Notebooks of Leonardo da Vinci",
-    "category": "motivation"
-  },
-  {
-    "id": "1f52d904-5d36-41d5-b135-9b5f3729109c",
-    "text": "Every child is an artist. The problem is how to remain an artist once we grow up.",
-    "author": "Pablo Picasso",
-    "book": "Life with Picasso",
-    "category": "wisdom"
-  },
-  {
-    "id": "818b30a3-f0ed-4821-a7ee-82cd4a17f952",
-    "text": "The chief enemy of creativity is good sense.",
-    "author": "Pablo Picasso",
-    "book": "Conversations with Picasso",
-    "category": "wisdom"
-  },
-  {
-    "id": "0cf677ea-ee1d-4157-bbf1-fa35e19dbcda",
-    "text": "Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world.",
-    "author": "Albert Einstein",
-    "book": "Cosmic Religion",
-    "category": "wisdom"
-  },
-  {
-    "id": "e6226e12-60d8-4117-a317-b0e4e61c9825",
-    "text": "Logic will get you from A to B. Imagination will take you everywhere.",
-    "author": "Albert Einstein",
-    "book": "The World As I See It",
-    "category": "wisdom"
-  },
-  {
-    "id": "220fc588-e46d-48f9-8215-77a3a09997a1",
-    "text": "Life is like riding a bicycle. To keep your balance, you must keep moving.",
-    "author": "Albert Einstein",
-    "book": "Letters",
-    "category": "wisdom"
-  },
-  {
-    "id": "296ca8a4-4038-42bb-8b0f-15cec9a9c7d0",
-    "text": "A person who never made a mistake never tried anything new.",
-    "author": "Albert Einstein",
-    "book": "Einstein: His Life and Universe",
-    "category": "wisdom"
-  },
-  {
-    "id": "947f0788-5c41-40d3-b82f-341f36c11914",
-    "text": "The measure of intelligence is the ability to change.",
-    "author": "Albert Einstein",
-    "book": "Ideas and Opinions",
-    "category": "wisdom"
-  },
-  {
-    "id": "189371fc-a3f1-4a0b-a41a-99a773189de3",
-    "text": "I have no special talents. I am only passionately curious.",
-    "author": "Albert Einstein",
-    "book": "Letters",
-    "category": "wisdom"
-  },
-  {
-    "id": "73bcb2c9-48d2-45af-87c6-6ef69f31d1e5",
-    "text": "Compound interest is the eighth wonder of the world. He who understands it, earns it.",
-    "author": "Albert Einstein",
-    "book": "Ideas and Opinions",
-    "category": "wisdom"
-  },
-  {
-    "id": "1b060187-0d5e-4183-b768-9acbc9dcf316",
-    "text": "We cannot solve our problems with the same thinking we used when we created them.",
-    "author": "Albert Einstein",
-    "book": "Ideas and Opinions",
-    "category": "wisdom"
-  },
-  {
-    "id": "5b6b3a9c-a48e-4b0c-ad29-d4c08e24b2fe",
-    "text": "The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.",
-    "author": "Albert Einstein",
-    "book": "The World As I See It",
-    "category": "wisdom"
-  },
-  {
-    "id": "bee9008d-7bbc-4f8d-8477-a5d8f12bb80a",
-    "text": "For every minute you are angry you lose sixty seconds of happiness.",
-    "author": "Ralph Waldo Emerson",
-    "book": "Journals",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "469cb74b-b6da-40a2-bf39-34f16f137448",
-    "text": "The most important thing is to enjoy your life — to be happy. It's all that matters.",
-    "author": "Audrey Hepburn",
-    "book": "Audrey Hepburn: An Elegant Spirit",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "bbe67937-de54-4c19-97b6-c1c0f903b39a",
-    "text": "Count your age by friends, not years. Count your life by smiles, not tears.",
-    "author": "John Lennon",
-    "book": "In His Own Write",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "767ac331-933b-40a3-82de-3ad731ec0817",
-    "text": "There are two ways of spreading light: to be the candle or the mirror that reflects it.",
-    "author": "Edith Wharton",
-    "book": "Vesalius in Zante",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "82c1d0eb-c0ed-4fd6-b193-b81034e14865",
-    "text": "Blessed are the curious, for they shall have adventures.",
-    "author": "Lovelle Drachman",
-    "book": "Words of Wonder",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "a229e5f6-e714-4b02-9fe8-c7bde31b9010",
-    "text": "The best and most beautiful things in the world cannot be seen or even touched — they must be felt with the heart.",
-    "author": "Helen Keller",
-    "book": "The Story of My Life",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "26d20f0b-cc50-4daf-824b-49235c083f60",
-    "text": "When one door of happiness closes, another opens; but often we look so long at the closed door that we do not see the one which has been opened for us.",
-    "author": "Helen Keller",
-    "book": "We Bereaved",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "0a4b98ab-7460-441c-8ddf-500ad9fd8b45",
-    "text": "Keep your face to the sunshine and you cannot see a shadow.",
-    "author": "Helen Keller",
-    "book": "Optimism",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "a5a5859b-8e88-4ddf-99af-5c914e7d52e8",
-    "text": "The best preparation for tomorrow is doing your best today.",
-    "author": "H. Jackson Brown Jr.",
-    "book": "Life's Little Instruction Book",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "4ec3cc8f-fa5a-4348-85de-515be6f4c98b",
-    "text": "Choose to be optimistic, it feels better.",
-    "author": "Dalai Lama",
-    "book": "The Book of Joy",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "3ec9246b-c386-44f5-8f7e-5c26ddc517ae",
-    "text": "Every day may not be good, but there is something good in every day.",
-    "author": "Alice Morse Earle",
-    "book": "Sun Dials and Roses of Yesterday",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "eb808605-675a-4de1-baa5-6483fb55a0e7",
-    "text": "Write it on your heart that every day is the best day in the year.",
-    "author": "Ralph Waldo Emerson",
-    "book": "Society and Solitude",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "1a4401a8-57c8-42cb-b6ef-8ad0bd40551a",
-    "text": "The power of imagination makes us infinite.",
-    "author": "John Muir",
-    "book": "The Wilderness World of John Muir",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "3ef9d78b-e8af-401e-9397-50a539732c6f",
-    "text": "In every walk with nature one receives far more than he seeks.",
-    "author": "John Muir",
-    "book": "Steep Trails",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "338952b8-bad3-4c6e-a6b4-c6a6d18d7346",
-    "text": "The mountains are calling and I must go.",
-    "author": "John Muir",
-    "book": "Letters to a Friend",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "7e46090f-b070-45a3-a72c-3fe14e594f8c",
-    "text": "Adopt the pace of nature: her secret is patience.",
-    "author": "Ralph Waldo Emerson",
-    "book": "Essays: Second Series",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "5f55b8cd-f4bd-4e36-9f36-308d786e93ab",
-    "text": "The sun himself is weak when he first rises, and gathers strength and courage as the day gets on.",
-    "author": "Charles Dickens",
-    "book": "The Old Curiosity Shop",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "a3fbad4f-3943-4e97-a0be-fb7699f1bded",
-    "text": "Cheerfulness is the best promoter of health and is as friendly to the mind as to the body.",
-    "author": "Joseph Addison",
-    "book": "The Spectator",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "60fb0b65-10be-43b2-8781-b48362aae3cd",
-    "text": "If you have good thoughts they will shine out of your face like sunbeams and you will always look lovely.",
-    "author": "Roald Dahl",
-    "book": "The Twits",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "88fb5630-04b3-4511-b582-359cee31f240",
-    "text": "A little nonsense now and then is relished by the wisest men.",
-    "author": "Roald Dahl",
-    "book": "Charlie and the Great Glass Elevator",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "71859d0b-0b2a-4b05-a135-cf8d25805bfc",
-    "text": "We are the music makers, and we are the dreamers of dreams.",
-    "author": "Arthur O'Shaughnessy",
-    "book": "Ode",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "fcab2b9b-c516-4d09-ac10-298a7cd2ae98",
-    "text": "There is nothing either good or bad, but thinking makes it so.",
-    "author": "William Shakespeare",
-    "book": "Hamlet",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "2c987b6a-2ae2-412d-8241-393a93af3d78",
-    "text": "Laughter is the sun that drives winter from the human face.",
-    "author": "Victor Hugo",
-    "book": "Les Misérables",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "0280c6f2-117c-4b68-aaf7-4dbe69e41821",
-    "text": "Even the darkest night will end and the sun will rise.",
-    "author": "Victor Hugo",
-    "book": "Les Misérables",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "8b45492d-2e1e-4e33-a3fe-a397e407208d",
-    "text": "To love another person is to see the face of God.",
-    "author": "Victor Hugo",
-    "book": "Les Misérables",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "ab7d5d75-3e61-4748-97e3-2163b4b03bce",
-    "text": "Music expresses that which cannot be put into words and that which cannot remain silent.",
-    "author": "Victor Hugo",
-    "book": "William Shakespeare",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "b86ac460-a416-4334-8e3c-f6283a970dca",
-    "text": "Have nothing in your house that you do not know to be useful or believe to be beautiful.",
-    "author": "William Morris",
-    "book": "Hopes and Fears for Art",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "29cb0702-7d2e-4256-82c1-6858bd453464",
-    "text": "The best things in life are free. The second best things are very, very expensive.",
-    "author": "Coco Chanel",
-    "book": "The Gospel According to Coco Chanel",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "b50d0539-92f0-45b1-b3fb-b84a639c8f17",
-    "text": "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
-    "author": "Mother Teresa",
-    "book": "A Simple Path",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "be6a9039-e457-4d3b-a22b-e81bfafa6253",
-    "text": "Kind words can be short and easy to speak, but their echoes are truly endless.",
-    "author": "Mother Teresa",
-    "book": "In the Heart of the World",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "8fb2063c-2a1f-45f0-9db2-6415914f4c9e",
-    "text": "If you want others to be happy, practice compassion. If you want to be happy, practice compassion.",
-    "author": "Dalai Lama",
-    "book": "The Art of Happiness",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "7ffdb10a-8a2a-4e81-bacb-b4e07780c192",
-    "text": "My religion is very simple. My religion is kindness.",
-    "author": "Dalai Lama",
-    "book": "An Open Heart",
+    "id": "bd373a01-1659-457a-a7b1-f05e12642e9f",
+    "text": "Happiness is the meaning and the purpose of life, the whole aim and end of human existence.",
+    "author": "Aristotle",
+    "book": "Nicomachean Ethics",
     "category": "mental/physical/happy/courage"
   },
   {
@@ -2345,66 +1505,10 @@
     "category": "mental/physical/happy/courage"
   },
   {
-    "id": "9a3b7152-60c8-4ec5-a3cf-eaccf80a904c",
-    "text": "Thousands of candles can be lighted from a single candle, and the life of the candle will not be shortened.",
-    "author": "Buddha",
-    "book": "The Dhammapada",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "f3e1a634-452a-4093-94f1-716624a7d5bd",
-    "text": "Peace comes from within. Do not seek it without.",
-    "author": "Buddha",
-    "book": "The Dhammapada",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "6fc0cf9a-2c92-410f-bb8f-4c6a49e2d38c",
-    "text": "Each morning we are born again. What we do today is what matters most.",
-    "author": "Buddha",
-    "book": "The Dhammapada",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "22446017-2d73-47b7-9443-c932febcc57b",
-    "text": "You yourself, as much as anybody in the entire universe, deserve your love and affection.",
-    "author": "Buddha",
-    "book": "The Dhammapada",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "37807d8a-7cf5-4e4a-8e6b-1b3533c70b1b",
-    "text": "There is no path to happiness: happiness is the path.",
-    "author": "Buddha",
-    "book": "The Dhammapada",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "89fb346a-0611-4041-96dc-317977d84f54",
-    "text": "The only way to have a friend is to be one.",
-    "author": "Ralph Waldo Emerson",
-    "book": "Essays: First Series",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "ba60b5e5-915e-49cc-97a3-ee4168efdbb2",
-    "text": "Finish each day and be done with it. You have done what you could.",
-    "author": "Ralph Waldo Emerson",
-    "book": "Letters and Social Aims",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "ea1c14e5-ffc3-4df8-9f3b-70f96863a983",
-    "text": "What is beautiful is good, and who is good will soon be beautiful.",
-    "author": "Sappho",
-    "book": "Fragments",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "8099c73d-a497-4396-a612-0efb06929053",
-    "text": "I dwell in possibility.",
-    "author": "Emily Dickinson",
-    "book": "The Complete Poems",
+    "id": "29cb0702-7d2e-4256-82c1-6858bd453464",
+    "text": "The best things in life are free. The second best things are very, very expensive.",
+    "author": "Coco Chanel",
+    "book": "The Gospel According to Coco Chanel",
     "category": "mental/physical/happy/courage"
   },
   {
@@ -2415,6 +1519,48 @@
     "category": "mental/physical/happy/courage"
   },
   {
+    "id": "b86ac460-a416-4334-8e3c-f6283a970dca",
+    "text": "Have nothing in your house that you do not know to be useful or believe to be beautiful.",
+    "author": "William Morris",
+    "book": "Hopes and Fears for Art",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "90fe81e2-bdd4-4cd3-ba76-c1b341e0ca89",
+    "text": "Muddy water is best cleared by leaving it alone.",
+    "author": "Alan Watts",
+    "book": "The Way of Zen",
+    "category": "wisdom"
+  },
+  {
+    "id": "ee8d64d9-790f-42ef-bd75-9484db44725f",
+    "text": "Be curious, not judgmental.",
+    "author": "Walt Whitman",
+    "book": "Leaves of Grass",
+    "category": "wisdom"
+  },
+  {
+    "id": "64d02cf6-6edc-40ef-ba73-e1d1b2dc3a23",
+    "text": "I went to the woods because I wished to live deliberately, to front only the essential facts of life.",
+    "author": "Henry David Thoreau",
+    "book": "Walden",
+    "category": "wisdom"
+  },
+  {
+    "id": "7bb6e498-7813-405b-ba0f-0e0dc7623f8e",
+    "text": "Study without desire spoils the memory, and it retains nothing that it takes in.",
+    "author": "Leonardo da Vinci",
+    "book": "Notebooks of Leonardo da Vinci",
+    "category": "wisdom"
+  },
+  {
+    "id": "f5e9b796-7b23-491a-a0f2-eea416201d7e",
+    "text": "When I started counting my blessings, my whole life turned around.",
+    "author": "Willie Nelson",
+    "book": "The Tao of Willie",
+    "category": "wellbeing"
+  },
+  {
     "id": "95fb6274-163a-41de-b620-3af6dc9a8678",
     "text": "Forever is composed of nows.",
     "author": "Emily Dickinson",
@@ -2422,31 +1568,493 @@
     "category": "mental/physical/happy/courage"
   },
   {
-    "id": "63142995-75dc-41d8-ae78-076b8fdbc14f",
-    "text": "Find ecstasy in life; the mere sense of living is joy enough.",
-    "author": "Emily Dickinson",
-    "book": "Letters of Emily Dickinson",
+    "id": "6d8c3aa1-405a-4091-a1da-de16c942ebcb",
+    "text": "A learning experience is one of those things that says, You know that thing you just did? Don't do that.",
+    "author": "Douglas Adams",
+    "book": "The Salmon of Doubt",
+    "category": "wisdom"
+  },
+  {
+    "id": "4435927b-c94e-4835-a491-e6ba4b170a7e",
+    "text": "Not I, nor anyone else, can travel that road for you. You must travel it by yourself.",
+    "author": "Walt Whitman",
+    "book": "Song of Myself",
+    "category": "wisdom"
+  },
+  {
+    "id": "89fb346a-0611-4041-96dc-317977d84f54",
+    "text": "The only way to have a friend is to be one.",
+    "author": "Ralph Waldo Emerson",
+    "book": "Essays: First Series",
     "category": "mental/physical/happy/courage"
   },
   {
-    "id": "8265ee01-3c7d-421e-8854-05f899d54b9c",
-    "text": "Bring into each day enough gentle humor and enough honest laughter, and you will soften the rough edges of reality.",
-    "author": "Norman Cousins",
-    "book": "Anatomy of an Illness",
+    "id": "d0de815f-cf15-4edc-b4d9-fcbbf388548a",
+    "text": "Joy is not in things; it is in us.",
+    "author": "Richard Wagner",
+    "book": "Letters and Journals",
+    "category": "wellbeing"
+  },
+  {
+    "id": "a5a5859b-8e88-4ddf-99af-5c914e7d52e8",
+    "text": "The best preparation for tomorrow is doing your best today.",
+    "author": "H. Jackson Brown Jr.",
+    "book": "Life's Little Instruction Book",
     "category": "mental/physical/happy/courage"
   },
   {
-    "id": "63c43f52-a99e-4ac4-8765-6c3c6464cde1",
-    "text": "The greatest healing therapy is friendship and love.",
-    "author": "Hubert H. Humphrey",
-    "book": "Speeches",
+    "id": "255e3f2f-daf9-4702-8524-40702ab67791",
+    "text": "Courage doesn't always roar. Sometimes courage is the quiet voice at the end of the day saying, I will try again tomorrow.",
+    "author": "Mary Anne Radmacher",
+    "book": "Live Boldly",
+    "category": "courage"
+  },
+  {
+    "id": "b50d0539-92f0-45b1-b3fb-b84a639c8f17",
+    "text": "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
+    "author": "Mother Teresa",
+    "book": "A Simple Path",
     "category": "mental/physical/happy/courage"
   },
   {
-    "id": "9df2ebf3-1152-4f66-b873-88e2c6f882fe",
-    "text": "What sunshine is to flowers, smiles are to humanity.",
-    "author": "Joseph Addison",
-    "book": "The Spectator",
+    "id": "75049221-3cf8-42c3-807e-fa1e77e38bb3",
+    "text": "Persistence and resilience only come from having been given the chance to work through difficult problems.",
+    "author": "Gever Tulley",
+    "book": "50 Dangerous Things",
+    "category": "courage"
+  },
+  {
+    "id": "5f55b8cd-f4bd-4e36-9f36-308d786e93ab",
+    "text": "The sun himself is weak when he first rises, and gathers strength and courage as the day gets on.",
+    "author": "Charles Dickens",
+    "book": "The Old Curiosity Shop",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "abea4228-f191-417d-b566-04c27f77444a",
+    "text": "Fall seven times, stand up eight.",
+    "author": "Japanese Proverb",
+    "book": "Japanese Wisdom",
+    "category": "courage"
+  },
+  {
+    "id": "7a67ccf1-151e-4bdf-a4ae-ce66898e11bd",
+    "text": "Life is the dancer and you are the dance.",
+    "author": "Eckhart Tolle",
+    "book": "A New Earth",
+    "category": "wellbeing"
+  },
+  {
+    "id": "d3e5468d-c655-48b3-8d7c-841897361d2a",
+    "text": "Real knowledge is to know the extent of one's ignorance.",
+    "author": "Confucius",
+    "book": "The Analects",
+    "category": "wisdom"
+  },
+  {
+    "id": "388681d8-1737-4ff8-9041-c3b9c0c3ccde",
+    "text": "Gratitude makes sense of our past, brings peace for today, and creates a vision for tomorrow.",
+    "author": "Melody Beattie",
+    "book": "The Language of Letting Go",
+    "category": "wellbeing"
+  },
+  {
+    "id": "4bc9ca15-d1ea-4ed2-b776-ea8749e559db",
+    "text": "Our life is frittered away by detail. Simplify, simplify.",
+    "author": "Henry David Thoreau",
+    "book": "Walden",
+    "category": "wisdom"
+  },
+  {
+    "id": "82b3b70c-d392-48f8-a83f-fceacddd7cdf",
+    "text": "Turn your wounds into wisdom.",
+    "author": "Oprah Winfrey",
+    "book": "What I Know for Sure",
+    "category": "wisdom"
+  },
+  {
+    "id": "fcab2b9b-c516-4d09-ac10-298a7cd2ae98",
+    "text": "There is nothing either good or bad, but thinking makes it so.",
+    "author": "William Shakespeare",
+    "book": "Hamlet",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "d1622287-8c93-486b-989f-2f417b64cdc6",
+    "text": "The strongest people are not those who show strength in front of us but those who win battles we know nothing about.",
+    "author": "Jonathan Harnisch",
+    "book": "Jonathan Harnisch: An Alibiography",
+    "category": "courage"
+  },
+  {
+    "id": "76ec4ccd-10e4-404d-b9ce-c5c00f49c5c2",
+    "text": "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
+    "author": "Thomas Edison",
+    "book": "Diary and Sundry Observations",
+    "category": "courage"
+  },
+  {
+    "id": "ceba7af8-2bee-42fc-a9aa-a289eb0da254",
+    "text": "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.",
+    "author": "Winston Churchill",
+    "book": "Never Give In!",
+    "category": "motivation"
+  },
+  {
+    "id": "1603ae7a-45fd-4a26-b523-854690f2f21f",
+    "text": "How we spend our days is, of course, how we spend our lives.",
+    "author": "Annie Dillard",
+    "book": "The Writing Life",
+    "category": "wellbeing"
+  },
+  {
+    "id": "d659ca39-ec65-4ec1-8127-845206d9905c",
+    "text": "Remember to look up at the stars and not down at your feet.",
+    "author": "Stephen Hawking",
+    "book": "Brief Answers to the Big Questions",
+    "category": "motivation"
+  },
+  {
+    "id": "469cb74b-b6da-40a2-bf39-34f16f137448",
+    "text": "The most important thing is to enjoy your life — to be happy. It's all that matters.",
+    "author": "Audrey Hepburn",
+    "book": "Audrey Hepburn: An Elegant Spirit",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "01a6343e-9e99-4b34-b0d7-2b20241543f3",
+    "text": "Mindfulness means being awake. It means knowing what you are doing.",
+    "author": "Jon Kabat-Zinn",
+    "book": "Wherever You Go, There You Are",
+    "category": "wellbeing"
+  },
+  {
+    "id": "5cd2e5b5-d676-4cfd-a5be-b5dd8ca477bf",
+    "text": "Gratitude turns what we have into enough.",
+    "author": "Melody Beattie",
+    "book": "The Language of Letting Go",
+    "category": "wellbeing"
+  },
+  {
+    "id": "2d29b82c-ad9a-4a2c-b850-e36dd1c30492",
+    "text": "The little things? The little moments? They aren't little.",
+    "author": "Jon Kabat-Zinn",
+    "book": "Wherever You Go, There You Are",
+    "category": "wellbeing"
+  },
+  {
+    "id": "a736e650-5b6c-4572-a91c-20c632ed26fd",
+    "text": "Never let the fear of striking out keep you from playing the game.",
+    "author": "Babe Ruth",
+    "book": "The Big Fella",
+    "category": "courage"
+  },
+  {
+    "id": "bea1721c-e798-4103-a926-156e37ae4462",
+    "text": "Don't Panic.",
+    "author": "Douglas Adams",
+    "book": "The Hitchhiker's Guide to the Galaxy",
+    "category": "wisdom"
+  },
+  {
+    "id": "60c948bb-fa67-4d57-9814-d214ff9180b0",
+    "text": "It does not matter how slowly you go as long as you do not stop.",
+    "author": "Confucius",
+    "book": "The Analects",
+    "category": "wisdom"
+  },
+  {
+    "id": "01183838-5d51-4d02-80a2-02aefe8e7bfd",
+    "text": "Look well to this day, for it is life.",
+    "author": "Sanskrit Proverb",
+    "book": "Salutation of the Dawn",
+    "category": "wellbeing"
+  },
+  {
+    "id": "22446017-2d73-47b7-9443-c932febcc57b",
+    "text": "You yourself, as much as anybody in the entire universe, deserve your love and affection.",
+    "author": "Buddha",
+    "book": "The Dhammapada",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "8e15b89b-3df3-4b2f-9858-33237ed517fd",
+    "text": "Letting go gives us freedom, and freedom is the only condition for happiness.",
+    "author": "Thich Nhat Hanh",
+    "book": "The Heart of the Buddha's Teaching",
+    "category": "wellbeing"
+  },
+  {
+    "id": "7ffdb10a-8a2a-4e81-bacb-b4e07780c192",
+    "text": "My religion is very simple. My religion is kindness.",
+    "author": "Dalai Lama",
+    "book": "An Open Heart",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "1b060187-0d5e-4183-b768-9acbc9dcf316",
+    "text": "We cannot solve our problems with the same thinking we used when we created them.",
+    "author": "Albert Einstein",
+    "book": "Ideas and Opinions",
+    "category": "wisdom"
+  },
+  {
+    "id": "9e460129-01ad-4f29-84a4-2d5c4ee3b658",
+    "text": "To keep the body in good health is a duty, otherwise we shall not be able to keep our mind strong and clear.",
+    "author": "Buddha",
+    "book": "The Dhammapada",
+    "category": "wellbeing"
+  },
+  {
+    "id": "be6a9039-e457-4d3b-a22b-e81bfafa6253",
+    "text": "Kind words can be short and easy to speak, but their echoes are truly endless.",
+    "author": "Mother Teresa",
+    "book": "In the Heart of the World",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "88d1a20a-76f4-4088-bdf1-bf5c0d24579c",
+    "text": "Challenges are what make life interesting. Overcoming them is what makes life meaningful.",
+    "author": "Joshua J. Marine",
+    "book": "Reflections on Life",
+    "category": "courage"
+  },
+  {
+    "id": "c32b5dfc-740a-4c16-88b7-f0d58c8c7900",
+    "text": "You have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose.",
+    "author": "Dr. Seuss",
+    "book": "Oh, the Places You'll Go!",
+    "category": "motivation"
+  },
+  {
+    "id": "8d9ca2fc-47b1-452f-ba1b-269e2630eb0d",
+    "text": "The human capacity for burden is like bamboo — far more flexible than you'd ever believe at first glance.",
+    "author": "Jodi Picoult",
+    "book": "My Sister's Keeper",
+    "category": "courage"
+  },
+  {
+    "id": "f4ab7bcc-4689-4ec0-a0f4-2abc87f517f1",
+    "text": "Joy does not simply happen to us. We have to choose joy and keep choosing it every day.",
+    "author": "Henri Nouwen",
+    "book": "Here and Now",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "9520945b-20b7-4993-b78e-66731f2f1f18",
+    "text": "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.",
+    "author": "Rumi",
+    "book": "The Essential Rumi",
+    "category": "motivation"
+  },
+  {
+    "id": "51e1e12b-18a2-4c60-b174-0a8554625d1d",
+    "text": "In the end, just three things matter: How well we have lived. How well we have loved. How well we have learned to let go.",
+    "author": "Jack Kornfield",
+    "book": "Buddha's Little Instruction Book",
+    "category": "wellbeing"
+  },
+  {
+    "id": "a229e5f6-e714-4b02-9fe8-c7bde31b9010",
+    "text": "The best and most beautiful things in the world cannot be seen or even touched — they must be felt with the heart.",
+    "author": "Helen Keller",
+    "book": "The Story of My Life",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "296ca8a4-4038-42bb-8b0f-15cec9a9c7d0",
+    "text": "A person who never made a mistake never tried anything new.",
+    "author": "Albert Einstein",
+    "book": "Einstein: His Life and Universe",
+    "category": "wisdom"
+  },
+  {
+    "id": "69ac099b-8fd1-4d40-8598-ab26cd325acc",
+    "text": "This is the real secret of life — to be completely engaged with what you are doing in the here and now.",
+    "author": "Alan Watts",
+    "book": "The Essence of Alan Watts",
+    "category": "wisdom"
+  },
+  {
+    "id": "2b0e0740-1afd-4cd2-9092-3554eaf026eb",
+    "text": "The best way to cheer yourself up is to try to cheer somebody else up.",
+    "author": "Mark Twain",
+    "book": "Notebooks",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "220fc588-e46d-48f9-8215-77a3a09997a1",
+    "text": "Life is like riding a bicycle. To keep your balance, you must keep moving.",
+    "author": "Albert Einstein",
+    "book": "Letters",
+    "category": "wisdom"
+  },
+  {
+    "id": "761bdde0-f401-45c6-8fc5-3eedc56acf66",
+    "text": "The unexamined life is not worth living.",
+    "author": "Socrates",
+    "book": "Apology by Plato",
+    "category": "wisdom"
+  },
+  {
+    "id": "b08a946d-fe52-4b3d-a6a2-4706d27de207",
+    "text": "Life will give you whatever experience is most helpful for the evolution of your consciousness.",
+    "author": "Eckhart Tolle",
+    "book": "A New Earth",
+    "category": "wellbeing"
+  },
+  {
+    "id": "9dde7d31-115e-4bed-b69c-8a7d55206990",
+    "text": "Do not pray for an easy life; pray for the strength to endure a difficult one.",
+    "author": "Bruce Lee",
+    "book": "Striking Thoughts",
+    "category": "courage"
+  },
+  {
+    "id": "280c2660-91b0-48f0-a62a-8f76fadc549c",
+    "text": "Don't be satisfied with stories, how things have gone with others. Unfold your own myth.",
+    "author": "Rumi",
+    "book": "The Essential Rumi",
+    "category": "motivation"
+  },
+  {
+    "id": "0f8ea827-b8ab-4dbb-9db9-202683af8051",
+    "text": "However difficult life may seem, there is always something you can do and succeed at.",
+    "author": "Stephen Hawking",
+    "book": "A Brief History of Time",
+    "category": "courage"
+  },
+  {
+    "id": "c12c4183-8006-4b33-80ef-3a2db66f13ed",
+    "text": "Live in the sunshine, swim the sea, drink the wild air.",
+    "author": "Ralph Waldo Emerson",
+    "book": "The Conduct of Life",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "28ec7304-e8ee-4b53-a010-8a61db2e644a",
+    "text": "Drink your tea slowly and reverently, as if it is the axis on which the world earth revolves.",
+    "author": "Thich Nhat Hanh",
+    "book": "The Miracle of Mindfulness",
+    "category": "wellbeing"
+  },
+  {
+    "id": "3ef9d78b-e8af-401e-9397-50a539732c6f",
+    "text": "In every walk with nature one receives far more than he seeks.",
+    "author": "John Muir",
+    "book": "Steep Trails",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "f356576b-3950-4428-af56-0e64f75d4035",
+    "text": "The time is always right to do what is right.",
+    "author": "Martin Luther King Jr.",
+    "book": "Letter from Birmingham Jail",
+    "category": "courage"
+  },
+  {
+    "id": "a0d5538d-7685-4d06-9238-1209d45f0eab",
+    "text": "Happiness is a direction, not a place.",
+    "author": "Sydney J. Harris",
+    "book": "Pieces of Eight",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "271ea0a3-d0fa-4868-9b64-ecb68f261020",
+    "text": "Intelligence is the ability to adapt to change.",
+    "author": "Stephen Hawking",
+    "book": "A Brief History of Time",
+    "category": "wisdom"
+  },
+  {
+    "id": "22d5be5c-67a3-4c44-afa9-0ab89085a4b6",
+    "text": "You can't stop the waves, but you can learn to surf.",
+    "author": "Jon Kabat-Zinn",
+    "book": "Wherever You Go, There You Are",
+    "category": "wellbeing"
+  },
+  {
+    "id": "4b15f99d-36bb-4a90-ae36-27a5d4c29a9e",
+    "text": "Be thankful for what you have; you'll end up having more.",
+    "author": "Oprah Winfrey",
+    "book": "What I Know for Sure",
+    "category": "wellbeing"
+  },
+  {
+    "id": "6afbf37a-9cb3-4e54-82ac-c332de605f76",
+    "text": "Let yourself be silently drawn by the strange pull of what you really love. It will not lead you astray.",
+    "author": "Rumi",
+    "book": "The Essential Rumi",
+    "category": "motivation"
+  },
+  {
+    "id": "3a180fc6-2f96-4b39-b540-9194a8f25b7c",
+    "text": "The earth has music for those who listen.",
+    "author": "William Shakespeare",
+    "book": "The Merchant of Venice",
+    "category": "wisdom"
+  },
+  {
+    "id": "d7e75328-5d2c-48a2-b39a-518626b71992",
+    "text": "Not until we are lost do we begin to understand ourselves.",
+    "author": "Henry David Thoreau",
+    "book": "Walden",
+    "category": "wisdom"
+  },
+  {
+    "id": "0280c6f2-117c-4b68-aaf7-4dbe69e41821",
+    "text": "Even the darkest night will end and the sun will rise.",
+    "author": "Victor Hugo",
+    "book": "Les Misérables",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "94f53707-8fb4-4bff-97f6-c2f8ab0dbf7a",
+    "text": "The more you praise and celebrate your life, the more there is in life to celebrate.",
+    "author": "Oprah Winfrey",
+    "book": "What I Know for Sure",
+    "category": "wellbeing"
+  },
+  {
+    "id": "1ac7c9c1-2e5a-48a1-82b7-1fe6c1c52da0",
+    "text": "Life is available only in the present moment.",
+    "author": "Thich Nhat Hanh",
+    "book": "Our Appointment with Life",
+    "category": "wellbeing"
+  },
+  {
+    "id": "0cf677ea-ee1d-4157-bbf1-fa35e19dbcda",
+    "text": "Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world.",
+    "author": "Albert Einstein",
+    "book": "Cosmic Religion",
+    "category": "wisdom"
+  },
+  {
+    "id": "1f52d904-5d36-41d5-b135-9b5f3729109c",
+    "text": "Every child is an artist. The problem is how to remain an artist once we grow up.",
+    "author": "Pablo Picasso",
+    "book": "Life with Picasso",
+    "category": "wisdom"
+  },
+  {
+    "id": "37af5fd8-56d9-4bff-85bb-8d13bc526258",
+    "text": "Courage is the most important of all the virtues because without courage, you can't practice any other virtue consistently.",
+    "author": "Maya Angelou",
+    "book": "Wouldn't Take Nothing for My Journey Now",
+    "category": "courage"
+  },
+  {
+    "id": "323f7e9a-b913-496b-9eef-70b9acafc983",
+    "text": "Character cannot be developed in ease and quiet. Only through experience of trial and suffering can the soul be strengthened.",
+    "author": "Helen Keller",
+    "book": "The Story of My Life",
+    "category": "courage"
+  },
+  {
+    "id": "8b45492d-2e1e-4e33-a3fe-a397e407208d",
+    "text": "To love another person is to see the face of God.",
+    "author": "Victor Hugo",
+    "book": "Les Misérables",
     "category": "mental/physical/happy/courage"
   },
   {
@@ -2457,53 +2065,235 @@
     "category": "mental/physical/happy/courage"
   },
   {
-    "id": "c12c4183-8006-4b33-80ef-3a2db66f13ed",
-    "text": "Live in the sunshine, swim the sea, drink the wild air.",
+    "id": "ec4c8ba6-869b-4f9c-8cd6-627b2eb12381",
+    "text": "The function of education is to teach one to think intensively and to think critically.",
+    "author": "Martin Luther King Jr.",
+    "book": "The Purpose of Education",
+    "category": "wisdom"
+  },
+  {
+    "id": "189371fc-a3f1-4a0b-a41a-99a773189de3",
+    "text": "I have no special talents. I am only passionately curious.",
+    "author": "Albert Einstein",
+    "book": "Letters",
+    "category": "wisdom"
+  },
+  {
+    "id": "0a4b98ab-7460-441c-8ddf-500ad9fd8b45",
+    "text": "Keep your face to the sunshine and you cannot see a shadow.",
+    "author": "Helen Keller",
+    "book": "Optimism",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "56b92b52-3a66-470d-8eb3-8120045f483f",
+    "text": "Learning never exhausts the mind.",
+    "author": "Leonardo da Vinci",
+    "book": "Notebooks of Leonardo da Vinci",
+    "category": "wisdom"
+  },
+  {
+    "id": "64c0f930-0b83-41ad-993f-6c035c34c10c",
+    "text": "The best fighter is never angry.",
+    "author": "Lao Tzu",
+    "book": "Tao Te Ching",
+    "category": "wellbeing"
+  },
+  {
+    "id": "1a4401a8-57c8-42cb-b6ef-8ad0bd40551a",
+    "text": "The power of imagination makes us infinite.",
+    "author": "John Muir",
+    "book": "The Wilderness World of John Muir",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "ba60b5e5-915e-49cc-97a3-ee4168efdbb2",
+    "text": "Finish each day and be done with it. You have done what you could.",
     "author": "Ralph Waldo Emerson",
-    "book": "The Conduct of Life",
+    "book": "Letters and Social Aims",
     "category": "mental/physical/happy/courage"
   },
   {
-    "id": "0e59f896-c398-482f-99d8-3d6cdbbc2c89",
-    "text": "The creation of a thousand forests is in one acorn.",
+    "id": "8cfdd506-d9ff-4aa5-96c9-3e832e776171",
+    "text": "In today's rush, we all think too much, seek too much, want too much, and forget about the joy of just being.",
+    "author": "Eckhart Tolle",
+    "book": "The Power of Now",
+    "category": "wellbeing"
+  },
+  {
+    "id": "c8b73e4d-30be-4cd5-b782-a11d5e1c96f1",
+    "text": "We know what we are, but know not what we may be.",
+    "author": "William Shakespeare",
+    "book": "Hamlet",
+    "category": "wisdom"
+  },
+  {
+    "id": "5b6b3a9c-a48e-4b0c-ad29-d4c08e24b2fe",
+    "text": "The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.",
+    "author": "Albert Einstein",
+    "book": "The World As I See It",
+    "category": "wisdom"
+  },
+  {
+    "id": "09349bcb-5007-4871-84ca-a733e5994f6e",
+    "text": "You may have to fight a battle more than once to win it.",
+    "author": "Margaret Thatcher",
+    "book": "The Downing Street Years",
+    "category": "courage"
+  },
+  {
+    "id": "6fc0cf9a-2c92-410f-bb8f-4c6a49e2d38c",
+    "text": "Each morning we are born again. What we do today is what matters most.",
+    "author": "Buddha",
+    "book": "The Dhammapada",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "125ec3c1-4d66-41f8-a0df-153d127bff24",
+    "text": "Kites rise highest against the wind, not with it.",
+    "author": "Winston Churchill",
+    "book": "Speeches",
+    "category": "courage"
+  },
+  {
+    "id": "90b8b658-2a4d-4fd0-872b-ddbed3383085",
+    "text": "If you don't like something, change it. If you can't change it, change your attitude.",
+    "author": "Maya Angelou",
+    "book": "I Know Why the Caged Bird Sings",
+    "category": "courage"
+  },
+  {
+    "id": "ade6aeaa-9afe-4cd9-8230-df0d625a7e64",
+    "text": "The only way to make sense out of change is to plunge into it, move with it, and join the dance.",
+    "author": "Alan Watts",
+    "book": "The Wisdom of Insecurity",
+    "category": "wisdom"
+  },
+  {
+    "id": "947f0788-5c41-40d3-b82f-341f36c11914",
+    "text": "The measure of intelligence is the ability to change.",
+    "author": "Albert Einstein",
+    "book": "Ideas and Opinions",
+    "category": "wisdom"
+  },
+  {
+    "id": "1d228dbb-1ee9-439f-932e-9ba281521bcf",
+    "text": "Raise your words, not your voice. It is rain that grows flowers, not thunder.",
+    "author": "Rumi",
+    "book": "The Essential Rumi",
+    "category": "wellbeing"
+  },
+  {
+    "id": "8c379d43-4b79-4be1-b5e1-32a37fa83cf6",
+    "text": "Be content with what you have; rejoice in the way things are.",
+    "author": "Lao Tzu",
+    "book": "Tao Te Ching",
+    "category": "wellbeing"
+  },
+  {
+    "id": "73bcb2c9-48d2-45af-87c6-6ef69f31d1e5",
+    "text": "Compound interest is the eighth wonder of the world. He who understands it, earns it.",
+    "author": "Albert Einstein",
+    "book": "Ideas and Opinions",
+    "category": "wisdom"
+  },
+  {
+    "id": "113eb74a-fbec-4c5e-8e4e-ffb60e15cc21",
+    "text": "There is no greater agony than bearing an untold story inside you.",
+    "author": "Maya Angelou",
+    "book": "I Know Why the Caged Bird Sings",
+    "category": "courage"
+  },
+  {
+    "id": "44fbff4b-cc5c-46a9-b391-2dab14196b89",
+    "text": "Owning our story and loving ourselves through that process is the bravest thing we'll ever do.",
+    "author": "Brené Brown",
+    "book": "The Gifts of Imperfection",
+    "category": "courage"
+  },
+  {
+    "id": "7182ed69-5863-4f3d-adf2-c5100703278b",
+    "text": "Our doubts are traitors, and make us lose the good we oft might win, by fearing to attempt.",
+    "author": "William Shakespeare",
+    "book": "Measure for Measure",
+    "category": "courage"
+  },
+  {
+    "id": "cd784c09-10a2-4ddd-8cf3-c7a5d00fe585",
+    "text": "Courage is not the absence of fear, but the triumph over it.",
+    "author": "Nelson Mandela",
+    "book": "Long Walk to Freedom",
+    "category": "courage"
+  },
+  {
+    "id": "12ad34dd-8579-4bfc-b05f-9a69bc39b267",
+    "text": "If you are going through hell, keep going.",
+    "author": "Winston Churchill",
+    "book": "Never Give In!",
+    "category": "courage"
+  },
+  {
+    "id": "a60d70db-1dc2-47c2-93c7-ebc38e229127",
+    "text": "We delight in the beauty of the butterfly, but rarely admit the changes it has gone through to achieve that beauty.",
+    "author": "Maya Angelou",
+    "book": "Wouldn't Take Nothing for My Journey Now",
+    "category": "courage"
+  },
+  {
+    "id": "fa08f9f5-590f-47bd-96df-a6907572cc7b",
+    "text": "We make a living by what we get, but we make a life by what we give.",
+    "author": "Winston Churchill",
+    "book": "Speeches",
+    "category": "motivation"
+  },
+  {
+    "id": "7e46090f-b070-45a3-a72c-3fe14e594f8c",
+    "text": "Adopt the pace of nature: her secret is patience.",
     "author": "Ralph Waldo Emerson",
-    "book": "History",
+    "book": "Essays: Second Series",
     "category": "mental/physical/happy/courage"
   },
   {
-    "id": "9bd64007-7739-48ee-a57f-286ba126b7f1",
-    "text": "What we achieve inwardly will change outer reality.",
-    "author": "Plutarch",
-    "book": "Moralia",
+    "id": "4ec3cc8f-fa5a-4348-85de-515be6f4c98b",
+    "text": "Choose to be optimistic, it feels better.",
+    "author": "Dalai Lama",
+    "book": "The Book of Joy",
     "category": "mental/physical/happy/courage"
   },
   {
-    "id": "efb950ba-2c53-4e97-a927-65f6385d9575",
-    "text": "A warm smile is the universal language of kindness.",
-    "author": "William Arthur Ward",
-    "book": "Fountains of Faith",
-    "category": "mental/physical/happy/courage"
+    "id": "c87fb013-1ca4-4794-a4a8-ee7d75e16799",
+    "text": "Wonder is the beginning of wisdom.",
+    "author": "Socrates",
+    "book": "Theaetetus by Plato",
+    "category": "wisdom"
   },
   {
-    "id": "2b0e0740-1afd-4cd2-9092-3554eaf026eb",
-    "text": "The best way to cheer yourself up is to try to cheer somebody else up.",
-    "author": "Mark Twain",
-    "book": "Notebooks",
-    "category": "mental/physical/happy/courage"
+    "id": "70cbd916-31bc-4d34-82fa-6598e20ba4a8",
+    "text": "The best way out is always through.",
+    "author": "Robert Frost",
+    "book": "A Servant to Servants",
+    "category": "wisdom"
   },
   {
-    "id": "bd373a01-1659-457a-a7b1-f05e12642e9f",
-    "text": "Happiness is the meaning and the purpose of life, the whole aim and end of human existence.",
-    "author": "Aristotle",
-    "book": "Nicomachean Ethics",
-    "category": "mental/physical/happy/courage"
+    "id": "43aaff45-6a5f-482b-9b9c-50737523062f",
+    "text": "The meaning of life is just to be alive. It is so plain and so obvious and so simple.",
+    "author": "Alan Watts",
+    "book": "The Culture of Counter-Culture",
+    "category": "wisdom"
   },
   {
-    "id": "f4ab7bcc-4689-4ec0-a0f4-2abc87f517f1",
-    "text": "Joy does not simply happen to us. We have to choose joy and keep choosing it every day.",
-    "author": "Henri Nouwen",
-    "book": "Here and Now",
-    "category": "mental/physical/happy/courage"
+    "id": "59d5ad38-8cb8-4384-8543-91f23b483fa3",
+    "text": "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+    "author": "Nelson Mandela",
+    "book": "Long Walk to Freedom",
+    "category": "courage"
+  },
+  {
+    "id": "854e5cd3-e5ac-49a4-97d3-f74ccd543c83",
+    "text": "The only true wisdom is in knowing you know nothing.",
+    "author": "Socrates",
+    "book": "Apology by Plato",
+    "category": "wisdom"
   },
   {
     "id": "53d97a66-1826-4993-9177-758627432c58",
@@ -2513,45 +2303,255 @@
     "category": "mental/physical/happy/courage"
   },
   {
-    "id": "017c5b56-8132-40ee-8533-93334c14571c",
-    "text": "The secret of happiness is not in doing what one likes, but in liking what one does.",
-    "author": "James M. Barrie",
-    "book": "The Little Minister",
-    "category": "mental/physical/happy/courage"
+    "id": "49671a81-526f-4c98-b3ed-03c7d86a350c",
+    "text": "Faith is taking the first step even when you don't see the whole staircase.",
+    "author": "Martin Luther King Jr.",
+    "book": "Stride Toward Freedom",
+    "category": "courage"
   },
   {
-    "id": "ac84e28f-29af-4f7f-8a18-489da7d227a8",
-    "text": "There is only one happiness in this life, to love and be loved.",
-    "author": "George Sand",
-    "book": "Letters",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "a0d5538d-7685-4d06-9238-1209d45f0eab",
-    "text": "Happiness is a direction, not a place.",
-    "author": "Sydney J. Harris",
-    "book": "Pieces of Eight",
-    "category": "mental/physical/happy/courage"
-  },
-  {
-    "id": "9ad0aa71-9cb4-456f-9aaf-b824cebf6f49",
-    "text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
-    "author": "Will Durant",
-    "book": "The Story of Philosophy",
+    "id": "fa799dca-0fa4-49ed-8e8c-045ca9eef16f",
+    "text": "It is not in the stars to hold our destiny but in ourselves.",
+    "author": "William Shakespeare",
+    "book": "Julius Caesar",
     "category": "motivation"
   },
   {
-    "id": "c987c62d-6d8e-4d27-9361-f241a084f869",
-    "text": "It is during our darkest moments that we must focus to see the light.",
-    "author": "Aristotle",
-    "book": "Nicomachean Ethics",
-    "category": "motivation"
-  },
-  {
-    "id": "82b3b70c-d392-48f8-a83f-fceacddd7cdf",
-    "text": "Turn your wounds into wisdom.",
-    "author": "Oprah Winfrey",
-    "book": "What I Know for Sure",
+    "id": "e659573a-ccb1-42a4-99b9-c0362cc0837e",
+    "text": "What lies behind you and what lies in front of you pales in comparison to what lies inside of you.",
+    "author": "Ralph Waldo Emerson",
+    "book": "Essays",
     "category": "wisdom"
+  },
+  {
+    "id": "0bdfa57a-af14-4275-9ca3-da0e000bfa30",
+    "text": "Where there is ruin, there is hope for a treasure.",
+    "author": "Rumi",
+    "book": "The Masnavi",
+    "category": "courage"
+  },
+  {
+    "id": "9df2ebf3-1152-4f66-b873-88e2c6f882fe",
+    "text": "What sunshine is to flowers, smiles are to humanity.",
+    "author": "Joseph Addison",
+    "book": "The Spectator",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "fa6d2db1-eee5-4f0e-b632-c5b267582e4e",
+    "text": "It had long since come to my attention that people of accomplishment rarely sat back and let things happen to them.",
+    "author": "Leonardo da Vinci",
+    "book": "Notebooks of Leonardo da Vinci",
+    "category": "motivation"
+  },
+  {
+    "id": "a217dc76-1ed1-49bb-8e37-594bae462912",
+    "text": "In three words I can sum up everything I've learned about life: it goes on.",
+    "author": "Robert Frost",
+    "book": "Selected Poems",
+    "category": "wisdom"
+  },
+  {
+    "id": "d48cbe77-9024-41e5-bb79-5d03abd8066a",
+    "text": "Storm clouds don't last forever. Even the longest, darkest nights eventually give way to dawn.",
+    "author": "Steve Maraboli",
+    "book": "Life, the Truth, and Being Free",
+    "category": "courage"
+  },
+  {
+    "id": "20ad75fa-9b55-4492-ba99-9fe470cdfce8",
+    "text": "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
+    "author": "Maya Angelou",
+    "book": "Letter to My Daughter",
+    "category": "motivation"
+  },
+  {
+    "id": "9a3b7152-60c8-4ec5-a3cf-eaccf80a904c",
+    "text": "Thousands of candles can be lighted from a single candle, and the life of the candle will not be shortened.",
+    "author": "Buddha",
+    "book": "The Dhammapada",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "dc116e26-ffeb-46a5-85eb-05e6ea2422fd",
+    "text": "Two roads diverged in a wood, and I took the one less traveled by, and that has made all the difference.",
+    "author": "Robert Frost",
+    "book": "Mountain Interval",
+    "category": "wisdom"
+  },
+  {
+    "id": "eefe994a-3020-4d26-b9ba-b58668de2609",
+    "text": "Imperfections are not inadequacies; they are reminders that we're all in this together.",
+    "author": "Brené Brown",
+    "book": "The Gifts of Imperfection",
+    "category": "courage"
+  },
+  {
+    "id": "9b5bfd07-af25-4d55-8321-f52e16b9bccf",
+    "text": "The more that you read, the more things you will know. The more that you learn, the more places you'll go.",
+    "author": "Dr. Seuss",
+    "book": "I Can Read With My Eyes Shut!",
+    "category": "wisdom"
+  },
+  {
+    "id": "a3fbad4f-3943-4e97-a0be-fb7699f1bded",
+    "text": "Cheerfulness is the best promoter of health and is as friendly to the mind as to the body.",
+    "author": "Joseph Addison",
+    "book": "The Spectator",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "e9f5b92b-0f5d-485d-9afa-86560e6e5fa0",
+    "text": "Today you are you, that is truer than true. There is no one alive who is youer than you.",
+    "author": "Dr. Seuss",
+    "book": "Happy Birthday to You!",
+    "category": "motivation"
+  },
+  {
+    "id": "629c210e-3634-4f66-8208-e0ba3a567ca5",
+    "text": "I have been impressed with the urgency of doing. Knowing is not enough; we must apply.",
+    "author": "Leonardo da Vinci",
+    "book": "Notebooks of Leonardo da Vinci",
+    "category": "wisdom"
+  },
+  {
+    "id": "e580f027-f4fb-4c06-9ce3-f3f4084cc051",
+    "text": "A journey of a thousand miles must begin with a single step.",
+    "author": "Lao Tzu",
+    "book": "Tao Te Ching",
+    "category": "motivation"
+  },
+  {
+    "id": "7a3add71-1505-4b3a-8a8a-d54e159eda91",
+    "text": "Love all, trust a few, do wrong to none.",
+    "author": "William Shakespeare",
+    "book": "All's Well That Ends Well",
+    "category": "wisdom"
+  },
+  {
+    "id": "eb808605-675a-4de1-baa5-6483fb55a0e7",
+    "text": "Write it on your heart that every day is the best day in the year.",
+    "author": "Ralph Waldo Emerson",
+    "book": "Society and Solitude",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "4081c03d-a7db-45c7-8b93-ac218160fd09",
+    "text": "All that glitters is not gold.",
+    "author": "William Shakespeare",
+    "book": "The Merchant of Venice",
+    "category": "wisdom"
+  },
+  {
+    "id": "1616f826-e729-45f7-8913-19c75775fe9a",
+    "text": "Simplicity is the ultimate sophistication.",
+    "author": "Leonardo da Vinci",
+    "book": "Notebooks of Leonardo da Vinci",
+    "category": "wisdom"
+  },
+  {
+    "id": "0e59f896-c398-482f-99d8-3d6cdbbc2c89",
+    "text": "The creation of a thousand forests is in one acorn.",
+    "author": "Ralph Waldo Emerson",
+    "book": "History",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "97393c8e-8ca8-49d1-ab7c-8ae21d933ef0",
+    "text": "Vulnerability is not winning or losing; it's having the courage to show up and be seen.",
+    "author": "Brené Brown",
+    "book": "Daring Greatly",
+    "category": "courage"
+  },
+  {
+    "id": "468e3b17-8082-4287-85ce-e3fdb55fa7d6",
+    "text": "If you can't fly then run, if you can't run then walk, if you can't walk then crawl, but whatever you do you have to keep moving forward.",
+    "author": "Martin Luther King Jr.",
+    "book": "Speeches",
+    "category": "courage"
+  },
+  {
+    "id": "37807d8a-7cf5-4e4a-8e6b-1b3533c70b1b",
+    "text": "There is no path to happiness: happiness is the path.",
+    "author": "Buddha",
+    "book": "The Dhammapada",
+    "category": "mental/physical/happy/courage"
+  },
+  {
+    "id": "bcf04b33-9766-4d2e-9262-87ad0cf8e78c",
+    "text": "Darkness cannot drive out darkness; only light can do that.",
+    "author": "Martin Luther King Jr.",
+    "book": "Strength to Love",
+    "category": "courage"
+  },
+  {
+    "id": "63b6e7bb-3744-4280-be37-796f8c001254",
+    "text": "The wound is the place where the light enters you.",
+    "author": "Rumi",
+    "book": "The Essential Rumi",
+    "category": "courage"
+  },
+  {
+    "id": "528867ff-9f02-4bbf-a4b9-5e79224cc9ac",
+    "text": "Unless someone like you cares a whole awful lot, nothing is going to get better. It's not.",
+    "author": "Dr. Seuss",
+    "book": "The Lorax",
+    "category": "motivation"
+  },
+  {
+    "id": "1ac69b9a-b971-40ee-91c1-8b643e5a58b4",
+    "text": "Set your life on fire. Seek those who fan your flames.",
+    "author": "Rumi",
+    "book": "The Essential Rumi",
+    "category": "motivation"
+  },
+  {
+    "id": "e94fcb68-80bd-436e-9a60-91fcde167a68",
+    "text": "Nature does not hurry, yet everything is accomplished.",
+    "author": "Lao Tzu",
+    "book": "Tao Te Ching",
+    "category": "wellbeing"
+  },
+  {
+    "id": "409ac0eb-c54e-43b1-87af-5e6eed7c8f56",
+    "text": "Why fit in when you were born to stand out?",
+    "author": "Dr. Seuss",
+    "book": "Happy Birthday to You!",
+    "category": "motivation"
+  },
+  {
+    "id": "2260fe43-cbcb-486f-85b5-2d60f8dfbb52",
+    "text": "Realize deeply that the present moment is all you have. Make the now the primary focus of your life.",
+    "author": "Eckhart Tolle",
+    "book": "The Power of Now",
+    "category": "wellbeing"
+  },
+  {
+    "id": "e0d055ca-e380-4468-8973-76c3d5fbecd3",
+    "text": "To a mind that is still, the whole universe surrenders.",
+    "author": "Lao Tzu",
+    "book": "Tao Te Ching",
+    "category": "wellbeing"
+  },
+  {
+    "id": "72931985-4536-4690-8d7a-8f0fee31c6cb",
+    "text": "The primary cause of unhappiness is never the situation but your thoughts about it.",
+    "author": "Eckhart Tolle",
+    "book": "A New Earth",
+    "category": "wellbeing"
+  },
+  {
+    "id": "aa172da7-c2b5-4286-b7f9-7f25a0ff27e6",
+    "text": "What you seek is seeking you.",
+    "author": "Rumi",
+    "book": "The Essential Rumi",
+    "category": "motivation"
+  },
+  {
+    "id": "c759e88a-2018-43b2-b9b0-49ad808d564a",
+    "text": "Wherever you are, be there totally.",
+    "author": "Eckhart Tolle",
+    "book": "The Power of Now",
+    "category": "wellbeing"
   }
 ]
