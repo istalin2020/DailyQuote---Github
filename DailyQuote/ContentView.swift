@@ -531,145 +531,19 @@ struct DailyQuoteView: View {
     }
 
     // MARK: - Share image (uses current theme)
+    /// Same card design as History / Ask AI / Compose (see ShareCardBuilder).
     func generateShareImage(
         for custom: BookQuote? = nil,
         heading: String? = nil,
         showAttributionIfAvailable: Bool = true
     ) -> UIImage {
-
-        // 1080x1080 logical × 3x scale = 3240×3240 actual pixels
-        let canvas = CGSize(width: 1080, height: 1080)
-
-        let bgUIImage = theme.currentUIImageOrFallback(size: canvas)
         let q = custom ?? quote
-        let titleText = heading ?? "📚 Quote from a Book"
-
-        // App icon (skip safely if the asset is missing)
-        let appIcon = UIImage(named: "AppIcon_DailyQuoteReminder")
-
-        // ---- Adaptive colors (same idea as before)
-        let sampleRect = CGRect(x: bgUIImage.size.width * 0.08,
-                                y: bgUIImage.size.height * 0.25,
-                                width: bgUIImage.size.width * 0.84,
-                                height: bgUIImage.size.height * 0.50)
-        let uiPrimary   = bgUIImage.adaptiveTextColor(sampleRect: sampleRect, threshold: 0.50)
-        let uiSecondary = uiPrimary.withAlphaComponent(0.82)
-        let primaryText   = Color(uiColor: uiPrimary)
-        let secondaryText = Color(uiColor: uiSecondary)
-        let softShadow    = Color.black.opacity(uiPrimary == .white ? 0.35 : 0.22)
-
-        let overlay = LinearGradient(
-            colors: [Color.black.opacity(0.35), .black.opacity(0.15), .black.opacity(0.45)],
-            startPoint: .top, endPoint: .bottom
+        return ShareCardBuilder.image(
+            forText: q.text,
+            author: showAttributionIfAvailable ? q.author : nil,
+            book: showAttributionIfAvailable ? q.book : nil,
+            headingOverride: heading ?? "📚 Quote from a Book"
         )
-
-        // Bottom-left mark metrics
-        let sideInset: CGFloat   = canvas.width  * 0.08
-        let bottomInset: CGFloat = canvas.height * 0.08
-        let iconSize: CGFloat = 60
-
-        let host = UIHostingController(
-            rootView:
-                ZStack {
-                    // Solid base to guarantee opacity
-                    Color.black
-
-                    // Background
-                    Image(uiImage: bgUIImage)
-                        .resizable()
-                        .interpolation(.high)
-                        .scaledToFill()
-                        .frame(width: canvas.width, height: canvas.height)
-                        .clipped()
-
-                    overlay
-
-                    // Quote text
-                    VStack(spacing: 80) {
-                        Text(titleText)
-                            .font(.system(size: 46, weight: .bold, design: .serif))
-                            .foregroundStyle(primaryText)
-                            .shadow(color: softShadow, radius: 6, x: 0, y: 2)
-
-                        Text("\"\(q.text)\"")
-                            .font(.system(size: 44, weight: .regular, design: .serif))
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(primaryText)
-                            .shadow(color: softShadow, radius: 6, x: 0, y: 2)
-                            .padding(.horizontal, 44)
-                            .frame(maxWidth: 700)
-
-                        let authorIsEmpty = q.author.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                        let showAuthor = showAttributionIfAvailable && !authorIsEmpty
-                        let showBook   = showAttributionIfAvailable && (q.book?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false)
-
-                        if showAuthor || showBook {
-                            VStack(spacing: 6) {
-                                if showAuthor {
-                                    Text("- \(q.author)")
-                                        .font(.system(size: 30, weight: .semibold, design: .rounded))
-                                        .foregroundStyle(secondaryText)
-                                        .shadow(color: softShadow, radius: 4, x: 0, y: 1)
-                                }
-                                if showBook, let book = q.book {
-                                    Text("📖 \(book)")
-                                        .font(.system(size: 26, weight: .regular, design: .rounded))
-                                        .multilineTextAlignment(.center)
-                                        .foregroundStyle(secondaryText)
-                                        .shadow(color: softShadow, radius: 4, x: 0, y: 1)
-                                }
-                            }
-                        }
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                .frame(width: canvas.width, height: canvas.height)
-                // ✅ Bottom-left app mark (icon with app name BELOW it)
-                .overlay(alignment: .bottomLeading) {
-                    if let appIcon {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Image(uiImage: appIcon)
-                                .resizable()
-                                .frame(width: iconSize, height: iconSize)
-                                .cornerRadius(12)
-                                .shadow(radius: 4)
-
-                            Text("DailyQuoteReminder")
-                                .font(.caption)
-                                .foregroundStyle(secondaryText)
-                                .shadow(color: softShadow, radius: 3, x: 0, y: 1)
-                        }
-                        .padding(.leading, sideInset)
-                        .padding(.bottom, bottomInset)
-                    }
-                }
-        )
-
-        // === Render at 3x for crisp share output ===
-        let view = host.view!
-        view.frame = CGRect(origin: .zero, size: canvas)
-        view.backgroundColor = .black
-
-        // Mount briefly so layout resolves fully
-        let win = UIWindow(frame: view.frame)
-        win.backgroundColor = .black
-        win.rootViewController = host
-        win.isHidden = false
-        win.layoutIfNeeded()
-
-        let fmt = UIGraphicsImageRendererFormat()
-        fmt.opaque = true
-        fmt.scale  = 3  // 1080 x 3 = 3240 actual pixels per side
-
-        let finalImage = UIGraphicsImageRenderer(size: canvas, format: fmt).image { ctx in
-            ctx.cgContext.setFillColor(UIColor.black.cgColor)
-            ctx.cgContext.fill(CGRect(origin: .zero, size: canvas))
-            view.layer.render(in: ctx.cgContext)
-        }
-
-        // Clean up
-        win.isHidden = true
-        return finalImage
     }
 
     // MARK: - Time picker binding

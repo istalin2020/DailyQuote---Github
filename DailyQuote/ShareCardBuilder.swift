@@ -1,140 +1,220 @@
 import SwiftUI
 import UIKit
 
+/// Renders the shareable quote card used everywhere (Home, History,
+/// Ask AI, Compose) so every share looks the same.
 struct ShareCardBuilder {
+
+    /// 4:5 portrait — the size Instagram/WhatsApp/iMessage show largest in a
+    /// feed, and it crops far less of the portrait wallpapers than a square.
+    static let canvas = CGSize(width: 1080, height: 1350)
+    /// 2x -> 2160x2700 px. The wallpapers are 1024x1536, so higher scales only
+    /// make the file bigger without adding detail.
+    static let renderScale: CGFloat = 2
 
     static func image(
         forText text: String,
-        themeNames: [String],
-        selectedThemeIndex: Int,
+        themeNames: [String] = [],
+        selectedThemeIndex: Int = 0,
         author: String? = nil,
         book: String? = nil,
         headingOverride: String? = nil
     ) -> UIImage {
+        let canvas = Self.canvas
+        let bg = ThemeState.shared.currentUIImageOrFallback(size: canvas)
 
-        // 1080x1080 logical × 3x scale = 3240×3240 actual pixels
-        let canvas = CGSize(width: 1080, height: 1080)
+        // Brighter wallpapers get a stronger shade so white text always reads.
+        let lum = bg.averageLuminance ?? 0.5
+        let shade = min(0.30, max(0, (lum - 0.30) * 0.75))
 
-        // Background from current home theme (full-res original)
-        let bg: UIImage = ThemeState.shared.currentUIImageOrFallback(size: canvas)
-
-        // Adaptive colors
-        let sampleRect = CGRect(x: bg.size.width * 0.08,
-                                y: bg.size.height * 0.25,
-                                width: bg.size.width * 0.84,
-                                height: bg.size.height * 0.50)
-
-        let uiPrimary: UIColor   = bg.adaptiveTextColor(sampleRect: sampleRect, threshold: 0.50)
-        let uiSecondary: UIColor = uiPrimary.withAlphaComponent(0.82)
-
-        let primaryText   = Color(uiColor: uiPrimary)
-        let secondaryText = Color(uiColor: uiSecondary)
-        let softShadow    = Color.black.opacity(uiPrimary == .white ? 0.35 : 0.22)
-
-        // Overlay
-        let overlay = LinearGradient(
-            colors: [Color.black.opacity(0.35), Color.black.opacity(0.15), Color.black.opacity(0.45)],
-            startPoint: .top, endPoint: .bottom
+        let card = ShareCardView(
+            background: bg,
+            heading: headingOverride ?? "📚 Quote from a Book",
+            text: text,
+            author: author?.trimmingCharacters(in: .whitespacesAndNewlines),
+            book: book?.trimmingCharacters(in: .whitespacesAndNewlines),
+            appIcon: UIImage(named: "AppIcon_DailyQuoteReminder"),
+            extraShade: shade
         )
+        .frame(width: canvas.width, height: canvas.height)
+        .ignoresSafeArea()
 
-        // Heading + app mark data
-        let heading = headingOverride ?? "Quote from a Book"
-        let appIcon  = UIImage(named: "AppIcon_DailyQuoteReminder")
-        let sideInset: CGFloat   = canvas.width  * 0.08
-        let bottomInset: CGFloat = canvas.height * 0.08
-        let iconSize: CGFloat    = 80
+        let host = UIHostingController(rootView: card)
+        // Without this the offscreen window's status-bar inset pushed the
+        // whole card down and left a black strip at the top.
+        host.safeAreaRegions = []
+        host.view.backgroundColor = .black
+        host.view.frame = CGRect(origin: .zero, size: canvas)
 
-        // Compose the SwiftUI view
-        let controller = UIHostingController(
-            rootView:
-                ZStack(alignment: .bottomLeading) {
-                    Image(uiImage: bg)
-                        .resizable()
-                        .interpolation(.high)
-                        .scaledToFill()
-                        .frame(width: canvas.width, height: canvas.height)
-                        .clipped()
-                        .ignoresSafeArea()
-
-                    overlay.ignoresSafeArea()
-
-                    VStack(spacing: 44) {
-                        Text(heading)
-                            .font(.system(size: 46, weight: .bold, design: .serif))
-                            .foregroundStyle(primaryText)
-                            .shadow(color: softShadow, radius: 6, x: 0, y: 2)
-
-                        Text("\"\(text)\"")
-                            .font(.system(size: 42, weight: .regular, design: .serif))
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(primaryText)
-                            .shadow(color: softShadow, radius: 6, x: 0, y: 2)
-                            .padding(.horizontal, 44)
-                            .frame(maxWidth: canvas.width * 0.88)
-
-                        if (author?.isEmpty == false) || (book?.isEmpty == false) {
-                            VStack(spacing: 6) {
-                                if let a = author, !a.isEmpty {
-                                    Text("- \(a)")
-                                        .font(.system(size: 28, weight: .semibold, design: .rounded))
-                                        .foregroundStyle(secondaryText)
-                                        .shadow(color: softShadow, radius: 4, x: 0, y: 1)
-                                }
-                                if let b = book, !b.isEmpty {
-                                    Text("📖 \(b)")
-                                        .font(.system(size: 24, weight: .regular, design: .rounded))
-                                        .multilineTextAlignment(.center)
-                                        .foregroundStyle(secondaryText)
-                                        .shadow(color: softShadow, radius: 4, x: 0, y: 1)
-                                }
-                            }
-                        }
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-
-                    if let icon = appIcon {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Image(uiImage: icon)
-                                .resizable()
-                                .interpolation(.high)
-                                .frame(width: iconSize, height: iconSize)
-                                .cornerRadius(14)
-                                .shadow(radius: 4)
-
-                            Text("DailyQuoteReminder")
-                                .font(.system(size: 14))
-                                .foregroundStyle(secondaryText)
-                                .shadow(color: softShadow, radius: 3, x: 0, y: 1)
-                        }
-                        .padding(.leading, sideInset)
-                        .padding(.bottom, bottomInset)
-                    }
-                }
-                .frame(width: canvas.width, height: canvas.height)
-        )
-
-        // Render at 3x scale for crisp, high-resolution share output
-        let view = controller.view!
-        view.bounds = CGRect(origin: .zero, size: canvas)
-        view.backgroundColor = .black
-
-        // Mount in a window so layout resolves fully
-        let win = UIWindow(frame: view.frame)
+        // Mount briefly so layout resolves fully
+        let win = UIWindow(frame: host.view.frame)
         win.backgroundColor = .black
-        win.rootViewController = controller
+        win.rootViewController = host
         win.isHidden = false
-        win.layoutIfNeeded()
+        defer { win.isHidden = true }
+        host.view.setNeedsLayout()
+        host.view.layoutIfNeeded()
 
         let fmt = UIGraphicsImageRendererFormat()
         fmt.opaque = true
-        fmt.scale  = 3   // 1080 x 3 = 3240 actual pixels per side
-        let renderer = UIGraphicsImageRenderer(size: canvas, format: fmt)
-        let result = renderer.image { ctx in
+        fmt.scale = Self.renderScale
+        return UIGraphicsImageRenderer(size: canvas, format: fmt).image { ctx in
             ctx.cgContext.setFillColor(UIColor.black.cgColor)
             ctx.cgContext.fill(CGRect(origin: .zero, size: canvas))
-            view.layer.render(in: ctx.cgContext)
+            host.view.layer.render(in: ctx.cgContext)
         }
-        win.isHidden = true
-        return result
+    }
+}
+
+// MARK: - Card layout
+
+private struct ShareCardView: View {
+    let background: UIImage
+    let heading: String
+    let text: String
+    let author: String?
+    let book: String?
+    let appIcon: UIImage?
+    let extraShade: CGFloat
+
+    private var canvas: CGSize { ShareCardBuilder.canvas }
+
+    /// Larger type for short quotes, smaller for long ones.
+    private var quoteSize: CGFloat {
+        switch text.count {
+        case ..<70:  return 76
+        case ..<130: return 66
+        case ..<210: return 56
+        case ..<300: return 48
+        default:     return 42
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            // Wallpaper, edge to edge
+            Image(uiImage: background)
+                .resizable()
+                .interpolation(.high)
+                .antialiased(true)
+                .scaledToFill()
+                .frame(width: canvas.width, height: canvas.height)
+                .clipped()
+
+            // Soft shade: darker top/bottom, lighter middle
+            LinearGradient(
+                colors: [.black.opacity(0.40 + extraShade),
+                         .black.opacity(0.22 + extraShade),
+                         .black.opacity(0.30 + extraShade),
+                         .black.opacity(0.62 + extraShade)],
+                startPoint: .top, endPoint: .bottom
+            )
+
+            // Vignette pulls the eye to the quote
+            RadialGradient(
+                colors: [.clear, .black.opacity(0.35)],
+                center: .center,
+                startRadius: canvas.width * 0.35,
+                endRadius: canvas.height * 0.75
+            )
+
+            VStack(spacing: 0) {
+                Spacer(minLength: 90)
+
+                Text(heading)
+                    .font(.system(size: 50, weight: .bold, design: .serif))
+                    .foregroundStyle(.white)
+                    .modifier(TextGlow())
+
+                Spacer(minLength: 40)
+
+                // Decorative opening quote mark
+                Text("\u{201C}")
+                    .font(.system(size: 190, weight: .bold, design: .serif))
+                    .foregroundStyle(.white.opacity(0.85))
+                    .frame(height: 110, alignment: .top)
+                    .modifier(TextGlow())
+
+                Text(text)
+                    .font(.system(size: quoteSize, weight: .medium, design: .serif))
+                    .lineSpacing(quoteSize * 0.18)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.white)
+                    .minimumScaleFactor(0.5)
+                    .frame(maxWidth: canvas.width * 0.84)
+                    .modifier(TextGlow())
+                    .padding(.top, 10)
+
+                if hasAttribution {
+                    Capsule()
+                        .fill(.white.opacity(0.75))
+                        .frame(width: 140, height: 4)
+                        .padding(.top, 48)
+                        .padding(.bottom, 32)
+
+                    VStack(spacing: 14) {
+                        if let a = author, !a.isEmpty {
+                            Text("\u{2014} \(a)")
+                                .font(.system(size: 44, weight: .semibold, design: .rounded))
+                                .foregroundStyle(.white)
+                                .modifier(TextGlow())
+                        }
+                        if let b = book, !b.isEmpty {
+                            Text("📖 \(b)")
+                                .font(.system(size: 34, weight: .regular, design: .rounded))
+                                .foregroundStyle(.white.opacity(0.9))
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: canvas.width * 0.8)
+                                .modifier(TextGlow())
+                        }
+                    }
+                }
+
+                Spacer(minLength: 40)
+
+                // App branding
+                HStack(spacing: 22) {
+                    if let icon = appIcon {
+                        Image(uiImage: icon)
+                            .resizable()
+                            .interpolation(.high)
+                            .frame(width: 120, height: 120)
+                            .clipShape(RoundedRectangle(cornerRadius: 27, style: .continuous))
+                            .overlay(RoundedRectangle(cornerRadius: 27, style: .continuous)
+                                .stroke(.white.opacity(0.35), lineWidth: 2))
+                            .shadow(color: .black.opacity(0.45), radius: 14, x: 0, y: 6)
+                    }
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("DailyQuoteReminder")
+                            .font(.system(size: 38, weight: .bold, design: .rounded))
+                            .foregroundStyle(.white)
+                        Text("A new quote every day")
+                            .font(.system(size: 26, weight: .medium, design: .rounded))
+                            .foregroundStyle(.white.opacity(0.8))
+                    }
+                    .modifier(TextGlow())
+                    Spacer()
+                }
+                .padding(.horizontal, 70)
+                .padding(.bottom, 70)
+            }
+            .frame(width: canvas.width, height: canvas.height)
+        }
+        .frame(width: canvas.width, height: canvas.height)
+        .clipped()
+    }
+
+    private var hasAttribution: Bool {
+        (author?.isEmpty == false) || (book?.isEmpty == false)
+    }
+}
+
+/// Two-layer shadow: a tight one for crisp edges and a wide soft one so text
+/// stays readable on busy or bright parts of any wallpaper.
+private struct TextGlow: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .shadow(color: .black.opacity(0.55), radius: 3, x: 0, y: 2)
+            .shadow(color: .black.opacity(0.35), radius: 18, x: 0, y: 6)
     }
 }
