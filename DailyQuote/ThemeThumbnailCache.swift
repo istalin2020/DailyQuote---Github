@@ -14,7 +14,7 @@ final class ThemeThumbnailCache {
     /// sharp on typical 2-column phone layouts at a fraction of the memory.
     static let maxPixel = 720
 
-    private let cache = NSCache<NSString, UIImage>()
+    private let cache = ImageCache(costLimit: 80 * 1024 * 1024) // bytes of decoded bitmaps
     private let queue: OperationQueue = {
         let q = OperationQueue()
         q.name = "theme.thumbnails"
@@ -23,34 +23,32 @@ final class ThemeThumbnailCache {
         return q
     }()
 
-    private init() {
-        cache.totalCostLimit = 80 * 1024 * 1024 // bytes of decoded bitmaps
-    }
+    private init() {}
 
-    private func key(for source: ThemeCatalog.Source) -> NSString {
-        ThemeCatalog.encode(source) as NSString
+    private func key(for source: ThemeCatalog.Source) -> String {
+        ThemeCatalog.encode(source)
     }
 
     /// Returns the thumbnail immediately if it has already been made.
     func cached(_ source: ThemeCatalog.Source) -> UIImage? {
-        cache.object(forKey: key(for: source))
+        cache.image(forKey: key(for: source))
     }
 
     /// Returns the thumbnail, decoding it on a background queue if needed.
     func thumbnail(for source: ThemeCatalog.Source) async -> UIImage? {
         let k = key(for: source)
-        if let hit = cache.object(forKey: k) { return hit }
+        if let hit = cache.image(forKey: k) { return hit }
 
         return await withCheckedContinuation { continuation in
             queue.addOperation { [cache] in
-                if let hit = cache.object(forKey: k) {
+                if let hit = cache.image(forKey: k) {
                     continuation.resume(returning: hit)
                     return
                 }
                 let img = Self.makeThumbnail(for: source)
                 if let img {
                     let px = img.size.width * img.scale * img.size.height * img.scale
-                    cache.setObject(img, forKey: k, cost: Int(px) * 4)
+                    cache.set(img, forKey: k, cost: Int(px) * 4)
                 }
                 continuation.resume(returning: img)
             }
@@ -59,7 +57,7 @@ final class ThemeThumbnailCache {
 
     /// Drop a thumbnail (e.g. when a custom theme file is overwritten).
     func remove(_ source: ThemeCatalog.Source) {
-        cache.removeObject(forKey: key(for: source))
+        cache.remove(forKey: key(for: source))
     }
 
     // MARK: - Decoding
@@ -92,5 +90,28 @@ final class ThemeThumbnailCache {
             // preparingThumbnail returns a decoded bitmap, ready to draw.
             return full.preparingThumbnail(of: target)
         }
+    }
+}
+
+/// NSCache is documented as thread-safe, so sharing it with the background
+/// decode operations is safe; this wrapper tells the compiler so (and uses
+/// Sendable String keys instead of NSString).
+private final class ImageCache: @unchecked Sendable {
+    private let storage = NSCache<NSString, UIImage>()
+
+    init(costLimit: Int) {
+        storage.totalCostLimit = costLimit
+    }
+
+    func image(forKey key: String) -> UIImage? {
+        storage.object(forKey: key as NSString)
+    }
+
+    func set(_ image: UIImage, forKey key: String, cost: Int) {
+        storage.setObject(image, forKey: key as NSString, cost: cost)
+    }
+
+    func remove(forKey key: String) {
+        storage.removeObject(forKey: key as NSString)
     }
 }
