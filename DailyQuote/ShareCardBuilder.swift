@@ -79,14 +79,20 @@ private struct ShareCardView: View {
 
     private var canvas: CGSize { ShareCardBuilder.canvas }
 
+    /// The quote without any quote marks it already had (Compose / Ask AI),
+    /// so they aren't doubled when the card adds its own.
+    private var bareText: String {
+        text.trimmingCharacters(in: CharacterSet(charactersIn: "\"'\u{201C}\u{201D}\u{2018}\u{2019}").union(.whitespacesAndNewlines))
+    }
+
     /// Larger type for short quotes, smaller for long ones.
     private var quoteSize: CGFloat {
         switch text.count {
-        case ..<70:  return 76
-        case ..<130: return 66
-        case ..<210: return 56
-        case ..<300: return 48
-        default:     return 42
+        case ..<70:  return 60
+        case ..<130: return 54
+        case ..<210: return 48
+        case ..<300: return 42
+        default:     return 38
         }
     }
 
@@ -119,53 +125,48 @@ private struct ShareCardView: View {
             )
 
             VStack(spacing: 0) {
-                Spacer(minLength: 90)
+                Spacer(minLength: 60)
 
-                Text(heading)
-                    .font(.system(size: 50, weight: .bold, design: .serif))
-                    .foregroundStyle(.white)
-                    .modifier(TextGlow())
+                // Heading, quote and attribution stay together, centred
+                VStack(spacing: 0) {
+                    Text(heading)
+                        .font(.system(size: 44, weight: .bold, design: .serif))
+                        .foregroundStyle(.white)
+                        .modifier(TextGlow())
+                        .padding(.bottom, 56)
 
-                Spacer(minLength: 40)
+                    // Quote wrapped in opening and closing quote marks
+                    Text("\u{201C}\(bareText)\u{201D}")
+                        .font(.system(size: quoteSize, weight: .medium, design: .serif))
+                        .lineSpacing(quoteSize * 0.22)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.white)
+                        .minimumScaleFactor(0.5)
+                        .frame(maxWidth: canvas.width * 0.80)
+                        .modifier(TextGlow())
 
-                // Decorative opening quote mark
-                Text("\u{201C}")
-                    .font(.system(size: 190, weight: .bold, design: .serif))
-                    .foregroundStyle(.white.opacity(0.85))
-                    .frame(height: 110, alignment: .top)
-                    .modifier(TextGlow())
+                    if hasAttribution {
+                        Capsule()
+                            .fill(.white.opacity(0.75))
+                            .frame(width: 120, height: 3)
+                            .padding(.top, 44)
+                            .padding(.bottom, 28)
 
-                Text(text)
-                    .font(.system(size: quoteSize, weight: .medium, design: .serif))
-                    .lineSpacing(quoteSize * 0.18)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.white)
-                    .minimumScaleFactor(0.5)
-                    .frame(maxWidth: canvas.width * 0.84)
-                    .modifier(TextGlow())
-                    .padding(.top, 10)
-
-                if hasAttribution {
-                    Capsule()
-                        .fill(.white.opacity(0.75))
-                        .frame(width: 140, height: 4)
-                        .padding(.top, 48)
-                        .padding(.bottom, 32)
-
-                    VStack(spacing: 14) {
-                        if let a = author, !a.isEmpty {
-                            Text("\u{2014} \(a)")
-                                .font(.system(size: 44, weight: .semibold, design: .rounded))
-                                .foregroundStyle(.white)
-                                .modifier(TextGlow())
-                        }
-                        if let b = book, !b.isEmpty {
-                            Text("📖 \(b)")
-                                .font(.system(size: 34, weight: .regular, design: .rounded))
-                                .foregroundStyle(.white.opacity(0.9))
-                                .multilineTextAlignment(.center)
-                                .frame(maxWidth: canvas.width * 0.8)
-                                .modifier(TextGlow())
+                        VStack(spacing: 12) {
+                            if let a = author, !a.isEmpty {
+                                Text("\u{2014} \(a)")
+                                    .font(.system(size: 38, weight: .semibold, design: .rounded))
+                                    .foregroundStyle(.white)
+                                    .modifier(TextGlow())
+                            }
+                            if let b = book, !b.isEmpty {
+                                Text("📖 \(b)")
+                                    .font(.system(size: 30, weight: .regular, design: .rounded))
+                                    .foregroundStyle(.white.opacity(0.9))
+                                    .multilineTextAlignment(.center)
+                                    .frame(maxWidth: canvas.width * 0.8)
+                                    .modifier(TextGlow())
+                            }
                         }
                     }
                 }
