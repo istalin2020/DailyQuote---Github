@@ -445,7 +445,7 @@ struct DailyQuoteView: View {
                 theme.currentIndex = ThemeCatalog.clampedIndex(from: theme.currentIndex)
                 UserDefaults.standard.set(theme.currentIndex, forKey: "selectedThemeIndex")
             }
-            .onChange(of: scenePhase) { phase in
+            .onChangeCompat(of: scenePhase) { phase in
                 if phase == .active {
                     // Returning from background on a new day must show the new quote
                     selectTodayQuote()
@@ -456,7 +456,7 @@ struct DailyQuoteView: View {
                 // Midnight passed while the app was open
                 selectTodayQuote()
             }
-            .onChange(of: showTimePicker) { isShowing in
+            .onChangeCompat(of: showTimePicker) { isShowing in
                 if isShowing {
                     selectionHaptic.prepare()
                 } else {
@@ -465,7 +465,7 @@ struct DailyQuoteView: View {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }
             }
-            .onChange(of: theme.currentIndex) { newIndex in
+            .onChangeCompat(of: theme.currentIndex) { newIndex in
                 let clamped = ThemeCatalog.clampedIndex(from: newIndex)
                 if clamped != theme.currentIndex {                    // keep it in range
                     theme.currentIndex = clamped

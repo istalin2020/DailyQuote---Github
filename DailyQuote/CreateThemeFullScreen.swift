@@ -71,7 +71,7 @@ struct CreateThemeFullScreen: View {
                                     .allowsHitTesting(false)
                             }
                         }
-                        .onChange(of: prompt) { _ in errorText = nil }
+                        .onChangeCompat(of: prompt) { _ in errorText = nil }
                         
                         let canGenerateNow = access.isPro || access.remainingCreateTheme > 0
 
