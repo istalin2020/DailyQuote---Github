@@ -133,7 +133,7 @@ private struct ShareCardView: View {
                         .font(.system(size: 44, weight: .bold, design: .serif))
                         .foregroundStyle(.white)
                         .modifier(TextGlow())
-                        .padding(.bottom, 56)
+                        .padding(.bottom, 110)   // heading sits higher, more room above the quote
 
                     // Quote wrapped in opening and closing quote marks
                     Text("\u{201C}\(bareText)\u{201D}")
@@ -187,10 +187,10 @@ private struct ShareCardView: View {
                     }
                     VStack(alignment: .leading, spacing: 4) {
                         Text("DailyQuoteReminder")
-                            .font(.system(size: 38, weight: .bold, design: .rounded))
+                            .font(.system(size: 32, weight: .bold, design: .rounded))
                             .foregroundStyle(.white)
                         Text("A new quote every day")
-                            .font(.system(size: 26, weight: .medium, design: .rounded))
+                            .font(.system(size: 23, weight: .medium, design: .rounded))
                             .foregroundStyle(.white.opacity(0.8))
                     }
                     .modifier(TextGlow())
