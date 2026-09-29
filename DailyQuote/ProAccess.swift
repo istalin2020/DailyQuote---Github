@@ -30,6 +30,9 @@ final class ProAccess: ObservableObject {
 
     // MARK: – Public state
     @Published private(set) var isPro: Bool = ProAccess.forceProForTesting
+    /// The subscription the user currently owns (ProIDs.monthly / .yearly), nil if none.
+    /// Not set by the Debug testing override — only by a real purchase.
+    @Published private(set) var activeProductID: String?
 
     // 🔹 Separate counters
     @Published private(set) var remainingAskAI: Int = 0
@@ -116,15 +119,17 @@ final class ProAccess: ObservableObject {
     }
 
     func updateEntitlementFromTransactions() async {
-        var active = false
+        var latest: StoreKit.Transaction?
         for await result in Transaction.currentEntitlements {
             if case .verified(let tx) = result,
                tx.revocationDate == nil,
                [ProIDs.monthly, ProIDs.yearly].contains(tx.productID) {
-                active = true; break
+                // If both show up (e.g. right after switching plans), the newest wins
+                if latest == nil || tx.purchaseDate > latest!.purchaseDate { latest = tx }
             }
         }
-        isPro = active || Self.forceProForTesting
+        activeProductID = latest?.productID
+        isPro = latest != nil || Self.forceProForTesting
     }
 
     // MARK: purchase/restore (unchanged)

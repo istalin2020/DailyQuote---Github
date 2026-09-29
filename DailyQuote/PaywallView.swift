@@ -13,6 +13,25 @@ struct PaywallView: View {
     // MARK: - Quick lookup helpers (now use ProIDs)
     private var monthly: Product? { access.products.first { $0.id == ProIDs.monthly } }
     private var yearly:  Product? { access.products.first { $0.id == ProIDs.yearly  } }
+    /// The plan the user already owns (disabled in the list), nil if none.
+    private var currentPlan: Plan? {
+        switch access.activeProductID {
+        case ProIDs.monthly: return .monthly
+        case ProIDs.yearly:  return .yearly
+        default:             return nil
+        }
+    }
+    /// Never leave the owned plan selected — preselect the other one.
+    private func selectAvailablePlan() {
+        if let current = currentPlan, selectedPlan == current {
+            selectedPlan = (current == .monthly) ? .yearly : .monthly
+        }
+    }
+    private var buttonTitle: String {
+        guard currentPlan != nil else { return "GO PRO" }
+        return selectedPlan == .yearly ? "Switch to Yearly" : "Switch to Monthly"
+    }
+
     private var selectedProduct: Product? {
         switch selectedPlan {
         case .monthly: return monthly
@@ -77,7 +96,7 @@ struct PaywallView: View {
                 } label: {
                     HStack(spacing: 10) {
                         Image(systemName: "crown.fill").imageScale(.medium)
-                        Text(purchasing ? "Processing…" : "GO PRO")
+                        Text(purchasing ? "Processing…" : buttonTitle)
                             .font(.system(size: 18, weight: .bold))
                     }
                     .padding(.vertical, 16)
@@ -91,7 +110,7 @@ struct PaywallView: View {
                     .foregroundColor(.white)
                     .shadow(color: .black.opacity(0.25), radius: 20, x: 0, y: 10)
                 }
-                .disabled(purchasing || selectedProduct == nil)
+                .disabled(purchasing || selectedProduct == nil || selectedPlan == currentPlan)
                 .opacity(selectedProduct == nil ? 0.6 : 1)
 
                 // Restore + legal
@@ -116,7 +135,10 @@ struct PaywallView: View {
         }
         .task {
             await access.refreshProducts() // load products on appear
+            await access.updateEntitlementFromTransactions()
+            selectAvailablePlan()
         }
+        .onChangeCompat(of: access.activeProductID) { _ in selectAvailablePlan() }
         .alert("Purchase unavailable", isPresented: Binding(
             get: { alertMessage != nil },
             set: { if !$0 { alertMessage = nil } }
@@ -143,12 +165,14 @@ struct PaywallView: View {
             planCard(title: "Monthly",
                      price: monthly?.displayPrice ?? "INR 29/-",
                      blurb: "≈ less than 1 INR/day",
-                     selected: selectedPlan == .monthly) { selectedPlan = .monthly }
+                     selected: selectedPlan == .monthly,
+                     isCurrent: currentPlan == .monthly) { selectedPlan = .monthly }
 
             planCard(title: "Yearly",
                      price: yearly?.displayPrice ?? "INR 299/-",
                      blurb: "Best value • 2 months free*",
-                     selected: selectedPlan == .yearly) { selectedPlan = .yearly }
+                     selected: selectedPlan == .yearly,
+                     isCurrent: currentPlan == .yearly) { selectedPlan = .yearly }
         }
         .overlay(
             Group {
@@ -169,6 +193,7 @@ struct PaywallView: View {
                           price: String,
                           blurb: String,
                           selected: Bool,
+                          isCurrent: Bool,
                           onTap: @escaping () -> Void) -> some View {
         Button(action: onTap) {
             HStack(alignment: .center, spacing: 14) {
@@ -177,7 +202,14 @@ struct PaywallView: View {
                         Text(title)
                             .font(.headline)
                             .foregroundStyle(.white)
-                        if selected {
+                        if isCurrent {
+                            // Already subscribed to this plan
+                            Text("CURRENT PLAN")
+                                .font(.caption2.weight(.bold))
+                                .padding(.horizontal, 6).padding(.vertical, 3)
+                                .background(Color.green.opacity(0.35), in: Capsule())
+                                .foregroundStyle(.white)
+                        } else if selected {
                             Text("SELECTED")
                                 .font(.caption2.weight(.bold))
                                 .padding(.horizontal, 6).padding(.vertical, 3)
@@ -210,6 +242,8 @@ struct PaywallView: View {
             .overlay(RoundedRectangle(cornerRadius: 14).stroke(.white.opacity(selected ? 0.28 : 0.12), lineWidth: 1))
         }
         .buttonStyle(.plain)
+        .disabled(isCurrent)          // the owned plan can't be bought again
+        .opacity(isCurrent ? 0.5 : 1)
     }
 
     // MARK: - Actions
