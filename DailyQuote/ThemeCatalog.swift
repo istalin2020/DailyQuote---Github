@@ -28,6 +28,7 @@ enum ThemeCatalog {
         case artistic = "Artistic"
         case beautiful = "Beautiful"
         case monuments = "Monuments"
+        case serenity = "Serenity"
         var id: String { rawValue }
     }
 
@@ -95,6 +96,18 @@ enum ThemeCatalog {
         Item(displayName: "Great Wall",    category: .monuments, source: .asset("theme48")),
         Item(displayName: "Pyramid",       category: .monuments, source: .asset("theme49")),
         Item(displayName: "Colosseum",     category: .monuments, source: .asset("theme50")),
+        Item(displayName: "Rose Watercolor", category: .serenity, source: .asset("theme51")),
+        Item(displayName: "Misty Sunrise", category: .serenity, source: .asset("theme52")),
+        Item(displayName: "Olive Light",   category: .serenity, source: .asset("theme53")),
+        Item(displayName: "Starry Horizon",category: .serenity, source: .asset("theme54")),
+        Item(displayName: "Turquoise Shore", category: .serenity, source: .asset("theme55")),
+        Item(displayName: "Terracotta Waves", category: .serenity, source: .asset("theme56")),
+        Item(displayName: "Lavender Sky",  category: .serenity, source: .asset("theme57")),
+        Item(displayName: "Wildflower Meadow", category: .serenity, source: .asset("theme58")),
+        Item(displayName: "Emerald Leaves", category: .serenity, source: .asset("theme59")),
+        Item(displayName: "Desert Dawn",   category: .serenity, source: .asset("theme60")),
+        // Always append new built-ins at the end; ThemeState shifts saved
+        // custom-theme indices by the number of built-ins added.
     ]
 
     // MARK: - Persistence for customs
@@ -105,6 +118,9 @@ enum ThemeCatalog {
         var arr = UserDefaults.standard.stringArray(forKey: CUSTOMS_KEY) ?? []
         if !arr.contains(path) { arr.append(path) }
         UserDefaults.standard.set(arr, forKey: CUSTOMS_KEY)
+
+        // The file may have been overwritten under the same name
+        ThemeThumbnailCache.shared.remove(.file(path))
 
         // Refresh cache once, not on every access
         cachedCustoms = loadCustomsUnsafe()

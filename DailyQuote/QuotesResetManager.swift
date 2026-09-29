@@ -6,8 +6,10 @@ import UserNotifications
 /// quote index 0 on today's date.
 enum QuotesResetManager {
 
-    /// Bump this whenever you ship a new quotes.json or fix the selection logic
-    /// so existing users get a clean slate.
+    /// Bumping this RESTARTS every user at quote #1 (the anchor date is reset
+    /// to today), so they will see already-delivered quotes again. Do NOT bump
+    /// just because quotes.json changed — only reorder/append quotes AFTER the
+    /// ones users have already received.
     private static let quotesDataVersion = "quotes-v7"
 
     private static let resetVersionKey   = "quotes.reset.version"

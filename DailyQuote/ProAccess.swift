@@ -10,6 +10,16 @@ enum ProIDs {
 final class ProAccess: ObservableObject {
     static let shared = ProAccess()
 
+    // MARK: – Testing override
+    // Debug builds (Run from Xcode) are always PRO so every feature can be
+    // tested. Archive uses the Release configuration, where DEBUG is not
+    // defined, so App Store / TestFlight builds use real subscriptions only.
+    #if DEBUG
+    static let forceProForTesting = true
+    #else
+    static let forceProForTesting = false
+    #endif
+
     // MARK: – Free-try constants
     static let initialFreeTriesAskAI   = 10
     static let initialFreeTriesCreate  = 10
@@ -19,7 +29,10 @@ final class ProAccess: ObservableObject {
     private let keyCreate = "askai.remainingFreeUses.create"
 
     // MARK: – Public state
-    @Published private(set) var isPro: Bool = false
+    @Published private(set) var isPro: Bool = ProAccess.forceProForTesting
+    /// The subscription the user currently owns (ProIDs.monthly / .yearly), nil if none.
+    /// Not set by the Debug testing override — only by a real purchase.
+    @Published private(set) var activeProductID: String?
 
     // 🔹 Separate counters
     @Published private(set) var remainingAskAI: Int = 0
@@ -106,15 +119,17 @@ final class ProAccess: ObservableObject {
     }
 
     func updateEntitlementFromTransactions() async {
-        var active = false
+        var latest: StoreKit.Transaction?
         for await result in Transaction.currentEntitlements {
             if case .verified(let tx) = result,
                tx.revocationDate == nil,
                [ProIDs.monthly, ProIDs.yearly].contains(tx.productID) {
-                active = true; break
+                // If both show up (e.g. right after switching plans), the newest wins
+                if latest == nil || tx.purchaseDate > latest!.purchaseDate { latest = tx }
             }
         }
-        isPro = active
+        activeProductID = latest?.productID
+        isPro = latest != nil || Self.forceProForTesting
     }
 
     // MARK: purchase/restore (unchanged)

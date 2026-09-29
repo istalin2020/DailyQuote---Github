@@ -16,9 +16,6 @@ import UserNotifications
 // Used for .sheet(item:) to avoid the "Any has no member sheet" error
 struct SharePayload: Identifiable { let id = UUID(); let image: UIImage }
 
-// MARK: - History key (used by QuoteHistoryView)
-private let kShownQuotes = "shownQuotes"
-
 
 struct DailyQuoteView: View {
     // MARK: - State
@@ -64,9 +61,8 @@ struct DailyQuoteView: View {
     // MARK: - Adaptive colors from background
     // REPLACE your adaptiveTextColor with this version (no ThemeCatalog.uiImage(for: theme.current)):
     private var adaptiveTextColor: Color {
-        // Guaranteed image (uses Home theme or a safe gradient)
-        let img = theme.currentUIImageOrFallback(size: CGSize(width: 800, height: 800))
-        let L = img.averageLuminance ?? 0.5
+        // Cached per theme — this is read ~8 times on every redraw
+        let L = theme.currentLuminance
         return L < 0.55 ? Color.white.opacity(0.95) : Color.black.opacity(0.90)
     }
 
@@ -449,12 +445,20 @@ struct DailyQuoteView: View {
                 theme.currentIndex = ThemeCatalog.clampedIndex(from: theme.currentIndex)
                 UserDefaults.standard.set(theme.currentIndex, forKey: "selectedThemeIndex")
             }
-            .onChange(of: scenePhase) { phase in
+            .onChangeCompat(of: scenePhase) { phase in
                 if phase == .active {
+                    // Returning from background on a new day must show the new quote and theme
+                    theme.applyDailyThemeIfNeeded()
+                    selectTodayQuote()
                     scheduleRollingDailyQuotes(hour: selectedHour, minute: selectedMinute)
                 }
             }
-            .onChange(of: showTimePicker) { isShowing in
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged).receive(on: RunLoop.main)) { _ in
+                // Midnight passed while the app was open
+                theme.applyDailyThemeIfNeeded()
+                selectTodayQuote()
+            }
+            .onChangeCompat(of: showTimePicker) { isShowing in
                 if isShowing {
                     selectionHaptic.prepare()
                 } else {
@@ -463,7 +467,7 @@ struct DailyQuoteView: View {
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 }
             }
-            .onChange(of: theme.currentIndex) { newIndex in
+            .onChangeCompat(of: theme.currentIndex) { newIndex in
                 let clamped = ThemeCatalog.clampedIndex(from: newIndex)
                 if clamped != theme.currentIndex {                    // keep it in range
                     theme.currentIndex = clamped
@@ -527,145 +531,19 @@ struct DailyQuoteView: View {
     }
 
     // MARK: - Share image (uses current theme)
+    /// Same card design as History / Ask AI / Compose (see ShareCardBuilder).
     func generateShareImage(
         for custom: BookQuote? = nil,
         heading: String? = nil,
         showAttributionIfAvailable: Bool = true
     ) -> UIImage {
-
-        // 1080x1080 logical × 3x scale = 3240×3240 actual pixels
-        let canvas = CGSize(width: 1080, height: 1080)
-
-        let bgUIImage = theme.currentUIImageOrFallback(size: canvas)
         let q = custom ?? quote
-        let titleText = heading ?? "📚 Quote from a Book"
-
-        // App icon (skip safely if the asset is missing)
-        let appIcon = UIImage(named: "AppIcon_DailyQuoteReminder")
-
-        // ---- Adaptive colors (same idea as before)
-        let sampleRect = CGRect(x: bgUIImage.size.width * 0.08,
-                                y: bgUIImage.size.height * 0.25,
-                                width: bgUIImage.size.width * 0.84,
-                                height: bgUIImage.size.height * 0.50)
-        let uiPrimary   = bgUIImage.adaptiveTextColor(sampleRect: sampleRect, threshold: 0.50)
-        let uiSecondary = uiPrimary.withAlphaComponent(0.82)
-        let primaryText   = Color(uiColor: uiPrimary)
-        let secondaryText = Color(uiColor: uiSecondary)
-        let softShadow    = Color.black.opacity(uiPrimary == .white ? 0.35 : 0.22)
-
-        let overlay = LinearGradient(
-            colors: [Color.black.opacity(0.35), .black.opacity(0.15), .black.opacity(0.45)],
-            startPoint: .top, endPoint: .bottom
+        return ShareCardBuilder.image(
+            forText: q.text,
+            author: showAttributionIfAvailable ? q.author : nil,
+            book: showAttributionIfAvailable ? q.book : nil,
+            headingOverride: heading ?? "📚 Quote from a Book"
         )
-
-        // Bottom-left mark metrics
-        let sideInset: CGFloat   = canvas.width  * 0.08
-        let bottomInset: CGFloat = canvas.height * 0.08
-        let iconSize: CGFloat = 60
-
-        let host = UIHostingController(
-            rootView:
-                ZStack {
-                    // Solid base to guarantee opacity
-                    Color.black
-
-                    // Background
-                    Image(uiImage: bgUIImage)
-                        .resizable()
-                        .interpolation(.high)
-                        .scaledToFill()
-                        .frame(width: canvas.width, height: canvas.height)
-                        .clipped()
-
-                    overlay
-
-                    // Quote text
-                    VStack(spacing: 80) {
-                        Text(titleText)
-                            .font(.system(size: 46, weight: .bold, design: .serif))
-                            .foregroundStyle(primaryText)
-                            .shadow(color: softShadow, radius: 6, x: 0, y: 2)
-
-                        Text("\"\(q.text)\"")
-                            .font(.system(size: 44, weight: .regular, design: .serif))
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(primaryText)
-                            .shadow(color: softShadow, radius: 6, x: 0, y: 2)
-                            .padding(.horizontal, 44)
-                            .frame(maxWidth: 700)
-
-                        let authorIsEmpty = q.author.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                        let showAuthor = showAttributionIfAvailable && !authorIsEmpty
-                        let showBook   = showAttributionIfAvailable && (q.book?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty == false)
-
-                        if showAuthor || showBook {
-                            VStack(spacing: 6) {
-                                if showAuthor {
-                                    Text("- \(q.author)")
-                                        .font(.system(size: 30, weight: .semibold, design: .rounded))
-                                        .foregroundStyle(secondaryText)
-                                        .shadow(color: softShadow, radius: 4, x: 0, y: 1)
-                                }
-                                if showBook, let book = q.book {
-                                    Text("📖 \(book)")
-                                        .font(.system(size: 26, weight: .regular, design: .rounded))
-                                        .multilineTextAlignment(.center)
-                                        .foregroundStyle(secondaryText)
-                                        .shadow(color: softShadow, radius: 4, x: 0, y: 1)
-                                }
-                            }
-                        }
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                .frame(width: canvas.width, height: canvas.height)
-                // ✅ Bottom-left app mark (icon with app name BELOW it)
-                .overlay(alignment: .bottomLeading) {
-                    if let appIcon {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Image(uiImage: appIcon)
-                                .resizable()
-                                .frame(width: iconSize, height: iconSize)
-                                .cornerRadius(12)
-                                .shadow(radius: 4)
-
-                            Text("DailyQuoteReminder")
-                                .font(.caption)
-                                .foregroundStyle(secondaryText)
-                                .shadow(color: softShadow, radius: 3, x: 0, y: 1)
-                        }
-                        .padding(.leading, sideInset)
-                        .padding(.bottom, bottomInset)
-                    }
-                }
-        )
-
-        // === Render at 3x for crisp share output ===
-        let view = host.view!
-        view.frame = CGRect(origin: .zero, size: canvas)
-        view.backgroundColor = .black
-
-        // Mount briefly so layout resolves fully
-        let win = UIWindow(frame: view.frame)
-        win.backgroundColor = .black
-        win.rootViewController = host
-        win.isHidden = false
-        win.layoutIfNeeded()
-
-        let fmt = UIGraphicsImageRendererFormat()
-        fmt.opaque = true
-        fmt.scale  = 3  // 1080 x 3 = 3240 actual pixels per side
-
-        let finalImage = UIGraphicsImageRenderer(size: canvas, format: fmt).image { ctx in
-            ctx.cgContext.setFillColor(UIColor.black.cgColor)
-            ctx.cgContext.fill(CGRect(origin: .zero, size: canvas))
-            view.layer.render(in: ctx.cgContext)
-        }
-
-        // Clean up
-        win.isHidden = true
-        return finalImage
     }
 
     // MARK: - Time picker binding
@@ -717,59 +595,13 @@ struct DailyQuoteView: View {
         }
     }
 
-    // MARK: - Deterministic quote selection
-    //
-    // Every date maps to exactly one quote index via:
-    //   index = daysSince(anchorDate) % totalQuotes
-    //
-    // The anchor date is set once (on first launch or after a reset).
-    // This makes the mapping deterministic: the scheduler, background
-    // refresh, and selectTodayQuote() always agree on which quote
-    // belongs to which day — no pointer, no caching, no race conditions.
+    // MARK: - Deterministic quote selection (see QuoteSchedule)
 
-    private static let anchorDateKey = "quotes.anchorDate"
-
-    /// Returns the quote index for a given date.
-    /// Day 0 (anchor date) → index 0, Day 1 → index 1, etc.
-    private func quoteIndex(for date: Date, total: Int) -> Int {
-        guard total > 0 else { return 0 }
-        let anchor = loadOrCreateAnchorDate()
-        let cal = Calendar.current
-        let days = cal.dateComponents([.day], from: cal.startOfDay(for: anchor),
-                                               to: cal.startOfDay(for: date)).day ?? 0
-        let safeDays = max(0, days)
-        return safeDays % total
-    }
-
-    /// Loads the stored anchor date, or creates one (today) if none exists.
-    private func loadOrCreateAnchorDate() -> Date {
-        let defaults = UserDefaults.standard
-        if let stored = defaults.string(forKey: Self.anchorDateKey) {
-            let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
-            if let d = f.date(from: stored) { return d }
-        }
-        let today = Calendar.current.startOfDay(for: Date())
-        let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
-        defaults.set(f.string(from: today), forKey: Self.anchorDateKey)
-        return today
-    }
-
-    /// Picks today's quote from quotes.json using a deterministic
-    /// date-based index.  No pointer, no caching.
+    /// Picks today's quote from quotes.json. History is derived from
+    /// QuoteSchedule, so nothing needs to be recorded here.
     func selectTodayQuote() {
         guard !allQuotes.isEmpty else { return }
-
-        let idx = quoteIndex(for: Date(), total: allQuotes.count)
-        let picked = allQuotes[idx]
-        quote = picked
-
-        // Append to history (for QuoteHistoryView) — deduped
-        let defaults = UserDefaults.standard
-        var shown = defaults.stringArray(forKey: PersistKey.shownQuotes) ?? []
-        if !shown.contains(picked.text) {
-            shown.append(picked.text)
-            defaults.set(shown, forKey: PersistKey.shownQuotes)
-        }
+        quote = QuoteSchedule.quote(for: Date(), in: allQuotes)
     }
 }
 
@@ -1365,27 +1197,72 @@ func requestNotificationAuth() {
     }
 }
 
-/// Return the quote for a specific date using the deterministic anchor-based index.
-/// Pure computation — does NOT write anything to UserDefaults.
-private func quoteForDate(_ date: Date, allQuotes: [BookQuote]) -> BookQuote {
-    guard !allQuotes.isEmpty else { return BookQuote(text: "", author: "") }
+// MARK: - Deterministic quote schedule (single source of truth)
+//
+// Every date maps to exactly one quote:
+//   index = daysSince(anchorDate) % totalQuotes
+//
+// The anchor date is set once (first launch, or by QuotesResetManager).
+// The home screen, the notification scheduler and the History screen all
+// use this, so they always agree — and History can be rebuilt for any past
+// day, even days the app was never opened (notification only).
+enum QuoteSchedule {
+    static let anchorDateKey = "quotes.anchorDate"
 
-    let anchorKey = "quotes.anchorDate"
-    let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
-    let cal = Calendar.current
+    // Same format/locale as QuotesResetManager so stored anchors parse identically.
+    private static let ymd: DateFormatter = {
+        let f = DateFormatter(); f.dateFormat = "yyyy-MM-dd"
+        return f
+    }()
 
-    let anchor: Date
-    if let stored = UserDefaults.standard.string(forKey: anchorKey),
-       let d = f.date(from: stored) {
-        anchor = d
-    } else {
-        anchor = cal.startOfDay(for: Date())
-        UserDefaults.standard.set(f.string(from: anchor), forKey: anchorKey)
+    /// Loads the stored anchor date, or creates one (today) if none exists.
+    static func anchorDate() -> Date {
+        let cal = Calendar.current
+        if let stored = UserDefaults.standard.string(forKey: anchorDateKey),
+           let d = ymd.date(from: stored) {
+            return cal.startOfDay(for: d)
+        }
+        let today = cal.startOfDay(for: Date())
+        UserDefaults.standard.set(ymd.string(from: today), forKey: anchorDateKey)
+        return today
     }
 
-    let days = max(0, cal.dateComponents([.day], from: cal.startOfDay(for: anchor),
-                                                  to: cal.startOfDay(for: date)).day ?? 0)
-    return allQuotes[days % allQuotes.count]
+    /// Whole days from the anchor to `date` (never negative).
+    static func dayNumber(for date: Date) -> Int {
+        let cal = Calendar.current
+        let days = cal.dateComponents([.day], from: anchorDate(),
+                                      to: cal.startOfDay(for: date)).day ?? 0
+        return max(0, days)
+    }
+
+    static func index(for date: Date, total: Int) -> Int {
+        guard total > 0 else { return 0 }
+        return dayNumber(for: date) % total
+    }
+
+    static func quote(for date: Date, in quotes: [BookQuote]) -> BookQuote {
+        guard !quotes.isEmpty else { return BookQuote(text: "", author: "") }
+        return quotes[index(for: date, total: quotes.count)]
+    }
+
+    /// Every quote delivered from the anchor date up to and including `date`,
+    /// newest first. Capped at one full cycle so the list never repeats.
+    static func history(through date: Date = Date(), in quotes: [BookQuote]) -> [(date: Date, quote: BookQuote)] {
+        guard !quotes.isEmpty else { return [] }
+        let cal = Calendar.current
+        let anchor = anchorDate()
+        let last = dayNumber(for: date)
+        let first = max(0, last - quotes.count + 1)
+        return (first...last).reversed().compactMap { day in
+            guard let d = cal.date(byAdding: .day, value: day, to: anchor) else { return nil }
+            return (date: d, quote: quotes[day % quotes.count])
+        }
+    }
+}
+
+/// Return the quote for a specific date using the deterministic anchor-based index.
+private func quoteForDate(_ date: Date, allQuotes: [BookQuote]) -> BookQuote {
+    QuoteSchedule.quote(for: date, in: allQuotes)
 }
 
 // MARK: - Sound helper
@@ -1500,25 +1377,68 @@ struct QuoteHistoryView: View {
     }
 
     private struct Row: Identifiable {
-        let id = UUID()
+        let id: Date          // one row per day — stable identity for List
         let text: String
         let author: String?
         let book: String?
     }
 
-    /// Build history rows from the shownQuotes list matched against quotes.json.
-    /// Most recent shown quote first.
-    private var rows: [Row] {
-        let shownTexts = UserDefaults.standard.stringArray(forKey: kShownQuotes) ?? []
-        let all = Bundle.main.loadQuotesSafely()
-        let byText = Dictionary(uniqueKeysWithValues: all.map { ($0.text, $0) })
+    /// Every day's quote from the anchor date through today, newest first.
+    /// Derived from QuoteSchedule (the same formula the notifications use),
+    /// so days when only the notification was seen are included too.
+    private static func buildRows() -> [Row] {
+        QuoteSchedule.history(in: Bundle.main.loadQuotesSafely()).map { entry in
+            Row(id: entry.date, text: entry.quote.text,
+                author: entry.quote.author, book: entry.quote.book)
+        }
+    }
 
-        return shownTexts.reversed().map { text in
-            if let q = byText[text] {
-                return Row(text: q.text, author: q.author, book: q.book)
-            } else {
-                return Row(text: text, author: nil, book: nil)
+    private static let dayFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateStyle = .medium
+        f.timeStyle = .none
+        return f
+    }()
+
+    @State private var rows: [Row] = []
+
+    /// One history entry. Equatable so SwiftUI skips redrawing rows whose
+    /// content didn't change (e.g. when the share sheet state toggles).
+    private struct HistoryRow: View, Equatable {
+        let row: Row
+        let onShare: () -> Void
+
+        static func == (a: HistoryRow, b: HistoryRow) -> Bool { a.row.id == b.row.id && a.row.text == b.row.text }
+
+        var body: some View {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(QuoteHistoryView.dayFormatter.string(from: row.id))
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                Text(row.text)
+                    .font(.body)
+
+                HStack(alignment: .firstTextBaseline) {
+                    Text(row.author.map { "- \($0)" } ?? "")
+                        .font(.subheadline).foregroundColor(.secondary).lineLimit(1)
+
+                    Spacer(minLength: 12)
+
+                    Text(row.book.map { "📖 \($0)" } ?? "")
+                        .font(.subheadline).foregroundColor(.secondary)
+                        .lineLimit(1).multilineTextAlignment(.trailing)
+                }
+
+                HStack {
+                    Spacer()
+                    Button(action: onShare) {
+                        Image(systemName: "square.and.arrow.up").imageScale(.medium)
+                    }
+                    .buttonStyle(.plain)
+                }
             }
+            .padding(.vertical, 8)
         }
     }
 
@@ -1529,45 +1449,23 @@ struct QuoteHistoryView: View {
         NavigationView {
             List {
                 ForEach(rows) { item in
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(item.text)
-                            .font(.body)
-                            .fixedSize(horizontal: false, vertical: true)
-
-                        HStack(alignment: .firstTextBaseline) {
-                            Text(item.author.map { "- \($0)" } ?? "")
-                                .font(.subheadline).foregroundColor(.secondary).lineLimit(1)
-
-                            Spacer(minLength: 12)
-
-                            Text(item.book.map { "📖 \($0)" } ?? "")
-                                .font(.subheadline).foregroundColor(.secondary)
-                                .lineLimit(1).multilineTextAlignment(.trailing)
-                        }
-
-                        HStack {
-                            Spacer()
-                            Button {
-                                let img = ShareCardBuilder.image(
-                                    forText: item.text,
-                                    themeNames: ThemeCatalog.names,     // single source
-                                    selectedThemeIndex: selectedThemeIndex,
-                                    author: item.author,
-                                    book: item.book,
-                                    headingOverride: "📚 Quote from a Book"
-                                )
-                                shareItem = ShareImagePayload(image: img)
-                            } label: {
-                                Image(systemName: "square.and.arrow.up").imageScale(.medium)
-                            }
-                            .buttonStyle(.plain)
-                        }
+                    HistoryRow(row: item) {
+                        let img = ShareCardBuilder.image(
+                            forText: item.text,
+                            themeNames: ThemeCatalog.names,     // single source
+                            selectedThemeIndex: selectedThemeIndex,
+                            author: item.author,
+                            book: item.book,
+                            headingOverride: "📚 Quote from a Book"
+                        )
+                        shareItem = ShareImagePayload(image: img)
                     }
-                    .padding(.vertical, 8)
+                    .equatable()
                 }
             }
             .navigationTitle("Quote History")
         }
+        .onAppear { rows = Self.buildRows() }
         .sheet(item: $shareItem, onDismiss: { shareItem = nil }) { payload in
             ActivityView(activityItems: [payload.image])
         }
@@ -1603,6 +1501,7 @@ struct DailyQuoteApp: App {
     init() {
         registerBackgroundTasks()
         ThemeState.shared.seedDefaultThemeIfNeeded()
+        ThemeState.shared.applyDailyThemeIfNeeded()
         QuotesResetManager.resetIfNeeded()
     }
 
